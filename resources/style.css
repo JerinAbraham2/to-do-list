@@ -1,0 +1,21 @@
+div .nav-bar {
+    display: flex ;
+    justify-content: end;
+    
+}
+
+h1 {
+    color: blue;
+}
+
+header ul {
+    float: right;
+}
+
+.task-button {
+    border: 3px solid black;
+    padding: 10px;
+    color: black;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
