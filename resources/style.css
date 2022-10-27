@@ -31,3 +31,40 @@ header ul {
 form {
     width: 500px;
 }
+
+/* try and put in one straight line */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 70%;
+    margin: auto;
+
+}
+
+.card {
+    width: 22.5em ; 
+    line-height: 2em;
+}
+
+
+@media only screen and (max-width: 1060px) {
+    /* find a way to not use important */
+    .card {
+        width: 80%;
+    }
+    .cards {
+        max-width: 95%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    /* find a way to not use important */
+    .card {
+        width: 100%;
+    }
+    .cards {
+        max-width: 95%;
+    }
+}
