@@ -7,23 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- link for css -->
     <title>Dreamchaser tasks list</title>
+    <link rel="stylesheet" href="./resources/style.css">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
     <!-- header -->
     <header> 
-        <h1>Group-2</h1>
-    <!-- navigation bar -->
-        <nav>
-            <a>sign up</a>
-            <a>log in</a>
-            <a>contact</a> 
-        </nav>
-    </header>
+            <!-- navigation bar -->
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <div class="nav-bar">
+                    <h1>Group-2</h1>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link">sign up</a></li>
+                        <li class="nav-item"><a class="nav-link">log in</a></li>
+                        <li class="nav-item"><a class="nav-link">contact</a> </li>
+                    </ul>
+                </div>
+                </div>
+            </nav>
+        </header>
     <main>
         <h1>Dreamchaser tasks list</h1>
-        <button>Create A Task</button>
+        <button class="task-button">Create A Task</button>
         <div class="task-list">
-            <div class="task"></div>
+            <div class="card"></div>
             <div class="task"></div>
             <div class="task"></div>
             <div class="task"></div>
@@ -31,38 +40,69 @@
         </div>     
     </main>
     
+
+    <!-- <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div> -->
+
+
+
     <!--form -->
     <form>
         <!-- Name -->
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-
+        <div class="mb-3">
+            <label class="form-label" for="name">Name:</label><br>
+            <input class="form-control" type="text" id="name" name="name"><br>
+        </div>
         <!-- Description -->
-        <label for="description">Description:</label><br>
-        <input type="text" id="description" name="description"><br>
-
+        <div class="mb-3">
+        <label class="form-label" for="description">Description:</label><br>
+        <input class="form-control" type="text" id="description" name="description"><br>
+            </div>
         <!-- Assign to -->
-        <label for="person1">Prasanna</label><br>
-        <input type="checkbox" id="person1" name="person1" value="Prasanna"><br>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
         
-        <label for="person2">Jag</label><br>
-        <input type="checkbox" id="person2" name="person2" value="Jag"><br>
+        <input  class="btn-check" type="checkbox" id="person1" name="person1" value="Prasanna" autocomplete="off">
+        <label class="btn btn-outline-primary" for="person1">Prasanna</label>
         
-        <label for="person3">Jerin</label><br>
-        <input type="checkbox" id="person3" name="person3" value="Jerin"><br>
         
-        <label for="person4">Ethan</label><br>
-        <input type="checkbox" id="person4" name="person4" value="Ethan"><br>
+        <input  class="btn-check" type="checkbox" id="person2" name="person2" value="Jag" autocomplete="off">
+        <label class="btn btn-outline-primary" for="person2">Jag</label>
+
+        
+        <input  class="btn-check" type="checkbox" id="person3" name="person3" value="Jerin" autocomplete="off">
+        <label class="btn btn-outline-primary" for="person3">Jerin</label>
+        
+        
+        <input  class="btn-check" type="checkbox" id="person4" name="person4" value="Ethan" autocomplete="off">
+        <label class="btn btn-outline-primary" for="person4">Ethan</label> <br>
+    </div>
+        <!-- <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
+          
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+          
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
+          </div> -->
 
         
         <!-- Due date -->
-
-        <label for="due-date">Due Date</label><br>
-        <input type="date" id="due-date" name="due-date"><br>
+          <br>
+          <br>
+        <label class="form-label" for="due-date">Due Date</label><br>
+        <input class="form-control" type="date" id="due-date" name="due-date"><br>
     
         <!-- Status -->
         <label for="status">Status</label><br>
-        <select id="status" name="status">
+        <select class="form-select" id="status" name="status">
             <option value="not-yet">Not Yet</option>
             <option value="in-progress">In Progress</option>
             <option value="complete">Complete</option>
