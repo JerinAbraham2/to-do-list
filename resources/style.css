@@ -1,11 +1,17 @@
-div .nav-bar {
-    display: flex ;
-    justify-content: end;
-    
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header {
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-h1 {
-    color: blue;
+.container-fluid .nav-bar {
+    display: flex ;
+    justify-content: space-between;
+    width: 100%;
 }
 
 header ul {
@@ -18,4 +24,10 @@ header ul {
     color: black;
     font-family:Arial, Helvetica, sans-serif;
     font-weight: 500;
+    margin: 20px;
+    margin-bottom: 50px;
+}
+
+form {
+    width: 500px;
 }
