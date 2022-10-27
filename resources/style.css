@@ -1,105 +1,132 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 header {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
-html, body{
-    margin:0px;
-    padding:0px;
-
+html,
+body {
+  margin: 0px;
+  padding: 0px;
 }
 
 main {
-    text-align: center;
+  text-align: center;
 }
 
-
-
 body {
-    background-image: url("./images/background.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    
+  background-image: url("./images/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container-fluid .nav-bar {
-    display: flex ;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 header ul {
-    gap: 10px;
+  gap: 10px;
 }
 .task-button {
-    border: 3px solid black;
-    padding: 10px;
-    color: black;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin: 20px;
-    margin-bottom: 50px;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 10px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin: 20px;
+  margin-bottom: 50px;
 }
 
-
 form {
-    width: 500px;
+  width: 500px;
 }
 
 /* try and put in one straight line */
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 70%;
-    margin: auto;
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 70%;
+  margin: auto;
 }
 
 .card {
-    width: 22.5em ; 
-    line-height: 2em;
-    opacity: 0.9;
+  width: 22.5em;
+  line-height: 2em;
+  opacity: 0.9;
 }
 
-
-
 .logo {
-    display: flex;
-    gap:20px;
+  display: flex;
+  gap: 20px;
 }
 
 .logo img {
-    width: 50px;
+  width: 50px;
 }
 
 h1 {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+#DREAMCHASERSTITLE {
+  width: 40%;
+  margin: 0 auto;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 20px;
+  padding: 15px;
+  background: rgb(180, 58, 155);
+  background: linear-gradient(
+    90deg,
+    rgba(180, 58, 155, 0.2) 0%,
+    rgba(253, 29, 29, 0.2) 76%,
+    rgba(252, 176, 69, 0.2) 100%
+  );
+  color: white;
+  margin-top: 40px;
+  margin-bottom: 1em;
+}
+
+#buttontask {
+  font-size: 2rem;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: white;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
 }
 
 @media only screen and (max-width: 1060px) {
-    /* find a way to not use important */
-    .card {
-        width: 80%;
-    }
-    .cards {
-        max-width: 95%;
-    }
+  /* find a way to not use important */
+  .card {
+    width: 80%;
+  }
+  .cards {
+    max-width: 95%;
+  }
 }
 
 @media only screen and (max-width: 700px) {
-    /* find a way to not use important */
-    .card {
-        width: 100%;
-    }
-    .cards {
-        max-width: 95%;
-    }
+  /* find a way to not use important */
+  .card {
+    width: 100%;
+  }
+  .cards {
+    max-width: 95%;
+  }
 }
