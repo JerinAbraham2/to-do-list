@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- link for css -->
+    <title>Dreamchaser tasks list</title>
+</head>
+<body>
+    <!-- head -->
+    <header> 
+        <h1>Group-2</h1>
+        <nav>
+            <a>sign up</a>
+            <a>log in</a>
+            <a>contact</a> 
+        </nav>
+    </header>
+    <main>
+        <h1>Dreamchaser tasks list</h1>
+        <button>Create A Task</button>
+        <div class="task-list">
+            <div class="task"></div>
+            <div class="task"></div>
+            <div class="task"></div>
+            <div class="task"></div>
+            <div class="task"></div>
+        </div>     
+    </main>
+    
+    <!--form -->
+    <form>
+        <!-- Name -->
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+
+        <!-- Description -->
+        <label for="description">Description:</label><br>
+        <input type="text" id="description" name="description"><br>
+
+        <!-- Assign to -->
+        <label for="person1">Prasanna</label><br>
+        <input type="checkbox" id="person1" name="person1" value="Prasanna"><br>
+        
+        <label for="person2">Jag</label><br>
+        <input type="checkbox" id="person2" name="person2" value="Jag"><br>
+        
+        <label for="person3">Jerin</label><br>
+        <input type="checkbox" id="person3" name="person3" value="Jerin"><br>
+        
+        <label for="person4">Ethan</label><br>
+        <input type="checkbox" id="person4" name="person4" value="Ethan"><br>
+
+        
+        <!-- Due date -->
+
+        <label for="due-date">Due Date</label><br>
+        <input type="date" id="due-date" name="due-date"><br>
+    
+        <!-- Status -->
+        <label for="status">Status</label><br>
+        <select id="status" name="status">
+            <option value="not-yet">Not Yet</option>
+            <option value="in-progress">In Progress</option>
+            <option value="complete">Complete</option>
+        </select>
+
+    </form>
+</body>
+</html>
