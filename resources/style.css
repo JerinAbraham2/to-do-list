@@ -1,338 +1,351 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 header {
-    width: 100%;
+  width: 100%;
 }
 html,
 body {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 main {
-    text-align: center;
+  text-align: center;
 }
 
 body {
-    background-image: url("./images/background.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url("./images/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container-fluid .nav-bar {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 header ul {
-    gap: 10px;
+  gap: 10px;
 }
 
 .task-button {
-    border: 1px solid white;
-    border-radius: 20px;
-    padding: 10px;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin: 20px;
-    margin-bottom: 50px;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 10px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin: 20px;
+  margin-bottom: 50px;
 }
 
 form {
-    width: 500px;
+  width: 500px;
 }
 
 /* try and put in one straight line */
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 100%;
-    margin: auto;
-    margin-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 100%;
+  margin: auto;
+  margin-bottom: 50px;
 }
 
 .card {
-    width: 20.5em;
-    line-height: 2em;
-    opacity: 0.9;
-    border: 0px;
+  width: 20.5em;
+  line-height: 2em;
+  opacity: 0.9;
+  border: 0px;
 }
 
 .cards .card {
-    border: 0;
+  border: 0;
 }
 
 /* can't figure out why the gap in the middle */
 .card:hover {
-    border: 4px solid rgb(180, 58, 155);
-    transition: 0.1s;
-    border-radius: 10px 10px;
-    border-radius: 10px 10px;
+  border: 4px solid rgb(180, 58, 155);
+  transition: 0.1s;
+  border-radius: 10px 10px;
+  border-radius: 10px 10px;
 }
 
 .card .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.card .card-body .btn{
-    width: 60%;
-    margin: 0 auto;
+.card .card-body .btn {
+  width: 60%;
+  margin: 0 auto;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .logo img {
-    width: 50px;
+  width: 50px;
 }
 
 h1 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #buttontask {
-    font-size: 2rem;
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    color: white;
-    background: rgb(180, 58, 155);
-    background: linear-gradient(
-        90deg,
-        rgba(180, 58, 155, 0.5) 0%,
-        rgba(253, 29, 29, 0.5) 76%,
-        rgba(252, 176, 69, 0.5) 100%
-    );
+  font-size: 2rem;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: white;
+  background: rgb(180, 58, 155);
+  background: linear-gradient(
+    90deg,
+    rgba(180, 58, 155, 0.5) 0%,
+    rgba(253, 29, 29, 0.5) 76%,
+    rgba(252, 176, 69, 0.5) 100%
+  );
 }
 
 .title {
-    width: 50%;
-    margin: 0 auto;
-    border: 1px solid white;
-    background-color: white;
-    border-radius: 20px;
-    padding: 15px;
-    background: rgb(180, 58, 155);
-    background: linear-gradient(
-        90deg,
-        rgba(180, 58, 155, 0.5) 0%,
-        rgba(253, 29, 29, 0.5) 76%,
-        rgba(252, 176, 69, 0.5) 100%
-    );
-    color: white;
-    margin-top: 40px;
-    margin-bottom: 0.5em;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 20px;
+  padding: 15px;
+  background: rgb(180, 58, 155);
+  background: linear-gradient(
+    90deg,
+    rgba(180, 58, 155, 0.5) 0%,
+    rgba(253, 29, 29, 0.5) 76%,
+    rgba(252, 176, 69, 0.5) 100%
+  );
+  color: white;
+  margin-top: 40px;
+  margin-bottom: 0.5em;
 }
 
 #buttontask:hover {
-    background: rgb(180, 58, 155);
-    background: linear-gradient(
-        90deg,
-        rgba(164, 17, 135, 1) 0%,
-        rgba(253, 29, 29, 1) 76%,
-        rgba(252, 176, 69, 1) 100%
-    );
+  background: rgb(180, 58, 155);
+  background: linear-gradient(
+    90deg,
+    rgba(164, 17, 135, 1) 0%,
+    rgba(253, 29, 29, 1) 76%,
+    rgba(252, 176, 69, 1) 100%
+  );
 
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    transition: 0.5s;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  transition: 0.5s;
 }
 
 /* translated */
 /* medium articles are good */
 .form-modal {
-    justify-content: center;
-    text-align: left;
-    color: white;
-    background: rgb(180, 58, 155);
-    background: linear-gradient(
-        90deg,
-        rgba(180, 58, 155, 0.8) 0%,
-        rgba(253, 29, 29, 0.8) 76%,
-        rgba(252, 176, 69, 0.8) 100%
-    );
-    width: 50%;
-    padding: 30px;
-    opacity: 0;
-    visibility: hidden;
-    display: none;
-    border: 2px white solid;
+  justify-content: center;
+  text-align: left;
+  color: white;
+  background: rgb(180, 58, 155);
+  background: linear-gradient(
+    90deg,
+    rgba(180, 58, 155, 0.8) 0%,
+    rgba(253, 29, 29, 0.8) 76%,
+    rgba(252, 176, 69, 0.8) 100%
+  );
+  width: 50%;
+  padding: 30px;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  border: 2px white solid;
 }
 
 /* modal */
 .form-modal:target {
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    justify-content: center;
-    margin: 200px auto;
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  margin: 200px auto;
 }
 
-
-
 #submit-button {
-    padding-left: 2em;
-    padding-right: 2em;
-    justify-content: center;
-    margin-top: 20px;
-    color: white;
-    align-self: flex-end;
+  padding-left: 2em;
+  padding-right: 2em;
+  justify-content: center;
+  margin-top: 20px;
+  color: white;
+  align-self: flex-end;
 }
 
 .center {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .btn-group {
-    color: white !important;
+  color: white !important;
 }
 
 .center h1 {
-    text-align: center;
+  text-align: center;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  color: white;
+  height: 3rem;
+  background-color: blue;
+  display: flex;
+  align-items: flex-end;
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+}
+
+footer a {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: white;
 }
 
 /* media queries, largest screen size to smallest bottom to top (starting from mobile first development) */
 
-
-
-
 /* break into 3 - 2  */
 @media only screen and (max-width: 1825px) {
-    .title {
-        width: 80%;
+  .title {
+    width: 80%;
+  }
+  #buttontask {
+    font-size: 1.5rem;
+  }
 
-    }
-    #buttontask {
-        font-size: 1.5rem;
-    }
-
-    .cards {
-        max-width: 90%;
-    }
+  .cards {
+    max-width: 90%;
+  }
 }
 /* 3 - 2, bigger width for cards */
 @media only screen and (max-width: 1320px) {
-    .title {
-        width: 80%;
-    }
-    #buttontask {
-        font-size: 1.5rem;
-    }
-    .card {
-        width: 30%;
-    }
-
+  .title {
+    width: 80%;
+  }
+  #buttontask {
+    font-size: 1.5rem;
+  }
+  .card {
+    width: 30%;
+  }
 }
 
 /* align navbar horizontally at breakpoint */
 
 @media only screen and (max-width: 1000px) {
-    .navlist .navbar-nav {
-        flex-direction: row;
-    }
+  .navlist .navbar-nav {
+    flex-direction: row;
+  }
 }
 
 /* tablet */
 
 @media only screen and (max-width: 820px) {
-    .title {
-        width: 80%;
-
-    }
-    #buttontask {
-        font-size: 1.5rem;
-    }
-    .card {
-        width: 45%;
-    }
-    .cards {
-        max-width: 100%;
-    }
+  .title {
+    width: 80%;
+  }
+  #buttontask {
+    font-size: 1.5rem;
+  }
+  .card {
+    width: 45%;
+  }
+  .cards {
+    max-width: 100%;
+  }
 }
 
 /* remove nav links and align content to the middle */
 @media only screen and (max-width: 750px) {
-    .navlist {
-        display: none;
-        width: 50%;
-    }
-    .container-fluid.nav-bar {
-        justify-content: center;
-    }
+  .navlist {
+    display: none;
+    width: 50%;
+  }
+  .container-fluid.nav-bar {
+    justify-content: center;
+  }
 }
 
+.bottom-details {
+  width: 100%;
+  height: 2rem;
+  background-color: blue;
+}
 
 /* small tablet */
 
 @media only screen and (max-width: 620px) {
-    .title {
-        width: 80%;
-
-    }
-    #buttontask {
-        font-size: 1.5rem;
-    }
-    .card {
-        width: 45%;
-    }
-    .cards {
-        max-width: 100%;
-    }
+  .title {
+    width: 80%;
+  }
+  #buttontask {
+    font-size: 1.5rem;
+  }
+  .card {
+    width: 45%;
+  }
+  .cards {
+    max-width: 100%;
+  }
 }
 
 /* comma is or, and is and */
 /* mobile landscape */
 @media only screen and (max-width: 500px) and (orientation: landscape) {
-    /* find a way to not use important */
-    .card {
-        width: 45%;
-        height: 50%;
-    }
+  /* find a way to not use important */
+  .card {
+    width: 45%;
+    height: 50%;
+  }
 
-    
-    .cards {
-        max-width: 100%;
-    }
+  .cards {
+    max-width: 100%;
+  }
 }
 
 /* mobile portrait */
 @media only screen and (max-width: 550px) {
-    /* find a way to not use important */
-    .logo h1 {
-        font-size: 1.5em;
-    }
+  /* find a way to not use important */
+  .logo h1 {
+    font-size: 1.5em;
+  }
 
-    .logo img {
-        height: 50px;
-    }
-    
-    .title {
-        width: 95%;
+  .logo img {
+    height: 50px;
+  }
 
-    }
-    #buttontask {
-        font-size: 1rem;
-    }
-    .card {
-        width: 100%;
-    }
-    .cards {
-        max-width: 95%;
-    }
+  .title {
+    width: 95%;
+  }
+  #buttontask {
+    font-size: 1rem;
+  }
+  .card {
+    width: 100%;
+  }
+  .cards {
+    max-width: 95%;
+  }
 }
