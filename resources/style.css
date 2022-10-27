@@ -7,17 +7,22 @@ header {
     width: 100%;
     margin-bottom: 20px;
 }
+html, body{
+    margin:0px;
+    padding:0px;
+}
+
 
 .container-fluid .nav-bar {
     display: flex ;
     justify-content: space-between;
     width: 100%;
+    align-items: center;
 }
 
 header ul {
-    float: right;
+    gap: 10px;
 }
-
 .task-button {
     border: 3px solid black;
     padding: 10px;
@@ -48,6 +53,18 @@ form {
     line-height: 2em;
 }
 
+.logo {
+    display: flex;
+    gap:20px;
+}
+
+.logo img {
+    width: 50px;
+}
+
+h1 {
+    font-weight: bold;
+}
 
 @media only screen and (max-width: 1060px) {
     /* find a way to not use important */
