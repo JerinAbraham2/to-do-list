@@ -64,17 +64,19 @@ form {
     width: 22.5em;
     line-height: 2em;
     opacity: 0.9;
-}
-
-.cards .card {
     border: 0px;
 }
 
+.cards .card {
+    border: 0;
+}
+
+/* can't figure out why the gap in the middle */
 .card:hover {
     border: 4px solid rgb(180, 58, 155);
     transition: 0.1s;
-    border-top-left-radius: 10px 10px;
-    border-top-right-radius: 10px 10px;
+    border-radius: 10px 10px;
+    border-radius: 10px 10px;
 }
 
 .logo {
@@ -88,9 +90,6 @@ form {
 
 h1 {
     font-weight: bold;
-}
-
-#DREAMCHASERSTITLE {
 }
 
 #buttontask {
@@ -136,6 +135,7 @@ h1 {
         rgba(253, 29, 29, 1) 76%,
         rgba(252, 176, 69, 1) 100%
     );
+
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     transition: 0.5s;
@@ -170,6 +170,8 @@ h1 {
     justify-content: center;
     margin: 200px auto;
 }
+
+
 
 #submit-button {
     padding-left: 2em;
