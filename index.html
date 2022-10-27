@@ -26,23 +26,25 @@
                             <img src="./resources/images/logo.png" alt="" />
                             <h1>Dreamchasers Group 2</h1>
                         </div>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <button class="btn btn-outline-primary">
-                                    Login
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="btn btn-outline-primary">
-                                    Sign up
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="btn btn-outline-info">
-                                    Contact
-                                </button>
-                            </li>
-                        </ul>
+                        <div class="navlist">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-primary">
+                                        Login
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-primary">
+                                        Sign up
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-info">
+                                        Contact
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -55,7 +57,7 @@
                 </h1>
                 <h4><em>"What dreams are you chasing?"</em></h4>
             </div>
-            
+
             <a href="#modal-id"
                 ><button class="task-button" id="buttontask">
                     Create A Task
@@ -116,16 +118,13 @@
                         alt="..."
                     />
                     <div class="card-body">
-                        <div class="opacity-card">
-                            <h5 class="card-title">
-                                Create responsive website
-                            </h5>
-                            <p class="card-text">
-                                Jerin uses media queries and flexbox, to make a
-                                responsive website
-                            </p>
+                        <h5 class="card-title">Create responsive website</h5>
+                        <p class="card-text">
+                            Jerin uses media queries and flexbox, to make a
+                            responsive website
+                        </p>
                             <a href="#" class="btn btn-primary">Delete task</a>
-                        </div>
+
                     </div>
                 </div>
 
@@ -151,7 +150,9 @@
             <div id="modal-id" class="form-modal">
                 <form action="#">
                     <!-- title -->
-                    <div class="center"><h1>Create a dream</h1></div>
+                    <div class="center">
+                        <h1>What dreams are you chasing today?</h1>
+                    </div>
                     <!-- Name -->
                     <div class="mb-3">
                         <label class="form-label" for="name">Name:</label><br />
