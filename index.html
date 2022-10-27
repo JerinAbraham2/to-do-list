@@ -41,9 +41,11 @@
                 </div>
             </nav>
         </header>
-        <h1 class="display-3"><strong>Dreamchaser's tasks list</strong></h1>
-        <button class="task-button">Create A Task</button>
+
+  
         <main>
+            <h1 class="display-3"><strong>Dreamchaser's tasks list</strong></h1>
+            <button class="task-button">Create A Task</button>
             <div class="cards">
                 <div class="card">
                     <img src="..." class="card-img-top" alt="..." />
@@ -83,12 +85,14 @@
                 <div class="card">
                     <img src="..." class="card-img-top" alt="..." />
                     <div class="card-body">
-                        <h5 class="card-title">Create responsive website</h5>
-                        <p class="card-text">
-                            Jerin uses media queries and flexbox, to make a
-                            responsive website
-                        </p>
-                        <a href="#" class="btn btn-primary">Delete task</a>
+                        <div class="opacity-card">
+                            <h5 class="card-title">Create responsive website</h5>
+                            <p class="card-text">
+                                Jerin uses media queries and flexbox, to make a
+                                responsive website
+                            </p>
+                            <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
                     </div>
                 </div>
 
@@ -107,117 +111,5 @@
                 </div>
             </div>
         </main>
-
-        <!--form -->
-        <form>
-            <!-- Name -->
-            <div class="mb-3">
-                <label class="form-label" for="name">Name:</label><br />
-                <input
-                    class="form-control"
-                    type="text"
-                    id="name"
-                    name="name"
-                /><br />
-            </div>
-            <!-- Description -->
-            <div class="mb-3">
-                <label class="form-label" for="description">Description:</label
-                ><br />
-                <input
-                    class="form-control"
-                    type="text"
-                    id="description"
-                    name="description"
-                /><br />
-            </div>
-            <!-- Assign to -->
-            <label class="form-label" for="">Assign To: </label>
-            <div class="button-group">
-                <div
-                    class="btn-group"
-                    role="group"
-                    aria-label="Basic checkbox toggle button group"
-                >
-                    <input
-                        class="btn-check"
-                        type="checkbox"
-                        id="person1"
-                        name="person1"
-                        value="Prasanna"
-                        autocomplete="off"
-                    />
-                    <label class="btn btn-outline-primary" for="person1"
-                        >Prasanna</label
-                    >
-
-                    <input
-                        class="btn-check"
-                        type="checkbox"
-                        id="person2"
-                        name="person2"
-                        value="Jag"
-                        autocomplete="off"
-                    />
-                    <label class="btn btn-outline-primary" for="person2"
-                        >Jag</label
-                    >
-
-                    <input
-                        class="btn-check"
-                        type="checkbox"
-                        id="person3"
-                        name="person3"
-                        value="Jerin"
-                        autocomplete="off"
-                    />
-                    <label class="btn btn-outline-primary" for="person3"
-                        >Jerin</label
-                    >
-
-                    <input
-                        class="btn-check"
-                        type="checkbox"
-                        id="person4"
-                        name="person4"
-                        value="Ethan"
-                        autocomplete="off"
-                    />
-                    <label class="btn btn-outline-primary" for="person4"
-                        >Ethan</label
-                    >
-                    <br />
-                </div>
-            </div>
-            <!-- <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
-    
-            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
-
-            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
-            </div> -->
-
-            <!-- Due date -->
-            <br />
-            <br />
-            <label class="form-label" for="due-date">Due Date</label><br />
-            <input
-                class="form-control"
-                type="date"
-                id="due-date"
-                name="due-date"
-            /><br />
-
-            <!-- Status -->
-            <label for="status">Status</label><br />
-            <select class="form-select" id="status" name="status">
-                <option value="not-yet">Not Yet</option>
-                <option value="in-progress">In Progress</option>
-                <option value="complete">Complete</option>
-            </select>
-        </form>
     </body>
 </html>

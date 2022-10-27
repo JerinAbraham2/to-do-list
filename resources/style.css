@@ -10,8 +10,22 @@ header {
 html, body{
     margin:0px;
     padding:0px;
+
 }
 
+main {
+    text-align: center;
+}
+
+
+
+body {
+    background-image: url("./images/background.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
 
 .container-fluid .nav-bar {
     display: flex ;
@@ -33,6 +47,7 @@ header ul {
     margin-bottom: 50px;
 }
 
+
 form {
     width: 500px;
 }
@@ -51,7 +66,10 @@ form {
 .card {
     width: 22.5em ; 
     line-height: 2em;
+    opacity: 0.9;
 }
+
+
 
 .logo {
     display: flex;
