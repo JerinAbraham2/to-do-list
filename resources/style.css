@@ -14,6 +14,7 @@ body {
 
 main {
     text-align: center;
+    width: 80%;
 }
 
 body {
@@ -61,7 +62,7 @@ form {
 }
 
 .card {
-    width: 20.5em;
+    width: 18em;
     line-height: 2em;
     opacity: 0.9;
     border: 0px;
@@ -165,7 +166,7 @@ h1 {
         rgba(253, 29, 29, 0.8) 76%,
         rgba(252, 176, 69, 0.8) 100%
     );
-    width: 50%;
+    width: 70%;
     padding: 30px;
     opacity: 0;
     visibility: hidden;
@@ -213,48 +214,58 @@ h1 {
 
 
 /* break into 3 - 2  */
-@media only screen and (max-width: 1825px) {
+@media only screen and (max-width: 1900px) {
     .title {
-        width: 80%;
-
+        width: 45rem;
     }
     #buttontask {
         font-size: 1.5rem;
     }
-
-    .cards {
-        max-width: 90%;
+    .card {
+        width: 25%;
     }
+    .cards {
+        max-width: 80%;
+    }
+
 }
 /* 3 - 2, bigger width for cards */
-@media only screen and (max-width: 1320px) {
-    .title {
-        width: 80%;
-    }
+@media only screen and (max-width: 1500px) {
+
     #buttontask {
         font-size: 1.5rem;
     }
     .card {
         width: 30%;
     }
+    .cards {
+        max-width: 100%;
+    }
 
 }
 
 /* align navbar horizontally at breakpoint */
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1060px) {
     .navlist .navbar-nav {
         flex-direction: row;
+    }
+    .card {
+        width: 35%;
+    }
+    .title {
+        width: 80%;
+    }
+    .form-modal {
+        width: 80%;
     }
 }
 
 /* tablet */
 
 @media only screen and (max-width: 820px) {
-    .title {
-        width: 80%;
 
-    }
+    
     #buttontask {
         font-size: 1.5rem;
     }
@@ -263,6 +274,9 @@ h1 {
     }
     .cards {
         max-width: 100%;
+    }
+    .form-modal {
+        width: 90%;
     }
 }
 
@@ -304,11 +318,11 @@ h1 {
         width: 45%;
         height: 50%;
     }
-
     
     .cards {
-        max-width: 100%;
+        max-width: 95%;
     }
+
 }
 
 /* mobile portrait */
@@ -323,9 +337,15 @@ h1 {
     }
     
     .title {
-        width: 95%;
-
+        width: 100%;
     }
+    .title h1 {
+        font-size: 1.8em;
+    }
+    .title h4 {
+        font-size: 1em;
+    }
+
     #buttontask {
         font-size: 1rem;
     }
@@ -334,5 +354,9 @@ h1 {
     }
     .cards {
         max-width: 95%;
+    }
+
+    #modal-id {
+        width: 100%;
     }
 }
