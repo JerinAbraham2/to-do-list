@@ -52,96 +52,98 @@
             </nav>
         </header>
         <main>
-            <div class="title">
-                <h1 class="display-3" id="DREAMCHASERSTITLE">
-                    <strong>DREAMCHASERS</strong>
-                </h1>
-                <h4><em>"What dreams are you chasing?"</em></h4>
-            </div>
-            <a href="#modal-id"
-            > <button class="btn btn-info" onclick="openTheForm(); closeCardsPanel();">Create A Task</button>
-            >
+            <div id="main-section">
+                <div class="title">
+                    <h1 class="display-3" id="DREAMCHASERSTITLE">
+                        <strong>DREAMCHASERS</strong>
+                    </h1>
+                    <h4><em>"What dreams are you chasing?"</em></h4>
+                </div>
+                
+                <button class="task-button" id="buttontask" onclick="openTheForm(); closeCardsPanel();">Create A Task</button>
 
-            <!-- cards -->
-            <div class="cards" id ="cards">
-                <div class="card">
-                    <img
-                        src="resources/images/wireframe.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">Create wireframe</h5>
-                        <p class="card-text">
-                            Jag creates the wireframe using photoshop. Everyone
-                            gave their opinion
-                        </p>
-                        <a href="#" class="btn btn-primary">Delete task</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="resources/images/responsive.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">Create HTML file</h5>
-                        <p class="card-text">
-                            Ethan creates html file using vscode, live server,
-                            git push
-                        </p>
-                        <a href="#" class="btn btn-primary">Delete task</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="resources/images/paint.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">Create CSS file</h5>
-                        <p class="card-text">
-                            Prasanna creates CSS file, live server and git push
-                        </p>
-                        <a href="#" class="btn btn-primary">Delete task</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="resources/images/phone.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">Create responsive website</h5>
-                        <p class="card-text">
-                            Jerin uses media queries and flexbox, to make a
-                            responsive website
-                        </p>
+                <!-- cards -->
+                <div class="cards">
+                    <div class="card">
+                        <img
+                            src="resources/images/wireframe.jpg"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Create wireframe</h5>
+                            <p class="card-text">
+                                Jag creates the wireframe using photoshop. Everyone
+                                gave their opinion
+                            </p>
                             <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="/resources/images/teams.jpg"
-                        class="card-img-top"
-                        alt="..."
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title">Have lunch as a team</h5>
-                        <p class="card-text">
-                            We make celebrate our newly released app, and sit
-                            back as we make millions
-                        </p>
-                        <a href="#" class="btn btn-primary">Delete task</a>
+                    <div class="card">
+                        <img
+                            src="resources/images/responsive.jpg"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Create HTML file</h5>
+                            <p class="card-text">
+                                Ethan creates html file using vscode, live server,
+                                git push
+                            </p>
+                            <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="resources/images/paint.jpg"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Create CSS file</h5>
+                            <p class="card-text">
+                                Prasanna creates CSS file, live server and git push
+                            </p>
+                            <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="resources/images/phone.jpg"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Create responsive website</h5>
+                            <p class="card-text">
+                                Jerin uses media queries and flexbox, to make a
+                                responsive website
+                            </p>
+                                <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            src="/resources/images/teams.jpg"
+                            class="card-img-top"
+                            alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">Have lunch as a team</h5>
+                            <p class="card-text">
+                                We make celebrate our newly released app, and sit
+                                back as we make millions
+                            </p>
+                            <a href="#" class="btn btn-primary">Delete task</a>
+                        </div>
                     </div>
                 </div>
             </div>
             <!--form -->
-            <div id="modal-id" class="form-modal" class="formPopup" id="popupForm">
-                <form action="#">
+            <div class="form-pop" id = "form-id">
+                <form  class="form-content">
+                <!-- <form class="form-content" id="form-id"> -->
                     <!-- title -->
                     <div class="center">
                         <h1>What dreams are you chasing today?</h1>
@@ -222,7 +224,7 @@
                             <label class="btn btn-outline-light" for="person4"
                                 >Ethan</label
                             >
-                       </div>
+                    </div>
                     </div>
                     <!-- Due date -->
                     <br />
@@ -246,7 +248,7 @@
                     </select>
                     <div class="invalid-feedback">
                         You must agree before submitting.
-                      </div>
+                    </div>
                     <div class="center">
                         <button
                             type="submit"
@@ -260,8 +262,7 @@
                         </button>
                     </div>
                 </form>
-            </div>
+            </div>    
         </main>
-        <script src="./script.js"></script>
     </body>
 </html>

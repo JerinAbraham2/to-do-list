@@ -152,9 +152,12 @@ h1 {
   transition: 0.5s;
 }
 
+.form-pop{
+  display: none;
+}
 /* translated */
 /* medium articles are good */
-.form-modal {
+/* .form-content {
   justify-content: center;
   text-align: left;
   color: white;
@@ -171,16 +174,16 @@ h1 {
   visibility: hidden;
   display: none;
   border: 2px white solid;
-}
+} */
 
 /* modal */
-.form-modal:target {
+/* .form-content:target {
   opacity: 1;
   visibility: visible;
   display: flex;
   justify-content: center;
   margin: 200px auto;
-}
+} */
 
 #submit-button {
   padding-left: 2em;

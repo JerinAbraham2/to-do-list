@@ -1,15 +1,15 @@
 function openTheForm() {
-    document.getElementById("popupForm").style.display = "block";
+    document.getElementById("form-id").style.display = "block";
   }
   
   function closeTheForm() {
-    document.getElementById("popupForm").style.display = "none";
+    document.getElementById("form-id").style.display = "none";
   }
 
   function openCardsPanel() {
-    document.getElementById("cards").style.display = "block";
+    document.getElementById("main-section").style.display = "block";
   }
   
   function closeCardsPanel() {
-    document.getElementById("cards").style.display = "none";
+    document.getElementById("main-section").style.display = "none";
   }
