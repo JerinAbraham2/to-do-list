@@ -44,5 +44,4 @@ function openTheForm() {
     }
     document.getElementById("demo").innerHTML = text;
 }
-}
 
