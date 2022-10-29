@@ -152,9 +152,13 @@ h1 {
   transition: 0.5s;
 }
 
-/* translated */
-/* medium articles are good */
-.form-modal {
+/* pop up initial setting important */
+.form-pop{
+  display: none;
+}
+
+/* not working with pop fucntion */
+/* form-modal {
   justify-content: center;
   text-align: left;
   color: white;
@@ -166,21 +170,17 @@ h1 {
     rgba(252, 176, 69, 0.8) 100%
   );
   width: 50%;
-  padding: 30px;
-  opacity: 0;
-  visibility: hidden;
-  display: none;
+  padding: 30px; 
+  display: flex;
   border: 2px white solid;
-}
+} */
 
-/* modal */
-.form-modal:target {
-  opacity: 1;
-  visibility: visible;
+/* modal not working with popup */
+/* .form-modal:target {
   display: flex;
   justify-content: center;
   margin: 200px auto;
-}
+} */
 
 #submit-button {
   padding-left: 2em;
