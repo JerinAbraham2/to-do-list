@@ -52,14 +52,13 @@
             </nav>
         </header>
         <main>
+            <div class="title">
+                <h1 class="display-3" id="DREAMCHASERSTITLE">
+                    <strong>DREAMCHASERS</strong>
+                </h1>
+                <h4><em>"What dreams are you chasing?"</em></h4>
+            </div>
             <div id="main-section">
-                <div class="title">
-                    <h1 class="display-3" id="DREAMCHASERSTITLE">
-                        <strong>DREAMCHASERS</strong>
-                    </h1>
-                    <h4><em>"What dreams are you chasing?"</em></h4>
-                </div>
-                
                 <button class="task-button" id="buttontask" onclick="openTheForm(); closeCardsPanel();">Create A Task</button>
 
                 <!-- cards -->
@@ -140,14 +139,12 @@
                     </div>
                 </div>
             </div>
+            
             <!--form -->
+            <!-- *form-id connecgt with javascript, *form-pop new css class -->
             <div class="form-pop" id = "form-id">
-                <form  class="form-content">
-                <!-- <form class="form-content" id="form-id"> -->
-                    <!-- title -->
-                    <div class="center">
-                        <h1>What dreams are you chasing today?</h1>
-                    </div>
+                <!-- form-modal donesn't work, might overidden by javascript  -->
+                <form class="form-modal">
                     <!-- Name -->
                     <div class="mb-3">
                         <label class="form-label" for="name">Name:</label><br />
