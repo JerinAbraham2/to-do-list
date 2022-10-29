@@ -81,12 +81,31 @@ form {
 .card .card-body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-around;
 }
 
+.card .card-body .card-title {
+  border-bottom: 1px solid black;
+  padding-bottom: 0.5rem; 
+  width: 100%;
+}
+
+.card .card-body .card-status {
+  width: 50%;
+  margin: 0.5em;
+}
+
+.card .card-body .card-date {
+  font-size: 0.9em;
+  width: 50%;
+  padding: 0rem;
+  margin: 0.5em;
+}
+  
 .card .card-body .btn {
   width: 60%;
-  margin: 0 auto;
+  margin-top: 1rem;
 }
 
 .logo {
