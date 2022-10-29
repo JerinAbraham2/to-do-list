@@ -46,7 +46,7 @@ header ul {
 }
 
 form {
-  width: 500px;
+  width: 500%;
 }
 
 /* try and put in one straight line */
@@ -155,10 +155,12 @@ h1 {
 /* pop up initial setting important */
 .form-pop{
   display: none;
+  width: 100%;
+  justify-content: center;
 }
 
 /* not working with pop fucntion */
-/* form-modal {
+form-modal {
   justify-content: center;
   text-align: left;
   color: white;
@@ -173,14 +175,13 @@ h1 {
   padding: 30px; 
   display: flex;
   border: 2px white solid;
-} */
+}
 
-/* modal not working with popup */
-/* .form-modal:target {
+.form-modal:target {
   display: flex;
   justify-content: center;
   margin: 200px auto;
-} */
+}
 
 #submit-button {
   padding-left: 2em;
