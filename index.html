@@ -230,7 +230,7 @@
           />
           <br />
           <!-- Status -->
-          <label for="status">Status</label><br />
+          <label for="status">Status:</label><br />
           <select class="form-select" id="status" name="status">
             <option value="TODO">TODO</option>
             <option value="IN PROGRESS">IN PROGRESS</option>
@@ -245,11 +245,12 @@
               id="submit-button"
               value="your_value"
               class="btn btn-info"
+              onclick="closeTheForm();openCardsPanel()"
             >
               Add task
             </button>
           </div>
-        </form>
+        </form>\
       </div>
     </main>
     <footer>
