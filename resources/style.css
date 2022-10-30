@@ -78,6 +78,10 @@ form {
   border-radius: 10px 10px;
 }
 
+.card .card-body .card-text {
+  height: 100%;
+}
+
 .card .card-body {
   display: flex;
   flex-direction: column;
@@ -92,15 +96,19 @@ form {
 }
 
 .card .card-body .card-status {
-  width: 50%;
+  width: 40%;
   margin: 0.5em;
+  text-transform:capitalize;
 }
 
 .card .card-body .card-date {
   font-size: 0.9em;
   width: 50%;
   padding: 0rem;
-  margin: 0.5em;
+}
+
+.card .card-body .status-assign {
+  width: 100%;
 }
   
 .card .card-body .btn {
