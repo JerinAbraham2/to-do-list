@@ -27,6 +27,29 @@ function checkAssignTo() {
     console.log(button4.toString());
 }
 
+// Anonymous function in Javascript that work as inline <script> or 
+// work within the other fucntion call
+(function () {
+  'use strict'
+
+
+  var forms = document.querySelectorAll('.needs-validation')
+
+
+  Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+      }
+
+
+      form.classList.add('was-validated')
+      }, false)
+  })
+})()
+
 // // Bind function to onclick event for checkbox
 // document.getElementById('agree').onclick = function() {
 //   // access properties using this keyword

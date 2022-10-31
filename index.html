@@ -14,8 +14,6 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <!-- Javascript -->
-    <script src="script.js"></script>
   </head>
   <body>
     <!-- header -->
@@ -309,29 +307,8 @@
             </button>
           </div>
         </form>
-        <!-- script for validation -->
-        <script>
-          (function () {
-              'use strict'
-          
-          
-              var forms = document.querySelectorAll('.needs-validation')
-          
-          
-              Array.prototype.slice.call(forms)
-              .forEach(function (form) {
-                  form.addEventListener('submit', function (event) {
-                  if (!form.checkValidity()) {
-                      event.preventDefault()
-                      event.stopPropagation()
-                  }
-          
-          
-                  form.classList.add('was-validated')
-                  }, false)
-              })
-          })()
-        </script>
+        <!-- Javascript -->
+        <script src="script.js"></script>
         <!-- script for validation -->
       </div>
     </main>
