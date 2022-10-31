@@ -150,7 +150,8 @@ form {
 }
 
 .logo img {
-  width: 30px;
+  width: 50px;
+  height: auto;
 }
 
 h1 {
@@ -178,7 +179,7 @@ h1 {
 }
 
 .title {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   border: 1px solid white;
   background-color: white;
@@ -427,10 +428,6 @@ footer a {
   /* find a way to not use important */
   .logo h1 {
     font-size: 1.5em;
-  }
-
-  .logo img {
-    height: 50px;
   }
 
   .title {
