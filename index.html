@@ -56,7 +56,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();"
+          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
         >
           Create A Task
         </button>
@@ -179,36 +179,48 @@
       <!--form -->
       <!-- *form-id connecgt with javascript, *form-pop new css class -->
       <div class="form-pop" id="form-id">
-        <form class="form-modal" action="#">
+        <form class="form-modal needs-validation" novalidate>
           <!-- Name -->
           <div class="mb-3">
-            <label class="form-label" for="name">Name:</label><br />
+            <label class="form-label" for="name">Task Name:</label>
             <input
-              class="form-control"
               type="text"
+              class="form-control"
               id="name"
-              name="name"
               required
-              pattern="[a-z]{3-20}"
-              placeholder="Name"
+              pattern="[A-Za-z]{2,64}"
+              placeholder="Name of task"
               minlength="3"
               maxlength="20"
             />
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              please insert vaild name for the task!
+            </div>
           </div>
           <!-- Description -->
           <div class="mb-3">
             <label class="form-label" for="description">Description:</label>
             <textarea
-              class="form-control"
               type="text"
+              class="form-control"
               id="description"
-              name="description"
               required
+              placeholder="Description"
               minlength="5"
               maxlength="100"
-            >
-            </textarea>
+            ></textarea>
+            <!-- Place holder needs <textarea></textarea> with no gap to dsiplay -->
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              please insert more specificly!
+            </div>
           </div>
+
           <!-- Assign to -->
           <label class="form-label" for="">Assign To: </label>
           <div class="button-group">
@@ -217,7 +229,7 @@
               role="group"
               aria-label="Basic checkbox toggle button group"
             >
-              <input
+              <input 
                 class="btn-check"
                 type="checkbox"
                 id="person1"
@@ -265,17 +277,26 @@
             type="date"
             id="due-date"
             name="due-date"
+            required
           />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            please insert vaild format!
+          </div>
           <br />
           <!-- Status -->
-          <label for="status">Status</label><br />
-          <select class="form-select" id="status" name="status">
+          <label for="status">Status:</label><br />
+          <select class="form-select" id="status" name="status" required>
+            <option selected disabled value="">Choose...</option>
             <option value="TODO">TODO</option>
             <option value="IN PROGRESS">IN PROGRESS</option>
             <option value="REVIEW">REVIEW</option>
             <option value="DONE">DONE</option>
           </select>
-          <div class="invalid-feedback">You must agree before submitting.</div>
+          <!-- <div class="valid-feedback">Looks good!</div> -->
+          <div class="invalid-feedback">Please select a progress.</div>
           <div class="center">
             <button
               type="submit"
@@ -283,12 +304,35 @@
               id="submit-button"
               value="your_value"
               class="btn btn-info"
-              onclick="closeTheForm();openCardsPanel()"
             >
               Add task
             </button>
           </div>
         </form>
+        <!-- script for validation -->
+        <script>
+          (function () {
+              'use strict'
+          
+          
+              var forms = document.querySelectorAll('.needs-validation')
+          
+          
+              Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                  if (!form.checkValidity()) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                  }
+          
+          
+                  form.classList.add('was-validated')
+                  }, false)
+              })
+          })()
+        </script>
+        <!-- script for validation -->
       </div>
     </main>
     <footer>
