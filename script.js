@@ -33,8 +33,10 @@ function checkAssignTo() {
   'use strict'
 
 
-  var forms = document.querySelectorAll('.needs-validation')
-
+  var forms = document.querySelectorAll('.needs-validation');
+  let checkboxSelector = document.querySelectorAll
+  ('.mincheckbox-validator input[type="checkbox"]');
+  let minimumChecked = 1;
 
   Array.prototype.slice.call(forms)
   .forEach(function (form) {
@@ -48,6 +50,20 @@ function checkAssignTo() {
       form.classList.add('was-validated')
       }, false)
   })
+
+  checkboxSelector.forEach(function(index){
+    if (index.checked == true){
+      minimumChecked--;
+      console.log(minimumChecked);
+    }
+  })
+  if(minimumChecked <=0) {
+          this.submit();
+  }
+  else{
+          alert("Please check minimum " + minimumChecked + "more checkboxes");
+  }
+
 })()
 
 // // Bind function to onclick event for checkbox
