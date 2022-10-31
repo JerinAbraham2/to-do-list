@@ -7,8 +7,9 @@ function openTheForm() {
 }
 
   function openCardsPanel() {
-    document.getElementById("main-section").style.display = "block";
-}
+    document.getElementById("main-section").style.display = "flex";
+  }
+
   
   function closeCardsPanel() {
     document.getElementById("main-section").style.display = "none";

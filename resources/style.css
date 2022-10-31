@@ -1,7 +1,3 @@
-
-header {
-  width: 100%;
-}
 html,
 body {
   margin: 0px;
@@ -10,6 +6,10 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+header {
+  width: 100%;
 }
 
 main {
@@ -21,6 +21,12 @@ main {
   justify-content: center;
 }
 
+#main-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .container-fluid .nav-bar {
   display: flex;
@@ -54,8 +60,6 @@ form {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  max-width: 100%;
-  margin: auto;
   margin-bottom: 50px;
 }
 
@@ -164,7 +168,6 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-
 #buttontask:hover {
   background: rgb(180, 58, 155);
   background: linear-gradient(
@@ -180,15 +183,15 @@ h1 {
 }
 
 /* pop up initial setting important */
-.form-pop{
+.form-pop {
   display: none;
   justify-content: center;
   width: 100%;
+  margin-top: 2.5em;
 }
 
 /* not working with pop fucntion */
 .form-modal {
-  
   flex-direction: column;
   justify-content: center;
   text-align: left;
@@ -201,7 +204,7 @@ h1 {
     rgba(252, 176, 69, 0.8) 100%
   );
   width: 50%;
-  padding: 30px; 
+  padding: 30px;
   border: 2px white solid;
 }
 
@@ -254,6 +257,9 @@ footer a {
   color: white;
 }
 
+#status {
+  margin-top: 0.5em;
+}
 /* media queries, largest screen size to smallest bottom to top (starting from mobile first development) */
 
 /* break into 3 - 2  */
@@ -266,8 +272,18 @@ footer a {
   }
 
   .cards {
-    max-width: 90%;
+    width: 100%;
   }
+}
+
+@media only screen and (max-width: 1730px) {
+  .cards {
+    width: 100%;
+  }
+  .card {
+    width: 18%;
+  }
+
 }
 /* 3 - 2, bigger width for cards */
 @media only screen and (max-width: 1320px) {
@@ -278,8 +294,12 @@ footer a {
     font-size: 1.5rem;
   }
   .card {
-    width: 30%;
+    width: 25%;
   }
+  .form-modal {
+    width: 60%;
+  }
+  
 }
 
 /* align navbar horizontally at breakpoint */
@@ -287,6 +307,12 @@ footer a {
 @media only screen and (max-width: 1000px) {
   .navlist .navbar-nav {
     flex-direction: row;
+  }
+  .form-modal {
+    width: 75%;
+  }
+  .card {
+    width: 30%;
   }
 }
 
@@ -304,6 +330,10 @@ footer a {
   }
   .cards {
     max-width: 100%;
+  }
+
+  .form-modal {
+    width: 85%;
   }
 }
 
@@ -338,6 +368,9 @@ footer a {
   }
   .cards {
     max-width: 100%;
+  }
+  .form-modal {
+    width: 90%;
   }
 }
 
@@ -377,5 +410,8 @@ footer a {
   }
   .cards {
     max-width: 95%;
+  }
+  .form-modal {
+    width: 95%;
   }
 }
