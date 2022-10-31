@@ -437,10 +437,10 @@ footer a {
     font-size: 1rem;
   }
   .card {
-    width: 100%;
+    width: 95%;
   }
   .cards {
-    max-width: 95%;
+    width: 100%;
   }
 
 }
