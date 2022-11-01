@@ -54,7 +54,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
+          onclick="openTheForm(); closeCardsPanel();"
         >
           Create A Task
         </button>
@@ -221,7 +221,7 @@
 
           <!-- Assign to -->
           <label class="form-label" for="">Assign To: </label>
-          <div class="button-group mincheckbox-validator">
+          <div class="button-group" type="checkbox" class="was-validated">
             <div
               class="btn-group"
               role="group"
@@ -231,9 +231,10 @@
                 class="btn-check"
                 type="checkbox"
                 id="person1"
-                name="person1"
+                name="person"
                 value="Prasanna"
                 autocomplete="off"
+                
               />
               <label class="btn btn-outline-light" for="person1"
                 >Prasanna</label
@@ -242,7 +243,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person2"
-                name="person2"
+                name="person"
                 value="Jag"
                 autocomplete="off"
               />
@@ -251,7 +252,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person3"
-                name="person3"
+                name="person"
                 value="Jerin"
                 autocomplete="off"
               />
@@ -260,11 +261,17 @@
                 class="btn-check"
                 type="checkbox"
                 id="person4"
-                name="person4"
+                name="person"
                 value="Ethan"
                 autocomplete="off"
               />
               <label class="btn btn-outline-light" for="person4">Ethan</label>
+            </div>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              please insert more specificly!
             </div>
           </div>
           <!-- Due date -->
@@ -281,7 +288,7 @@
             Looks good!
           </div>
           <div class="invalid-feedback">
-            please insert vaild format!
+            please insert vaild date!
           </div>
           <br />
           <!-- Status -->
@@ -296,15 +303,22 @@
           <!-- <div class="valid-feedback">Looks good!</div> -->
           <div class="invalid-feedback">Please select a progress.</div>
           <div class="center">
-            <button
-              type="submit"
-              name="your_name"
-              id="submit-button"
-              value="your_value"
-              class="btn btn-info"
-            >
-              Add task
-            </button>
+          <button
+            type="submit"
+            name="your_name"
+            id="submit-button"
+            value="your_value"
+            class="btn btn-info"
+            onclick="checkAssignTo();"
+          >
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            please insert more specificly!
+          </div>
+            Add task
+          </button>
           </div>
         </form>
         <!-- Javascript -->
