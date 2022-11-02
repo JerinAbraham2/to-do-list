@@ -61,3 +61,26 @@ function checkAssignTo() {
   }
 return true;
 }
+
+
+function checkButton() {
+  var checkboxes  = document.getElementsByName('person');
+  var hasChecked  = false;
+  
+  for(var i = 0; i < checkboxes.length; i++){
+    if (checkboxes[i].checked){
+      hasChecked = true;
+      // please insert vaild feedback here
+      //  "OK"  visiable;
+      // "Error" invisible; 
+    }
+  }
+  if (hasChecked == false)
+  {
+      // please insert vaild feedback here
+      //  "OK"  invisable;
+      // "Error" visible; 
+      return false;
+  }
+return true;
+}
