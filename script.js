@@ -16,24 +16,48 @@ function openTheForm() {
 }
 
 
-function checkAssignTo() {
-    let button1 = document.getElementById("person1").onclick;
-    let button2 = document.getElementById("person2").onclick;
-    let button3 = document.getElementById("person3").onclick;
-    let button4 = document.getElementById("person4").onclick;
-    console.log(button1.toString());
-    console.log(button2.toString());
-    console.log(button3.toString());
-    console.log(button4.toString());
-}
+// Validation for forms with bootstrap classes.
+(function () {
+  'use strict'
 
-// // Bind function to onclick event for checkbox
-// document.getElementById('agree').onclick = function() {
-//   // access properties using this keyword
-//   if ( this.checked ) {
-//       // Returns true if checked
-//       alert( this.value );
-//   } else {
-//       // Returns false if not checked
-//   }
-// };
+
+  var forms = document.querySelectorAll('.needs-validation');
+  let checkboxSelector = document.querySelectorAll('.mincheckbox-validator input[type="checkbox"]');
+  let minimumChecked = 0;
+
+  Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+      }
+
+
+      form.classList.add('was-validated')
+      }, false)
+  })
+
+
+})()
+
+
+
+// Separtae validation for the assign to without bootstrap support.
+function checkAssignTo() {
+  var checkboxes  = document.getElementsByName('person');
+  var hasChecked  = false;
+  
+  for(var i = 0; i < checkboxes.length; i++){
+    if (checkboxes[i].checked){
+      hasChecked = true;
+      break;
+    }
+  }
+  if (hasChecked == false)
+  {
+      alert("please select at least one person to assign to.")
+      return false;
+  }
+return true;
+}

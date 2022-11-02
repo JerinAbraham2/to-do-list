@@ -14,8 +14,6 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <!-- Javascript -->
-    <script src="script.js"></script>
   </head>
   <body>
     <!-- header -->
@@ -56,7 +54,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
+          onclick="openTheForm(); closeCardsPanel();"
         >
           Create A Task
         </button>
@@ -233,9 +231,10 @@
                 class="btn-check"
                 type="checkbox"
                 id="person1"
-                name="person1"
+                name="person"
                 value="Prasanna"
                 autocomplete="off"
+                
               />
               <label class="btn btn-outline-light" for="person1"
                 >Prasanna</label
@@ -244,7 +243,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person2"
-                name="person2"
+                name="person"
                 value="Jag"
                 autocomplete="off"
               />
@@ -253,7 +252,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person3"
-                name="person3"
+                name="person"
                 value="Jerin"
                 autocomplete="off"
               />
@@ -262,7 +261,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person4"
-                name="person4"
+                name="person"
                 value="Ethan"
                 autocomplete="off"
               />
@@ -283,7 +282,7 @@
             Looks good!
           </div>
           <div class="invalid-feedback">
-            please insert vaild format!
+            please insert vaild date!
           </div>
           <br />
           <!-- Status -->
@@ -295,43 +294,23 @@
             <option value="REVIEW">REVIEW</option>
             <option value="DONE">DONE</option>
           </select>
-          <!-- <div class="valid-feedback">Looks good!</div> -->
+          <div class="valid-feedback">Looks good!</div>
           <div class="invalid-feedback">Please select a progress.</div>
           <div class="center">
-            <button
-              type="submit"
-              name="your_name"
-              id="submit-button"
-              value="your_value"
-              class="btn btn-info"
-            >
-              Add task
-            </button>
+          <button
+            type="submit"
+            name="your_name"
+            id="submit-button"
+            value="your_value"
+            class="btn btn-info"
+            onclick="checkAssignTo();"
+          >
+            Add task
+          </button>
           </div>
         </form>
-        <!-- script for validation -->
-        <script>
-          (function () {
-              'use strict'
-          
-          
-              var forms = document.querySelectorAll('.needs-validation')
-          
-          
-              Array.prototype.slice.call(forms)
-              .forEach(function (form) {
-                  form.addEventListener('submit', function (event) {
-                  if (!form.checkValidity()) {
-                      event.preventDefault()
-                      event.stopPropagation()
-                  }
-          
-          
-                  form.classList.add('was-validated')
-                  }, false)
-              })
-          })()
-        </script>
+        <!-- Javascript -->
+        <script src="script.js"></script>
         <!-- script for validation -->
       </div>
     </main>
