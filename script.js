@@ -43,9 +43,9 @@ function checkAssignTo() {
 document.getElementById('btn-group').addEventListener('change',confirm,false);
 }*/
 
-/*var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 var checkbox =document.getElementById('btn-group');
-var submit_btn=document.getElementById("submit-button");
+// var submit_btn=document.getElementById("submit-button");
 
 function confirm(){
  
@@ -68,7 +68,15 @@ function confirm(){
 
 checkboxes.forEach(function(entry) {
   entry.onchange = confirm; // Bind confirm() function on change of each checkboxes
-  });*/
+  });
+
+
+
+function validate() {
+  document.getElementById('termsChkbx').addEventListener('click', function (e) {
+  document.getElementById('sub1').disabled = !e.target.checked;
+  });
+} 
 
 
 
