@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Doppio+One&display=swap");
 
 header {
@@ -7,7 +6,6 @@ header {
 
 html,
 body {
-  
   margin: 0px;
   padding: 0px;
   background-image: url("./images/background.jpg");
@@ -37,7 +35,6 @@ main {
   justify-content: center;
   align-items: center;
 } */
-
 
 .container-fluid .nav-bar {
   display: flex;
@@ -109,22 +106,20 @@ form {
   justify-content: space-around;
 }
 
-
 .card .card-body .card-text {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
 .card .card-body .card-title {
   border-bottom: 1px solid black;
-  padding-bottom: 0.5rem; 
+  padding-bottom: 0.5rem;
   width: 100%;
 }
 
 .card .card-body .card-status {
   width: 40%;
   margin: 0.5em;
-  text-transform:capitalize;
+  text-transform: capitalize;
 }
 
 .card .card-body .card-date {
@@ -136,7 +131,6 @@ form {
 .card .card-body .status-assign {
   width: 100%;
 }
-  
 
 .card .card-body .btn {
   width: 60%;
@@ -150,8 +144,7 @@ form {
 }
 
 .logo img {
-  width: 50px;
-  height: auto;
+  width: 30px;
 }
 
 h1 {
@@ -164,7 +157,7 @@ h1 {
 
 #buttontask {
   font-size: 2rem;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   padding: 0.75rem;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -179,7 +172,7 @@ h1 {
 }
 
 .title {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   border: 1px solid white;
   background-color: white;
@@ -197,11 +190,9 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-
 .title h4 {
   font-family: cursive, "Doppio One", sans-serif, Verdana;
 }
-
 
 #buttontask:hover {
   background: rgb(180, 58, 155);
@@ -318,7 +309,6 @@ footer a {
   .card {
     width: 18%;
   }
-
 }
 /* 3 - 2, bigger width for cards */
 @media only screen and (max-width: 1320px) {
@@ -334,7 +324,6 @@ footer a {
   .form-modal {
     width: 60%;
   }
-  
 }
 
 /* align navbar horizontally at breakpoint */
@@ -430,6 +419,10 @@ footer a {
     font-size: 1.5em;
   }
 
+  .logo img {
+    height: 50px;
+  }
+
   .title {
     width: 95%;
   }
@@ -437,14 +430,9 @@ footer a {
     font-size: 1rem;
   }
   .card {
-    width: 95%;
-  }
-  .cards {
     width: 100%;
   }
-
+  .cards {
+    max-width: 95%;
+  }
 }
-/* do not know why this is here */
-/*   .form-modal {
-    width: 95%;
-  } */

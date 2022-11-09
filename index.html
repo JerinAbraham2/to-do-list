@@ -54,7 +54,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();"
+          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
         >
           Create A Task
         </button>
@@ -235,7 +235,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person1"
-                name="person[]"
+                name="person"
                 value="Prasanna"
                 autocomplete="off"
               />
@@ -246,7 +246,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person2"
-                name="person[]"
+                name="person"
                 value="Jag"
                 autocomplete="off"
               />
@@ -255,7 +255,7 @@
                 class="btn-check"
                 type="checkbox"
                 id="person3"
-                name="person[]"
+                name="person"
                 value="Jerin"
                 autocomplete="off"
               />
@@ -264,13 +264,12 @@
                 class="btn-check"
                 type="checkbox"
                 id="person4"
-                name="person[]"
+                name="person"
                 value="Ethan"
                 autocomplete="off"
               />
               <label class="btn btn-outline-light" for="person4">Ethan</label>
             </div>
-
             <div style="visibility: hidden; color: red" id="chk_option_error">
               Please select at least one option.
             </div>
@@ -278,7 +277,6 @@
               Looks good!
             </div>
           </div>
-
           <!-- Due date -->
 
           <label class="form-label" for="due-date">Due Date:</label><br />
@@ -290,7 +288,7 @@
             required
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">please insert vaild date!</div>
+          <div class="invalid-feedback">please insert vaild format!</div>
           <br />
           <!-- Status -->
           <label for="status">Status:</label><br />
@@ -301,7 +299,7 @@
             <option value="REVIEW">REVIEW</option>
             <option value="DONE">DONE</option>
           </select>
-          <div class="valid-feedback">Looks good!</div>
+          <!-- <div class="valid-feedback">Looks good!</div> -->
           <div class="invalid-feedback">Please select a progress.</div>
           <div class="center">
             <button
@@ -310,15 +308,14 @@
               id="submit-button"
               value="your_value"
               class="btn btn-info"
-              onclick="checkAssignTo();"
             >
               Add task
             </button>
           </div>
         </form>
+        <!-- script for validation -->
         <!-- Javascript -->
         <script src="script.js"></script>
-        <!-- script for validation -->
       </div>
     </main>
     <footer>
