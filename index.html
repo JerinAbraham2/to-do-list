@@ -14,7 +14,6 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-   
   </head>
   <body>
     <!-- header -->
@@ -55,7 +54,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
+          onclick="openTheForm(); closeCardsPanel();"
         >
           Create A Task
         </button>
@@ -70,19 +69,20 @@
             />
             <div class="card-body">
               <h5 class="card-title">Create wireframe</h5>
-              
-              <p class="card-text">          
+
+              <p class="card-text">
                 Jag creates the wireframe using photoshop. Everyone gave their
-                opinion 
+                opinion
               </p>
               <div class="alert alert-info card-date" role="alert">
                 Due: 30/10/22
               </div>
               <div class="status-assign">
-                <span class="badge rounded-pill text-bg-success card-status">Done</span>
+                <span class="badge rounded-pill text-bg-success card-status"
+                  >Done</span
+                >
                 <span class="badge text-bg-light">Jag</span>
               </div>
-
 
               <a href="#" class="btn btn-primary">Delete task</a>
             </div>
@@ -102,7 +102,9 @@
                 Due: 10/2/21
               </div>
               <div class="status-assign">
-                <span class="badge rounded-pill text-bg-primary card-status">In progress</span>
+                <span class="badge rounded-pill text-bg-primary card-status"
+                  >In progress</span
+                >
                 <span class="badge text-bg-light">Ethan</span>
               </div>
               <a href="#" class="btn btn-primary">Delete task</a>
@@ -123,7 +125,9 @@
                 Due: 5/12/23
               </div>
               <div class="status-assign">
-                <span class="badge rounded-pill text-bg-secondary card-status">TODO</span>
+                <span class="badge rounded-pill text-bg-secondary card-status"
+                  >TODO</span
+                >
                 <span class="badge text-bg-light">Prasanna</span>
               </div>
               <a href="#" class="btn btn-primary">Delete task</a>
@@ -145,7 +149,9 @@
                 Due: 10/12/22
               </div>
               <div class="status-assign">
-                <span class="badge rounded-pill text-bg-info card-status">Review</span>
+                <span class="badge rounded-pill text-bg-info card-status"
+                  >Review</span
+                >
                 <span class="badge text-bg-light">Jerin</span>
               </div>
               <a href="#" class="btn btn-primary">Delete task</a>
@@ -166,7 +172,9 @@
                 Due: 10/11/22
               </div>
               <div class="status-assign">
-                <span class="badge rounded-pill text-bg-primary card-status">In progress</span>
+                <span class="badge rounded-pill text-bg-primary card-status"
+                  >In progress</span
+                >
                 <span class="badge text-bg-light">Jerin</span>
               </div>
               <a href="#" class="btn btn-primary">Delete task</a>
@@ -178,7 +186,7 @@
       <!--form -->
       <!-- *form-id connecgt with javascript, *form-pop new css class -->
       <div class="form-pop" id="form-id">
-        <form  class="form-modal needs-validation"  novalidate>
+        <form class="form-modal needs-validation" novalidate>
           <!-- Name -->
           <div class="mb-3">
             <label class="form-label" for="name">Task Name:</label>
@@ -192,9 +200,7 @@
               minlength="3"
               maxlength="20"
             />
-            <div class="valid-feedback">
-              Looks good!
-            </div>
+            <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">
               please insert vaild name for the task!
             </div>
@@ -212,26 +218,20 @@
               maxlength="100"
             ></textarea>
             <!-- Place holder needs <textarea></textarea> with no gap to dsiplay -->
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-            <div class="invalid-feedback">
-              please insert more specificly!
-            </div>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">please insert more specificly!</div>
           </div>
 
           <!-- Assign to -->
           <label class="form-label" for="">Assign To: </label>
           <div class="button-group">
-            
             <div
               class="btn-group"
               id="btn-group"
               role="group"
               aria-label="Basic checkbox toggle button group"
             >
-           
-              <input 
+              <input
                 class="btn-check"
                 type="checkbox"
                 id="person1"
@@ -269,20 +269,18 @@
                 autocomplete="off"
               />
               <label class="btn btn-outline-light" for="person4">Ethan</label>
-              
             </div>
-            
-             <div style="visibility:hidden; color:red; " id="chk_option_error">
+
+            <div style="visibility: hidden; color: red" id="chk_option_error">
               Please select at least one option.
-              </div> 
-              <div style="visibility:hidden; color:green; " id="chk_option_ok">
-                Looks good!
-                </div>
+            </div>
+            <div style="visibility: hidden; color: green" id="chk_option_ok">
+              Looks good!
+            </div>
           </div>
-          
 
           <!-- Due date -->
-          
+
           <label class="form-label" for="due-date">Due Date:</label><br />
           <input
             class="form-control"
@@ -291,12 +289,8 @@
             name="due-date"
             required
           />
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            please insert vaild format!
-          </div>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">please insert vaild date!</div>
           <br />
           <!-- Status -->
           <label for="status">Status:</label><br />
@@ -307,7 +301,7 @@
             <option value="REVIEW">REVIEW</option>
             <option value="DONE">DONE</option>
           </select>
-          <!-- <div class="valid-feedback">Looks good!</div> -->
+          <div class="valid-feedback">Looks good!</div>
           <div class="invalid-feedback">Please select a progress.</div>
           <div class="center">
             <button
@@ -316,14 +310,15 @@
               id="submit-button"
               value="your_value"
               class="btn btn-info"
+              onclick="checkAssignTo();"
             >
               Add task
             </button>
           </div>
         </form>
-        <!-- script for validation -->
-         <!-- Javascript -->
+        <!-- Javascript -->
         <script src="script.js"></script>
+        <!-- script for validation -->
       </div>
     </main>
     <footer>

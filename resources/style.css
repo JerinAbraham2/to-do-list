@@ -150,7 +150,8 @@ form {
 }
 
 .logo img {
-  width: 30px;
+  width: 50px;
+  height: auto;
 }
 
 h1 {
@@ -178,7 +179,7 @@ h1 {
 }
 
 .title {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   border: 1px solid white;
   background-color: white;
@@ -429,10 +430,6 @@ footer a {
     font-size: 1.5em;
   }
 
-  .logo img {
-    height: 50px;
-  }
-
   .title {
     width: 95%;
   }
@@ -440,10 +437,10 @@ footer a {
     font-size: 1rem;
   }
   .card {
-    width: 100%;
+    width: 95%;
   }
   .cards {
-    max-width: 95%;
+    width: 100%;
   }
 
 }
