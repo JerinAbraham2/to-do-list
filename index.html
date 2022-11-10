@@ -54,7 +54,7 @@
         <button
           class="task-button"
           id="buttontask"
-          onclick="openTheForm(); closeCardsPanel();checkAssignTo();"
+          onclick="openTheForm(); closeCardsPanel();"
         >
           Create A Task
         </button>
@@ -221,7 +221,6 @@
             <div class="valid-feedback">Looks good!</div>
             <div class="invalid-feedback">please insert more specificly!</div>
           </div>
-
           <!-- Assign to -->
           <label class="form-label" for="">Assign To: </label>
           <div class="button-group">
@@ -270,7 +269,7 @@
               />
               <label class="btn btn-outline-light" for="person4">Ethan</label> 
             </div>
-             <div style="visibility:hidden; color:red; " id="chk_option_error">
+            <div style="visibility:hidden; color:red; " id="chk_option_error">
               Please select at least one option.
             </div>
             <div style="visibility: hidden; color: green" id="chk_option_ok">
@@ -278,7 +277,6 @@
             </div>
           </div>
           <!-- Due date -->
-
           <label class="form-label" for="due-date">Due Date:</label><br />
           <input
             class="form-control"
