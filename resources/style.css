@@ -163,12 +163,10 @@ h1 {
   padding-right: 2rem;
   color: white;
   background: rgb(180, 58, 155);
-  background: linear-gradient(
-    90deg,
-    rgba(180, 58, 155, 0.5) 0%,
-    rgba(253, 29, 29, 0.5) 76%,
-    rgba(252, 176, 69, 0.5) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(180, 58, 155, 0.5) 0%,
+      rgba(253, 29, 29, 0.5) 76%,
+      rgba(252, 176, 69, 0.5) 100%);
 }
 
 .title {
@@ -179,12 +177,10 @@ h1 {
   border-radius: 20px;
   padding: 15px;
   background: rgb(180, 58, 155);
-  background: linear-gradient(
-    90deg,
-    rgba(180, 58, 155, 0.5) 0%,
-    rgba(253, 29, 29, 0.5) 76%,
-    rgba(252, 176, 69, 0.5) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(180, 58, 155, 0.5) 0%,
+      rgba(253, 29, 29, 0.5) 76%,
+      rgba(252, 176, 69, 0.5) 100%);
   color: white;
   margin-top: 40px;
   margin-bottom: 0.5em;
@@ -196,12 +192,10 @@ h1 {
 
 #buttontask:hover {
   background: rgb(180, 58, 155);
-  background: linear-gradient(
-    90deg,
-    rgba(164, 17, 135, 1) 0%,
-    rgba(253, 29, 29, 1) 76%,
-    rgba(252, 176, 69, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(164, 17, 135, 1) 0%,
+      rgba(253, 29, 29, 1) 76%,
+      rgba(252, 176, 69, 1) 100%);
 
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -223,12 +217,10 @@ h1 {
   text-align: left;
   color: white;
   background: rgb(180, 58, 155);
-  background: linear-gradient(
-    90deg,
-    rgba(180, 58, 155, 0.8) 0%,
-    rgba(253, 29, 29, 0.8) 76%,
-    rgba(252, 176, 69, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(180, 58, 155, 0.8) 0%,
+      rgba(253, 29, 29, 0.8) 76%,
+      rgba(252, 176, 69, 0.8) 100%);
   width: 50%;
   padding: 30px;
   border: 2px white solid;
@@ -286,6 +278,7 @@ footer a {
 #status {
   margin-top: 0.5em;
 }
+
 /* media queries, largest screen size to smallest bottom to top (starting from mobile first development) */
 
 /* break into 3 - 2  */
@@ -293,6 +286,7 @@ footer a {
   .title {
     width: 80%;
   }
+
   #buttontask {
     font-size: 1.5rem;
   }
@@ -306,21 +300,26 @@ footer a {
   .cards {
     width: 100%;
   }
+
   .card {
     width: 18%;
   }
 }
+
 /* 3 - 2, bigger width for cards */
 @media only screen and (max-width: 1320px) {
   .title {
     width: 80%;
   }
+
   #buttontask {
     font-size: 1.5rem;
   }
+
   .card {
     width: 25%;
   }
+
   .form-modal {
     width: 60%;
   }
@@ -332,9 +331,11 @@ footer a {
   .navlist .navbar-nav {
     flex-direction: row;
   }
+
   .form-modal {
     width: 75%;
   }
+
   .card {
     width: 30%;
   }
@@ -346,12 +347,15 @@ footer a {
   .title {
     width: 80%;
   }
+
   #buttontask {
     font-size: 1.5rem;
   }
+
   .card {
     width: 45%;
   }
+
   .cards {
     max-width: 100%;
   }
@@ -367,6 +371,7 @@ footer a {
     display: none;
     width: 50%;
   }
+
   .container-fluid.nav-bar {
     justify-content: center;
   }
@@ -384,15 +389,19 @@ footer a {
   .title {
     width: 80%;
   }
+
   #buttontask {
     font-size: 1.5rem;
   }
+
   .card {
     width: 45%;
   }
+
   .cards {
     max-width: 100%;
   }
+
   .form-modal {
     width: 90%;
   }
@@ -401,6 +410,7 @@ footer a {
 /* comma is or, and is and */
 /* mobile landscape */
 @media only screen and (max-width: 500px) and (orientation: landscape) {
+
   /* find a way to not use important */
   .card {
     width: 45%;
@@ -414,6 +424,7 @@ footer a {
 
 /* mobile portrait */
 @media only screen and (max-width: 550px) {
+
   /* find a way to not use important */
   .logo h1 {
     font-size: 1.5em;
@@ -422,16 +433,19 @@ footer a {
   .logo img {
     height: 50px;
   }
-  
+
   .title {
     width: 95%;
   }
+
   #buttontask {
     font-size: 1rem;
   }
+
   .card {
     width: 100%;
   }
+
   .cards {
     max-width: 95%;
   }

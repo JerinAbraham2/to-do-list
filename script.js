@@ -18,8 +18,8 @@ function closeCardsPanel() {
 
 // Checking each person's checkbox
 let persons = document.getElementsByName('person');
-Array.from(persons).forEach((element)=>{
-  element.addEventListener('change',validate);
+Array.from(persons).forEach((element) => {
+  element.addEventListener('change', validate);
 })
 
 
