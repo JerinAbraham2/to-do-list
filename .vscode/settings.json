@@ -1,5 +1,4 @@
 {
-  "editor.defaultFormatter": null,
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
