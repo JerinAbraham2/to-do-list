@@ -18,6 +18,11 @@ header {
   width: 100%;
 }
 
+header #header-date  {
+  /* font-weight: bold; */
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
 main {
   font-family: "Doppio One", sans-serif, Verdana;
   text-align: center;

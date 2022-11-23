@@ -4,6 +4,8 @@ const openTheForm = () => {
     document.getElementById("main-section").style.display = "none";
 };
 
+// Task 4 
+
 // validateString function to validate the "TaskName" and "Description"
 // Parameters with 1. form input.  2.expected dataType, 3 minimum length of input string 
 // 4 maximum length of input string .
@@ -35,12 +37,30 @@ const validateString = (input, dataType, minLength, maxLength) => {
 // return a formated current date string:"YYYY-MM-DD".
 const processCurrentDate = () => {
     const today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1;
-    var yyyy = today.getFullYear();
+    console.log(today)
+    const dd = today.getDate();
+    const mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
     currentDate = `${yyyy}-${mm}-${dd}`;
     return currentDate
 }
+
+const processCurrentTime = () => {
+    const today = new Date();
+    const hh = today.getHours();
+    const mm = today.getMinutes();
+    const ss = today.getSeconds();
+    let ampm = null;
+    if (hh >= 12) {
+        ampm = 'PM';
+    } else {
+        ampm = 'AM';
+    }
+
+    currentDate = `${hh}:${mm}:${ss} ${ampm}`;
+    return currentDate
+}
+
 
 // Function for the Validatation of the DueDate
 // Parameter: currentDate with format "YYYY-MM-DD".  
@@ -158,3 +178,17 @@ const validateForm = (e) => {
 const formEl = document.getElementById("taskform");
 formEl.addEventListener("submit", validateForm);
 
+// Task 5 - Date object
+const createDate = () => {
+
+    // const currentDate = new Date();
+    const headerDateEl = document.getElementById("header-date");
+    headerDateEl.innerHTML = processCurrentDate().split('-').join('/') + "<br> " + 
+    
+    processCurrentTime();
+
+    setInterval(createDate, 1000)
+
+}
+
+createDate()
