@@ -22,11 +22,9 @@ Array.from(persons).forEach((element) => {
   element.addEventListener('change', validate);
 })
 
-
 /*seperate function validate() to validate the checkbox button group*/
 // adopt the validate function for each individual person.
-function validate() {
-
+function validateAssign() {
   var form_data = new FormData(document.querySelector("form"));
   if (!form_data.has("person")) //checking for the name person[] is present from the checkbox buttons
   {
@@ -39,7 +37,6 @@ function validate() {
     document.getElementById("chk_option_error").style.visibility = "hidden"; //hide the invalid feedback
     document.getElementById("chk_option_ok").style.visibility = "visible"; //display the positive feedback
   }
-
   return true;
 }
 
