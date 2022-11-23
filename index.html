@@ -49,7 +49,7 @@
       <h4><em>"What dreams are you chasing?"</em></h4>
     </div>
     <div id="main-section">
-      <button class="task-button" id="buttontask" onclick="openTheForm(); closeCardsPanel();">
+      <button class="task-button" id="buttontask" onclick="openTheForm();">
         Create A Task
       </button>
 
@@ -153,19 +153,18 @@
       <form class="form-modal needs-validation" id="taskform">
         <!-- Name -->
         <div class="mb-3">
-          <label class="form-label" for="name">Task Name:</label>
-          <input type="text" class="form-control" id="name" required pattern="[A-Za-z]{2,64}" placeholder="Name of task"
+          <label class="form-label" for="taskName">Task Name:</label>
+          <input type="text" class="form-control" id="taskName" required placeholder="Name of task"
             minlength="3" maxlength="20" />
-          <div id="valid-name"></div>
-          <div id="invalid-name">
+          <div id="valid-taskName"></div>
+          <div id="invalid-taskName">
             
           </div>
         </div>
         <!-- Description -->
         <div class="mb-3">
           <label class="form-label" for="description">Description:</label>
-          <textarea type="text" class="form-control" id="description" required placeholder="Description" minlength="5"
-            maxlength="100"></textarea>
+          <textarea type="text" class="form-control" id="description" required placeholder="Description"></textarea>
           <!-- Place holder needs <textarea></textarea> with no gap to dsiplay -->
           <div id="valid-desc"></div>
           <div id="invalid-desc"></div>
