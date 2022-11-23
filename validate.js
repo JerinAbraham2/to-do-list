@@ -60,17 +60,17 @@ const validateDate = (currDate) => {
 };
 
 
-// Assign validation
+// Assign validation (for dynamic validation)
 // Checking the change of each person's checkbox and call function 
 //validateAssign() to check at least one person is checked.
 //validateAssign function alone doesn't change the feedback when unchecking 
 // all persons.
-const checkAssignChange = () => {
+const checkAssignChange = (() => {
     let persons = document.getElementsByName('person');
     Array.from(persons).forEach((element) => {
         element.addEventListener('change', validateAssign);
     })
-}
+})()
 
 //the validateAssign function only check at least one person click and offerfeedback.
 // doesn't update the change. requires the assistence from function checkAssignChange().
@@ -104,29 +104,57 @@ const renderFeedback = (result, idName) => {
     }
 };
 
+
+
+// validate name function
+const validateTaskName = () => {
+    const formName = document.getElementById("taskName");
+    renderFeedback(validateString(formName.value, 'string', 8, 100), "taskName");
+}
+// validate description
+const validateDesc = () => {
+    const formDesc = document.getElementById("description");
+    renderFeedback(validateString(formDesc.value, 'string', 15, 200), "desc");
+}
+// validate description
+const validateTaskDate = () => {
+    renderFeedback(validateDate(processCurrentDate()), 'date');
+}
+
+const validateStatus = () => {
+    const statuses = document.getElementById("status");
+    if (statuses.options[0].selected) {
+        const result = { feedback: 'Please select atleast one status' };
+        renderFeedback(result, "status");
+    } else {
+        const result = { feedback: 'Looks good' };
+        renderFeedback(result, "status");
+    }
+}
+
+
 // a major function to validate forms. calling other fucntion to validate each individual
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
 
 const validateForm = (e) => {
     e.preventDefault();
-        // Task Name
-    const formName = document.getElementById("taskName");
-    renderFeedback(validateString(formName.value, 'string', 8, 100), "taskName");
+    // Task Name
+    validateTaskName();
+
     // description
-    const formDesc = document.getElementById("description");
-    renderFeedback(validateString(formDesc.value, 'string', 15, 200), "desc");
+    validateDesc();
 
     // assign to
-    checkAssignChange();
     validateAssign();
 
     // date
+    validateTaskDate();
 
-    renderFeedback(validateDate(processCurrentDate()), 'date');
-
-
+    //Status
+    validateStatus();
 };
 
 const formEl = document.getElementById("taskform");
 formEl.addEventListener("submit", validateForm);
+
