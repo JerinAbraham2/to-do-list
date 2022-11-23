@@ -131,10 +131,19 @@ const validateForm = (e) => {
   validateAssign()
 
   // date
-  const currentDate = new Date('5-23-2022');
+  const today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  currentDate = `${yyyy}-${mm}-${dd}`;
+
   const selectedDate = document.getElementById("due-date").value;
-  console.log(currentDate);
-  console.log(selectedDate);
+
+  if (selectedDate >= currentDate) {
+    validateEachInput("Looks good", "date")
+  } else {
+    validateEachInput("Cannot set that date", "date")
+  }
 
 
 };
