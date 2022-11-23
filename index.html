@@ -150,15 +150,15 @@
     <!--form -->
     <!-- *form-id connecgt with javascript, *form-pop new css class -->
     <div class="form-pop" id="form-id">
-      <form class="form-modal needs-validation" novalidate>
+      <form class="form-modal needs-validation" id="taskform">
         <!-- Name -->
         <div class="mb-3">
           <label class="form-label" for="name">Task Name:</label>
           <input type="text" class="form-control" id="name" required pattern="[A-Za-z]{2,64}" placeholder="Name of task"
             minlength="3" maxlength="20" />
-          <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">
-            please insert vaild name for the task!
+          <div id="valid-name"></div>
+          <div id="invalid-name">
+            
           </div>
         </div>
         <!-- Description -->
@@ -167,8 +167,8 @@
           <textarea type="text" class="form-control" id="description" required placeholder="Description" minlength="5"
             maxlength="100"></textarea>
           <!-- Place holder needs <textarea></textarea> with no gap to dsiplay -->
-          <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">please insert more specificly!</div>
+          <div id="valid-desc"></div>
+          <div id="invalid-desc"></div>
         </div>
         <!-- Assign to -->
         <label class="form-label" for="">Assign To: </label>
@@ -193,8 +193,8 @@
         <!-- Due date -->
         <label class="form-label" for="due-date">Due Date:</label><br />
         <input class="form-control" type="date" id="due-date" name="due-date" required />
-        <div class="valid-feedback">Looks good!</div>
-        <div class="invalid-feedback">please insert vaild format!</div>
+        <div id="valid-date"></div>
+        <div id="invalid-date"></div>
         <br />
         <!-- Status -->
         <label for="status">Status:</label><br />
@@ -215,7 +215,7 @@
       </form>
       <!-- script for validation -->
       <!-- Javascript -->
-      <script src="script.js"></script>
+      <script src="validate.js"></script>
     </div>
   </main>
   <footer>
