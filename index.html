@@ -49,7 +49,7 @@
       <h4><em>"What dreams are you chasing?"</em></h4>
     </div>
     <div id="main-section">
-      <button class="task-button" id="buttontask" onclick="openTheForm(); closeCardsPanel();">
+      <button class="task-button" id="buttontask" onclick="openTheForm();">
         Create A Task
       </button>
 
@@ -150,7 +150,7 @@
     <!--form -->
     <!-- *form-id connecgt with javascript, *form-pop new css class -->
     <div class="form-pop" id="form-id">
-      <form class="form-modal needs-validation" id="taskform">
+      <form class="form-modal needs-validation" novalidate onsubmit="validateForm()">
         <!-- Name -->
         <div class="mb-3">
           <label class="form-label" for="name">Task Name:</label>
@@ -215,7 +215,7 @@
       </form>
       <!-- script for validation -->
       <!-- Javascript -->
-      <script src="validate.js"></script>
+      <script src="./validate.js"></script>
     </div>
   </main>
   <footer>
