@@ -69,7 +69,7 @@ header ul {
 }
 
 form {
-  width: 600px;
+  width: 100%;
 }
 
 
@@ -216,9 +216,14 @@ h1 {
   transition: 0.5s;
 }
 
+.modal-dialog .modal-content {
+  background-color: rgba(164, 17, 135, 0);
+  border: none;
+}
+
 /* pop up initial setting important */
 .form-pop {
-  display: none;
+  
   justify-content: center;
   width: 100%;
   margin-top: 2.5em;
@@ -235,7 +240,7 @@ h1 {
       rgba(180, 58, 155, 0.8) 0%,
       rgba(253, 29, 29, 0.8) 76%,
       rgba(252, 176, 69, 0.8) 100%);
-  width: 50%;
+  width: 100%;
   padding: 30px;
   border: 2px white solid;
 }
@@ -334,9 +339,7 @@ footer a {
     width: 25%;
   }
 
-  .form-modal {
-    width: 60%;
-  }
+
 }
 
 /* align navbar horizontally at breakpoint */
@@ -346,9 +349,7 @@ footer a {
     flex-direction: row;
   }
 
-  .form-modal {
-    width: 75%;
-  }
+
 
   .card {
     width: 30%;
@@ -374,9 +375,7 @@ footer a {
     max-width: 100%;
   }
 
-  .form-modal {
-    width: 85%;
-  }
+
 }
 
 /* remove nav links and align content to the middle */
@@ -404,6 +403,10 @@ footer a {
     width: 80%;
   }
 
+  .button-group .btn-group {
+    flex-wrap: wrap;  
+  }
+
   #buttontask {
     font-size: 1.5rem;
   }
@@ -416,9 +419,7 @@ footer a {
     max-width: 100%;
   }
 
-  .form-modal {
-    width: 90%;
-  }
+
 }
 
 /* comma is or, and is and */
