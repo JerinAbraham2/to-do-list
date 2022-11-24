@@ -149,7 +149,7 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -164,8 +164,8 @@
                     <label class="form-label" for="taskName">Task Name:</label>
                     <input type="text" class="form-control" id="taskName" required placeholder="Name of task"
                       />
-                    <div id="valid-taskName"></div>
-                    <div id="invalid-taskName">
+                    <div id="valid-taskName" class="greenFont"></div>
+                    <div id="invalid-taskName" class="redFont">
 
                     </div>
                   </div>
@@ -175,8 +175,8 @@
                     <textarea type="text" class="form-control" id="description" required
                       placeholder="Description"></textarea>
                     <!-- Place holder needs <textarea></textarea> with no gap to dsiplay -->
-                    <div id="valid-desc"></div>
-                    <div id="invalid-desc"></div>
+                    <div id="valid-desc" class="greenFont"></div>
+                    <div id="invalid-desc" class="redFont"></div>
                   </div>
                   <!-- Assign to -->
                   <label class="form-label" for="">Assign To: </label>
@@ -206,8 +206,8 @@
                   <!-- Due date -->
                   <label class="form-label" for="due-date">Due Date:</label><br />
                   <input class="form-control" type="date" id="due-date" name="due-date" required />
-                  <div id="valid-date"></div>
-                  <div id="invalid-date"></div>
+                  <div id="valid-date" class="greenFont"></div>
+                  <div id="invalid-date" class="redFont"></div>
                   <br />
                   <!-- Status -->
                   <label for="status">Status:</label><br />
@@ -218,8 +218,8 @@
                     <option value="REVIEW" class="status-option">REVIEW</option>
                     <option value="DONE" class="status-option">DONE</option>
                   </select>
-                  <div id="valid-status"></div>
-                  <div id="invalid-status"></div>
+                  <div id="valid-status" class="greenFont"></div>
+                  <div id="invalid-status" class="redFont"></div>
                   <div class="center">
                     <button type="submit" name="your_name" id="submit-button" value="your_value" class="btn btn-info">
                       Add task
@@ -230,10 +230,8 @@
             </div>
           </div>
         </div>
+
     </div>
-    
-      <!--form -->
-      <!-- *form-id connecgt with javascript, *form-pop new css class -->
 
       <!-- script for validation -->
       <!-- Javascript -->
