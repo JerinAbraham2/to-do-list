@@ -2,10 +2,6 @@
  const taskManager = new TaskManager();
 console.log(taskManager)
 // Click create task : open the form and close the main-section on html
-const openTheForm = () => {
-    document.getElementById("form-id").style.display = "flex";
-    document.getElementById("main-section").style.display = "none";
-};
 
 // Task 4 
 
@@ -218,9 +214,9 @@ createDate();
 
 
 
-const createTask = document.getElementById('buttontask');
+// const createTask = document.getElementById('buttontask');
 
-createTask.addEventListener('click', openTheForm);
+// createTask.addEventListener('click', openTheForm);
 //console.log(createTask.value);
 
 document.getElementById("taskName").addEventListener("input", validateTaskName);
