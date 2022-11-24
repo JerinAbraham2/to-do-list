@@ -1,3 +1,6 @@
+ import TaskManager from './TaskManager.js';
+ const taskManager = new TaskManager();
+console.log(taskManager)
 // Click create task : open the form and close the main-section on html
 const openTheForm = () => {
     document.getElementById("form-id").style.display = "flex";
@@ -37,11 +40,11 @@ const validateString = (input, dataType, minLength, maxLength) => {
 // return a formated current date string:"YYYY-MM-DD".
 const processCurrentDate = () => {
     const today = new Date();
-    console.log(today)
+    //console.log(today)
     const dd = today.getDate();
     const mm = today.getMonth() + 1;
     const yyyy = today.getFullYear();
-    currentDate = `${yyyy}-${mm}-${dd}`;
+    const currentDate = `${yyyy}-${mm}-${dd}`;
     return currentDate
 }
 
@@ -57,7 +60,7 @@ const processCurrentTime = () => {
         ampm = 'AM';
     }
 
-    currentDate = `${hh}:${mm}:${ss} ${ampm}`;
+    const currentDate = `${hh}:${mm}:${ss} ${ampm}`;
     return currentDate
 }
 
@@ -107,7 +110,7 @@ function validateAssign() {
         document.getElementById("chk_option_error").style.visibility = "hidden"; //hide the invalid feedback
         document.getElementById("chk_option_ok").style.visibility = "visible"; //display the positive feedback
     }
-    return true;
+        return true;
 };
 
 // render the feedback from validate to the html for "TaskName", "Descritpion", "DueDate".
@@ -129,27 +132,40 @@ const renderFeedback = (result, idName) => {
 // validate name function
 const validateTaskName = () => {
     const formName = document.getElementById("taskName");
-    renderFeedback(validateString(formName.value, 'string', 8, 100), "taskName");
+    const result=validateString(formName.value, 'string', 8, 100);
+    //console.log(result);
+    renderFeedback(result, "taskName");
+    //console.log(result.status);
+    return result.status;
 }
 // validate description
 const validateDesc = () => {
     const formDesc = document.getElementById("description");
-    renderFeedback(validateString(formDesc.value, 'string', 15, 200), "desc");
+    const result=validateString(formDesc.value, 'string', 15, 200);
+    //renderFeedback(validateString(formDesc.value, 'string', 15, 200), "desc");
+    renderFeedback(result,"desc");
+    //console.log(result.status);
+    return result.status;
 }
 // validate description
 const validateTaskDate = () => {
-    renderFeedback(validateDate(processCurrentDate()), 'date');
+    const result = validateDate(processCurrentDate())
+    renderFeedback(result, 'date');
+    //console.log(result.status);
+    return result.status;
 }
 
 const validateStatus = () => {
     const statuses = document.getElementById("status");
+    let result = null
     if (statuses.options[0].selected) {
-        const result = { feedback: 'Please select atleast one status' };
+         result = { feedback: 'Please select atleast one status',status:false };
         renderFeedback(result, "status");
     } else {
-        const result = { feedback: 'Looks good' };
+         result = { feedback: 'Looks good',status:true };
         renderFeedback(result, "status");
     }
+    return result.status;
 }
 
 
@@ -159,20 +175,27 @@ const validateStatus = () => {
 
 const validateForm = (e) => {
     e.preventDefault();
+    const checkAllTrue =[];
     // Task Name
-    validateTaskName();
+    checkAllTrue.push(validateTaskName());
 
     // description
-    validateDesc();
+    checkAllTrue.push(validateDesc());
 
     // assign to
-    validateAssign();
+    checkAllTrue.push(validateAssign());
 
     // date
-    validateTaskDate();
+    checkAllTrue.push(validateTaskDate());
 
     //Status
-    validateStatus();
+    checkAllTrue.push(validateStatus());
+
+   // console.log(taskManager);
+    const passedTrue=checkAllTrue.every((el)=>el)
+    console.log(document.getElementById("taskName").value);
+    console.log(passedTrue)
+   taskManager.addTask();
 };
 
 const formEl = document.getElementById("taskform");
@@ -191,4 +214,34 @@ const createDate = () => {
 
 }
 
-createDate()
+createDate();
+
+
+
+const createTask = document.getElementById('buttontask');
+
+createTask.addEventListener('click', openTheForm);
+//console.log(createTask.value);
+
+document.getElementById("taskName").addEventListener("input", validateTaskName);
+
+document.getElementById("description").addEventListener("input", validateDesc);
+
+document.getElementById("due-date").addEventListener("change", validateTaskDate);
+
+document.getElementById("status").addEventListener("change", validateStatus);
+
+//create task object
+
+const taskObject=(taskName,taskDescription,assignee,dueDate,status) => {
+  const uid = (() => (id = 0, () => id++))();
+  return {
+    userID: uid(),
+    taskName: "",
+    taskDescription: "",
+    assignee: [],
+    dueDate: "",
+    status:""
+  }
+}
+
