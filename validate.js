@@ -1,6 +1,12 @@
 import TaskManager from './TaskManager.js';
 const taskManager = new TaskManager();
 console.log(taskManager)
+
+let taskname = document.getElementById("taskName");
+let taskDesc = document.getElementById("description");
+let taskDueDate = document.getElementById("due-date");
+let taskStatus = document.getElementById("status");
+
 // Click create task : open the form and close the main-section on html
 
 // Task 4 
@@ -77,6 +83,9 @@ const validateDate = (currDate) => {
         return result;
     }
 };
+
+
+
 
 
 // Assign validation (for dynamic validation)
@@ -165,37 +174,44 @@ const validateStatus = () => {
 }
 
 
+const getAssignee = () => {
+    const assignee = Array.from(document.getElementsByName('person'));
+    const persons = [];
+    assignee.map(person => {
+        if (person.checked) {
+            persons.push(person.value);
+        };
+    });
+    return persons;
+}
+
+
 // a major function to validate forms. calling other fucntion to validate each individual
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
 
+
 const validateForm = (e) => {
     e.preventDefault();
     const checkAllTrue = [];
-    // Task Name
-    checkAllTrue.push(validateTaskName());
 
-    // description
-    checkAllTrue.push(validateDesc());
+    checkAllTrue.push(validateTaskName(), validateDesc(), validateAssign(), validateTaskDate(), validateStatus());
 
-    // assign to
-    checkAllTrue.push(validateAssign());
-
-    // date
-    checkAllTrue.push(validateTaskDate());
-
-    //Status
-    checkAllTrue.push(validateStatus());
-
-    // console.log(taskManager);
-    const passedTrue = checkAllTrue.every((el) => el)
-    let taskname = document.getElementById("taskName").value;
-    let taskDesc = document.getElementById("description").value;
+    const taskAssignee = getAssignee();
 
 
-    console.log(passedTrue)
+    const passedTrue = checkAllTrue.every((item) => item);
 
-    taskManager.addTask();
+
+
+    if (passedTrue) {
+        const task = taskObject(taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
+        taskManager.addTask(task);
+    }
+    console.log(taskManager);
+
+
+
 };
 
 const formEl = document.getElementById("taskform");
@@ -220,25 +236,27 @@ createDate();
 // createTask.addEventListener('click', openTheForm);
 //console.log(createTask.value);
 
-document.getElementById("taskName").addEventListener("input", validateTaskName);
+taskName.addEventListener("input", validateTaskName);
+taskDesc.addEventListener("input", validateDesc);
+taskDueDate.addEventListener("change", validateTaskDate);
+taskStatus.addEventListener("change", validateStatus);
 
-document.getElementById("description").addEventListener("input", validateDesc);
 
-document.getElementById("due-date").addEventListener("change", validateTaskDate);
 
-document.getElementById("status").addEventListener("change", validateStatus);
+//create increment ID
+let id = 5001;
+const uid = (() => (id, () => id++))();
 
 //create task object
-
 const taskObject = (taskName, taskDescription, assignee, dueDate, status) => {
-    const uid = (() => (id = 0, () => id++))();
+
     return {
         userID: uid(),
-        taskName: "",
-        taskDescription: "",
-        assignee: [],
-        dueDate: "",
-        status: ""
+        taskName: taskName,
+        taskDescription: taskDescription,
+        assignee: assignee,
+        dueDate: dueDate,
+        status: status
     }
 }
 
