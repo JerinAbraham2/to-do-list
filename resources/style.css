@@ -72,6 +72,15 @@ form {
   width: 600px;
 }
 
+
+.greenFont{
+  color:green;
+}
+
+.redFont{
+  color:red;
+}
+
 /* try and put in one straight line */
 .cards {
   display: flex;
