@@ -193,8 +193,12 @@ const validateForm = (e) => {
 
    // console.log(taskManager);
     const passedTrue=checkAllTrue.every((el)=>el)
-    console.log(document.getElementById("taskName").value);
+    let taskname=document.getElementById("taskName").value;
+    let taskDesc=document.getElementById("description").value;
+    
+
     console.log(passedTrue)
+    
    taskManager.addTask();
 };
 
