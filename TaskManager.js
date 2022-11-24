@@ -11,7 +11,7 @@ export default class TaskManager{
 
     }
     addTask(task){
-
+        this.tasks.push(task);
     }
     getTasksWithStatus(status){
 
