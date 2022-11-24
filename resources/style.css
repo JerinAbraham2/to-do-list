@@ -74,11 +74,11 @@ form {
 
 
 .greenFont{
-  color:#90EE90;
+  color:#108010;
 }
 
 .redFont{
-  color:#a00704;
+  color:#ff0400;
 }
 
 /* try and put in one straight line */
@@ -235,11 +235,12 @@ h1 {
   justify-content: center;
   text-align: left;
   color: white;
-  background: rgb(180, 58, 155);
+  background: rgba(180, 58, 155, 0.2);
   background: linear-gradient(90deg,
-      rgba(180, 58, 155, 0.8) 0%,
-      rgba(253, 29, 29, 0.8) 76%,
-      rgba(252, 176, 69, 0.8) 100%);
+      rgba(123, 185, 255, 0.8) 0%,
+      rgba(125, 253, 247, 0.8) 50%,
+      rgba(225, 114, 240, 0.8) 100%);
+  font-weight: bold;
   width: 100%;
   padding: 30px;
   border: 2px white solid;
