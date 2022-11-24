@@ -4,7 +4,6 @@ console.log(taskManager)
 
 let taskname = document.getElementById("taskName");
 let taskDesc = document.getElementById("description");
-let taskAssign = document.getElementById("btn-group");
 let taskDueDate = document.getElementById("due-date");
 let taskStatus = document.getElementById("status");
 
@@ -84,6 +83,9 @@ const validateDate = (currDate) => {
         return result;
     }
 };
+
+
+
 
 
 // Assign validation (for dynamic validation)
@@ -172,41 +174,42 @@ const validateStatus = () => {
 }
 
 
+const getAssignee = () => {
+    const assignee = Array.from(document.getElementsByName('person'));
+    const persons = [];
+    assignee.map(person => {
+        if (person.checked) {
+            persons.push(person.value);
+        };
+    });
+    return persons;
+}
+
+
 // a major function to validate forms. calling other fucntion to validate each individual
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
 
+
 const validateForm = (e) => {
     e.preventDefault();
     const checkAllTrue = [];
-    // // Task Name
-    // checkAllTrue.push(validateTaskName());
 
-    // // description
-    // checkAllTrue.push(validateDesc());
+    checkAllTrue.push(validateTaskName(), validateDesc(), validateAssign(), validateTaskDate(), validateStatus());
 
-    // // assign to
-    // checkAllTrue.push(validateAssign());
+    const taskAssignee = getAssignee();
 
-    // // date
-    // checkAllTrue.push(validateTaskDate());
 
-    // //Status
-    // checkAllTrue.push(validateStatus());
-    checkAllTrue.push(validateTaskName(),validateDesc(),validateAssign(),validateTaskDate(),validateStatus());
-
-    taskName.value
-
-    console.log(taskManager);
     const passedTrue = checkAllTrue.every((item) => item);
-    console.log(passedTrue);
 
-    if(passedTrue) {
-        const task = taskObject(taskName.value, taskDesc.value, taskAssign.value, taskDueDate.value, taskStatus.value);
+
+
+    if (passedTrue) {
+        const task = taskObject(taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
         taskManager.addTask(task);
     }
     console.log(taskManager);
-   
+
 
 
 };
@@ -239,21 +242,21 @@ taskDueDate.addEventListener("change", validateTaskDate);
 taskStatus.addEventListener("change", validateStatus);
 
 
+
+//create increment ID
+let id = 5001;
+const uid = (() => (id, () => id++))();
+
 //create task object
-
-
-
-// const uid = (() => (var id = 0, () => id++))();
-
 const taskObject = (taskName, taskDescription, assignee, dueDate, status) => {
 
     return {
-        // userID:uid(),
+        userID: uid(),
         taskName: taskName,
-        taskDescription:taskDescription,
-        assignee:assignee,
-        dueDate:dueDate ,
-        status:status
+        taskDescription: taskDescription,
+        assignee: assignee,
+        dueDate: dueDate,
+        status: status
     }
 }
 
