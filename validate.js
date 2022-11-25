@@ -215,12 +215,15 @@ const validateForm = (e) => {
     if (passedTrue) {
         const task = taskObject(taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
         taskManager.addTask(task);
+        createTaskHTML(task);
     }
     //console.log(taskManager);
     //console.log(taskManager.getAllTasks());
     console.log(taskManager.getAllTasks());
 
     saveLocalData(taskManager.getAllTasks());
+
+
 
 };
 
@@ -242,7 +245,6 @@ createDate();
 
 
 // const createTask = document.getElementById('buttontask');
-
 // createTask.addEventListener('click', openTheForm);
 //console.log(createTask.value);
 
@@ -254,14 +256,14 @@ taskStatus.addEventListener("change", validateStatus);
 
 
 //create increment ID
-let id = 5001;
-const uid = (() => (id, () => id++))();
+let Tid = 5001;
+const taskId = (() => (Tid, () => Tid++))();
 
 //create task object
 const taskObject = (taskName, taskDescription, assignee, dueDate, status) => {
 
     return {
-        taskID: uid(),
+        taskID: taskId(),
         taskName: taskName,
         taskDescription: taskDescription,
         assignee: assignee,
@@ -269,4 +271,35 @@ const taskObject = (taskName, taskDescription, assignee, dueDate, status) => {
         status: status
     }
 }
+
+// Task 7
+const createTaskHTML = (taskObj) => {
+
+    const cardTemplateHTML = `
+        <img src="resources/images/phone.jpg" class="card-img-top" alt="..." />
+        <div class="card-body">
+        <h5 class="card-title"> ${taskObj.taskName} </h5>
+        <p class="card-text">${taskObj.taskDescription}
+        </p>
+        <div class="alert alert-info card-date" role="alert">
+            Due: ${taskObj.dueDate}
+        </div>
+        <div class="status-assign">
+            <span class="badge rounded-pill text-bg-info card-status">${taskObj.status}</span>
+            <span class="badge text-bg-light">${taskObj.assignee}</span>
+        </div>
+        <a href="#" class="btn btn-primary">Delete task</a>
+        </div>`
+
+
+    const render = (newTask) => {
+        const divPanel = document.createElement('div');
+        divPanel.classList.add('card');
+        divPanel.innerHTML = newTask;
+        const taskPanel = document.getElementById('display-cards');
+        taskPanel.appendChild(divPanel);
+    }
+    render(cardTemplateHTML);
+
+};
 
