@@ -190,9 +190,17 @@ const getAssignee = () => {
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
 
+const saveLocalData = (taskObjectArr) => {
+    for (let taskObj of taskObjectArr) {
+        localStorage.setItem(taskObj.taskID.toString(), JSON.stringify(taskObj));
+        console.log(taskObj.taskID.toString());
+    }
+
+}
 
 const validateForm = (e) => {
     e.preventDefault();
+
     const checkAllTrue = [];
 
     checkAllTrue.push(validateTaskName(), validateDesc(), validateAssign(), validateTaskDate(), validateStatus());
@@ -208,9 +216,11 @@ const validateForm = (e) => {
         const task = taskObject(taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
         taskManager.addTask(task);
     }
-    console.log(taskManager);
+    //console.log(taskManager);
+    //console.log(taskManager.getAllTasks());
+    console.log(taskManager.getAllTasks());
 
-
+    saveLocalData(taskManager.getAllTasks());
 
 };
 
@@ -251,7 +261,7 @@ const uid = (() => (id, () => id++))();
 const taskObject = (taskName, taskDescription, assignee, dueDate, status) => {
 
     return {
-        userID: uid(),
+        taskID: uid(),
         taskName: taskName,
         taskDescription: taskDescription,
         assignee: assignee,
