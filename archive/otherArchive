@@ -1,0 +1,12 @@
+
+// Assign validation (for dynamic validation)
+// Checking the change of each person's checkbox and call function 
+//validateAssign() to check at least one person is checked.
+//validateAssign function alone doesn't change the feedback when unchecking 
+// all persons.
+const checkAssignChange = (() => {
+    let persons = document.getElementsByName('person');
+    Array.from(persons).forEach((element) => {
+        element.addEventListener('change', validateAssign);
+    })
+})()
