@@ -216,6 +216,10 @@ const validateForm = (e) => {
         const task = taskObject(taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
         taskManager.addTask(task);
         createTaskHTML(task);
+        //data-dismiss="modal"
+        const addTaskButton = document.getElementById('submit-button');
+        addTaskButton.setAttribute('data-dismiss', 'modal');
+        taskName.value = taskDesc.value = taskDueDate.value = taskStatus = "";
     }
     //console.log(taskManager);
     //console.log(taskManager.getAllTasks());
@@ -302,4 +306,5 @@ const createTaskHTML = (taskObj) => {
     render(cardTemplateHTML);
 
 };
+
 
