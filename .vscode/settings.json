@@ -7,5 +7,7 @@
   },
   "[css]": {
     "editor.defaultFormatter": "vscode.css-language-features"
-  }
+  },
+  "prettier.tabWidth": 4, //by default its 2 ? <== prettier when save | before I used 2
+  "editor.tabSize": 4, //by default its 4? <== when pressing tab | before I used 2
 }
