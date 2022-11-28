@@ -5,11 +5,15 @@ const taskManager = new TaskManager();
 // DOM Elements
 const formEl = document.getElementById("taskform");
 let taskName = document.getElementById("taskName");
+
+let taskTags = document.getElementsByName("tag-group");
+let tagInput = document.getElementById("tag-input");
+// console.log(TagInput);
+// console.log(taskTags);
 let taskDesc = document.getElementById("description");
 let taskDueDate = document.getElementById("due-date");
 let taskStatus = document.getElementById("status");
 let taskAssignees = document.getElementsByName('person');
-
 
 // Task 4
 // return a formated current date string:"YYYY-MM-DD".
@@ -92,6 +96,7 @@ const validateString = (input, dataType, minLength, maxLength) => {
     result.feedback = "The format is good!";
     return result;
 };
+
 // Function for the Validatation of the DueDate
 // Parameter: currentDate with format "YYYY-MM-DD".  
 // Function return with reulst object that cotains Boolean values and feed back string. 
@@ -134,6 +139,31 @@ const validateTaskName = () => {
     //console.log(result.status);
     return result.status;
 }
+
+
+const validateTaskTags = () =>{
+    const arrResults = [];
+    Array.from(taskTags).forEach((tag)=> {
+        const result = validateString(tag.innerText, 'string', 1, 100);
+        renderFeedback(result, "tag"); //render the feedback of each tag-input
+        arrResults.push(result);
+    })
+    console.log(arrResults);
+
+    // find if there is a false in all results for tags
+    const falseResult =arrResults.some(e => e.status ===false);
+    console.log(falseResult);
+
+    
+    if(falseResult) {
+        console.log("valid the input format");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 // validate description
 const validateTaskDesc = () => {
     const formDesc = taskDesc;
@@ -162,7 +192,6 @@ const validateTaskStatus = () => {
 const saveLocalData = (taskObjectArr) => {
     for (let taskObj of taskObjectArr) {
         localStorage.setItem(taskObj.taskID.toString(), JSON.stringify(taskObj));
-        console.log(taskObj.taskID.toString());
     }
 }
 const disableFeedback = () => {
@@ -222,7 +251,7 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status) =>
 const validateTaskForm = () => {
     const checkAllTrue = [];
     // push validation to validation array
-    checkAllTrue.push(validateTaskName(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
+    checkAllTrue.push(validateTaskName(),validateTaskTags(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
     // look at each element, and see if they passed
     return checkAllTrue.every((item) => item);
 }
@@ -235,7 +264,16 @@ const closeForm = () => {
 // a major function to validate forms. calling other fucntion to validate each individual
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
-const main = (e) => {
+
+const getImage = async (taskName) => {
+    const url = `https://api.unsplash.com/search/photos/?query=html&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
+    const response = await fetch(url);
+    const responseJson = await response.json();
+    // console.log(responseJson);
+    return responseJson.results[0].urls.regular
+}
+
+const main = async (e) => {
     // prevent it from refreshing
     e.preventDefault();
     // array to verify if all validation has passed
@@ -248,6 +286,8 @@ const main = (e) => {
         const task = taskObject('needNewid',taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
         // add task to manager
         taskManager.addTask(task);
+        // Get HTML image
+        const image = await getImage(taskName.value);
         // Create HTML for task
         const taskHTML = createTaskHTML(task);
         // render task
@@ -274,14 +314,19 @@ createDate();
 // Event listeners here
 formEl.addEventListener("submit", main);
 taskName.addEventListener("input", validateTaskName);
+tagInput.addEventListener("click", validateTaskTags);
 taskDesc.addEventListener("input", validateTaskDesc);
 taskDueDate.addEventListener("change", validateTaskDate);
 taskStatus.addEventListener("change", validateTaskStatus);
 Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
-})
+});
+
+
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
+
+    // const src = 
     const cardTemplateHTML = `
         <img src="resources/images/phone.jpg" class="card-img-top" alt="..." />
         <div class="card-body">
@@ -354,11 +399,11 @@ const renderSavedTasks = async () => {
     // / only render saved task which is not in the local storage 
     for (let diffIdex of diffArr) {
         const diffObj=temp[diffIdex];
-        console.log(diffObj.taskDescription);
+        // console.log(diffObj.taskDescription);
         const diffSavedTask = taskObject(diffIdex ,diffObj.taskName, diffObj.taskDescription, diffObj.assignee,diffObj.dueDate, diffObj.status);
-        console.log(diffSavedTask);
+        // console.log(diffSavedTask);
         taskManager.addTask(diffSavedTask);
-        console.log(taskManager.getAllTasks());
+        // console.log(taskManager.getAllTasks());
         // Create HTML for task
         const taskHTML = createTaskHTML(diffSavedTask);
         // render task

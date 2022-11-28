@@ -11,6 +11,8 @@
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
 <body>
@@ -62,9 +64,35 @@
                   <input type="text" class="form-control" id="taskName" required placeholder="Name of task" />
                   <div id="valid-taskName" class="greenFont"></div>
                   <div id="invalid-taskName" class="redFont">
-
                   </div>
                 </div>
+                <!-- tag input Referecne https://codepen.io/atomgiant/pen/QWjWgKz--> 
+                <div x-data @tags-update="console.log('tags updated', $event.detail.tags)" data-tags='[]' class="mb-3" id="tags">
+                  <label class="form-label" for="description">One Word Tag:</label>
+                  <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
+                    <div class="relative" @keydown.enter.prevent="addTag(textInput)">
+                      <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-control"  placeholder="E.g. css OR meeting">
+                      <div :class="[open ? 'block' : 'hidden']">
+                        <div class="absolute z-40 left-0 mt-2 w-full">
+                          <div class="py-1 text-sm bg-white rounded shadow-lg border border-gray-300">
+                            <a @click.prevent="addTag(textInput)" id="tag-input" class="block py-1 px-5 cursor-pointer bg-orange-400 hover:bg-indigo-600 text-gray-700 hover:text-black">Add tag "<span class="font-semibold" x-text="textInput"></span>"</a>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- selections -->
+                      <template x-for="(tag, index) in tags">
+                        <div class="bg-orange-400 inline-flex items-center text-sm rounded mt-2 mr-1">
+                          <span class="ml-2 mr-1 leading-relaxed truncate max-w-xs" name="tag-group" x-text="tag"></span>
+                          <button @click.prevent="removeTag(index)" class="w-6 h-8 inline-block align-middle  text-gray-500 hover:text-gray-700 focus:outline-none">
+                            <svg class="w-6 h-6 fill-current mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M15.78 14.36a1 1 0 0 1-1.42 1.42l-2.82-2.83-2.83 2.83a1 1 0 1 1-1.42-1.42l2.83-2.82L7.3 8.7a1 1 0 0 1 1.42-1.42l2.83 2.83 2.82-2.83a1 1 0 0 1 1.42 1.42l-2.83 2.83 2.83 2.82z"/></svg>
+                          </button>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+                <div id="valid-tag" class="greenFont"></div>
+                <div id="invalid-tag" class="redFont"></div>
                 <!-- Description -->
                 <div class="mb-3">
                   <label class="form-label" for="description">Description:</label>
@@ -130,6 +158,7 @@
     <!-- script for validation -->
     <!-- Javascript -->
     <script src="script.js" type="module"></script>
+    <script src="taginput.js"></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -140,6 +169,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
+
   </main>
 
   <footer>
