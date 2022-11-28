@@ -348,7 +348,7 @@ Array.from(taskAssignees).forEach((element) => {
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
 
-    const src = null; 
+    let src = null; 
     if (taskObj.img !== undefined) {
         src = taskObj.img;
     } else {
