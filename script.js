@@ -174,6 +174,7 @@ const validateTaskTagForm = () => {
     tagsArray.forEach(el => {
         el.remove();
     })
+    
 
     if (tagsArray.length > 0) {
         renderFeedback({ status: true, feedback: "Looks good"}, "tag");
@@ -210,6 +211,7 @@ const validateTaskStatus = () => {
     }
     return result.status;
 }
+
 const saveLocalData = (taskObjectArr) => {
     for (let taskObj of taskObjectArr) {
         localStorage.setItem(taskObj.taskID.toString(), JSON.stringify(taskObj));
@@ -287,7 +289,7 @@ const closeForm = () => {
 // feedback
 
 const getImage = async (taskName) => {
-    const url = `https://api.unsplash.com/search/photos/?query=html&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
+    const url = `https://api.unsplash.com/search/photos/?query=${taskName}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
     const response = await fetch(url);
     const responseJson = await response.json();
     return responseJson.results[0].urls.regular
@@ -296,14 +298,15 @@ const getImage = async (taskName) => {
 const main = async (e) => {
     // prevent it from refreshing
     e.preventDefault();
+    const tagsArray = Array.from(taskTags);
+    // Get HTML image
+    const image = await getImage(tagsArray[0].innerText);
     // array to verify if all validation has passed
     const passedTrue = validateTaskForm();
     // special function to get array of assignees 
     const taskAssignee = getAssignee();
     // check if passed validation
     if (passedTrue) {
-        // Get HTML image
-        const image = await getImage(taskName.value);
         // Create a task object (with special assignee value of persons)
         const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
         // add task to manager
@@ -345,9 +348,14 @@ Array.from(taskAssignees).forEach((element) => {
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
 
-    // const src = 
+    const src = null; 
+    if (taskObj.img !== undefined) {
+        src = taskObj.img;
+    } else {
+        src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
+    }
     const cardTemplateHTML = `
-        <img src="${taskObj.img}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
+        <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
@@ -390,7 +398,7 @@ const renderSavedTasks = async () => {
                 overLapArr.push(savedindex);
             }
         }
-        const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status);
+        const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
         // add task to manager
         taskManager.addTask(task);
         // Create HTML for task
