@@ -13,7 +13,8 @@ let taskDesc = document.getElementById("description");
 let taskDueDate = document.getElementById("due-date");
 let taskStatus = document.getElementById("status");
 let taskAssignees = document.getElementsByName('person');
-
+let otherButton = document.getElementById("person5");
+let otherInput = document.getElementById('other-input');
 // Task 4
 // return a formated current date string:"YYYY-MM-DD".
 const processCurrentDate = () => {
@@ -129,15 +130,22 @@ function validateAssign() {
     var form_data = new FormData(document.querySelector("form"));
     if (!form_data.has("person")) //checking for the name person[] is present from the checkbox buttons
     {
-        document.getElementById("chk_option_error").style.visibility = "visible"; //display invalid feedback if the checkbox isn't checked
-        document.getElementById("chk_option_ok").style.visibility = "hidden"; //hide the positive feedback 
+        document.getElementById("chk_option_error").style.display = "block"; //display invalid feedback if the checkbox isn't checked
+        document.getElementById("chk_option_ok").style.display = "none"; //hide the positive feedback 
         return false;
     }
     else //if the form has person
     {
-        document.getElementById("chk_option_error").style.visibility = "hidden"; //hide the invalid feedback
-        document.getElementById("chk_option_ok").style.visibility = "visible"; //display the positive feedback
+        document.getElementById("chk_option_error").style.display = "none"; //hide the invalid feedback
+        document.getElementById("chk_option_ok").style.display = "block"; //display the positive feedback
     }
+    // changing feedback if other button was clicked
+    const otherBtn = document.getElementById("person5");
+    if (otherBtn.checked) {
+        document.getElementById("chk_option_error").style.display = "none";
+        document.getElementById("chk_option_ok").style.display = "none";
+    }
+
     return true;
 };
 // validate name function
@@ -155,7 +163,7 @@ const validateTaskTags = () => {
     const validatedString = validateString(result, 'string', 1, 100);
 
     renderFeedback(validatedString, "tag");
-    
+
     if (validatedString.status) {
         return true;
     }
@@ -174,13 +182,13 @@ const validateTaskTagForm = () => {
     tagsArray.forEach(el => {
         el.remove();
     })
-    
+
 
     if (tagsArray.length > 0) {
-        renderFeedback({ status: true, feedback: "Looks good"}, "tag");
+        renderFeedback({ status: true, feedback: "Looks good" }, "tag");
         return true;
     } else {
-        renderFeedback({ status: false, feedback: "Atleast one tag"}, "tag");
+        renderFeedback({ status: false, feedback: "Atleast one tag" }, "tag");
         return false;
     }
 }
@@ -225,7 +233,7 @@ const disableFeedback = () => {
     }
     //fix bootstrap feedback
     const bootstrapFeedback = document.getElementById(`chk_option_ok`)
-    bootstrapFeedback.style.visibility = "hidden";
+    bootstrapFeedback.style.display = "none";
     const assignee = Array.from(taskAssignees);
     assignee.forEach(person => person.checked = false);
     // const statuses = taskStatus;
@@ -325,7 +333,7 @@ const main = async (e) => {
         closeForm();
     }
 };
-// Task 5 - Date object
+// Task 5 - Date object  // self executing function
 const createDate = () => {
     // const currentDate = new Date();
     const headerDateEl = document.getElementById("header-date");
@@ -333,6 +341,36 @@ const createDate = () => {
     setTimeout(createDate, 1000)
 }
 createDate();
+
+const validateOtherBtn = () => {
+    console.log('this is being changed')
+
+    // feels kind of pointless
+    // const result = validateString(otherInput.value, 'string', 1, 25);
+    // if (otherInput.value.length < 2) {
+    //     document.getElementById("chk_option_error").style.display = "block";
+    //     document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters";
+    //     document.getElementById("chk_option_ok").style.display = "none";
+    // } else {
+    //     document.getElementById("chk_option_error").style.display = "none";
+    // }
+}
+
+// Other assignee clicked
+const otherAssigneeClick = () => {
+    const okMessage = document.getElementById('chk_option_ok');
+    
+    console.log('working')
+    console.log(otherInput.style.display)
+    if (otherInput.style.display === "block") {
+        otherInput.style.display = "none";
+    } else {
+        otherInput.style.display = "block";
+    }
+    // okMessage.style.display = "block";
+    // okMessage.innerText = "this is working";
+}
+
 // Event listeners here
 formEl.addEventListener("submit", main);
 taskName.addEventListener("input", validateTaskName);
@@ -343,12 +381,14 @@ taskStatus.addEventListener("change", validateTaskStatus);
 Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
 });
-
+otherButton.addEventListener("change", otherAssigneeClick);
+// if you really want dynamic use input instead of change
+otherInput.addEventListener("input", validateOtherBtn);
 
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
 
-    let src = null; 
+    let src = null;
     if (taskObj.img !== undefined) {
         src = taskObj.img;
     } else {
@@ -375,14 +415,14 @@ const createTaskHTML = (taskObj) => {
 
 // // Read json file from saved objects
 const readFromJson = async (filePath) => {
-
     const response = await fetch(filePath)
     const json = await response.json();
     return json;
 }
 
+// self executing at the start of the program
 // Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = async () => {
+const renderSavedTasks = (async () => {
 
     const temp = await readFromJson('./preLoadTasks.json');
     const ls = localStorage;
@@ -426,5 +466,4 @@ const renderSavedTasks = async () => {
         // render task
         taskManager.render(taskHTML);
     }
-}
-renderSavedTasks();
+})()
