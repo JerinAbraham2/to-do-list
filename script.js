@@ -8,6 +8,7 @@ let taskName = document.getElementById("taskName");
 
 let taskTags = document.getElementsByName("tag-group");
 let tagInput = document.getElementById("tag-input");
+let tagInputBox = document.getElementById("tag-input-box");
 // console.log(TagInput);
 // console.log(taskTags);
 let taskDesc = document.getElementById("description");
@@ -143,19 +144,21 @@ const validateTaskName = () => {
 
 const validateTaskTags = () =>{
     const arrResults = [];
-    Array.from(taskTags).forEach((tag)=> {
-        const result = validateString(tag.innerText, 'string', 1, 100);
-        renderFeedback(result, "tag"); //render the feedback of each tag-input
-        arrResults.push(result);
-    })
-    console.log(arrResults);
-
-    // find if there is a false in all results for tags
-    const falseResult =arrResults.some(e => e.status ===false);
-    console.log(falseResult);
+    // Array.from(tagInputBox.value).forEach((tag)=> {
+    //     const result = validateString(tag.innerText, 'string', 1, 100);
+    //     renderFeedback(result, "tag"); //render the feedback of each tag-input
+    //     arrResults.push(result);
+    // })
+    // console.log(arrResults);
+    const result = tagInputBox.value; 
+    const validatedString = validateString(result, 'string', 1, 100);
+    renderFeedback(validatedString, "tag");
 
     
-    if(falseResult) {
+    // find if there is a false in all results for tags
+    // const falseResult =arrResults.some(e => e.status ===false);
+    // console.log(falseResult);
+    if(validatedString.status) {
         console.log("valid the input format");
         return false;
     }
