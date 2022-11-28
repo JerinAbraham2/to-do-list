@@ -104,7 +104,7 @@
                 </div>
                 <!-- Assign to -->
                 <label class="form-label" for="">Assign To: </label>
-                <div class="button-group">
+                <div class="button-group" >
                   <div class="btn-group" id="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     <input class="btn-check" type="checkbox" id="person1" name="person" value="Prasanna"
                       autocomplete="off" />
@@ -115,19 +115,27 @@
                     <input class="btn-check" type="checkbox" id="person3" name="person" value="Jerin"
                       autocomplete="off" />
                     <label class="btn btn-outline-light" for="person3">Jerin</label>
+
                     <input class="btn-check" type="checkbox" id="person4" name="person" value="Ethan"
                       autocomplete="off" />
                     <label class="btn btn-outline-light" for="person4">Ethan</label>
+
+                    <input class="btn-check" type="checkbox" id="person5" name="person" value="other"
+                      autocomplete="off" />
+                    <label class="btn btn-outline-light" for="person5">Other</label>
                   </div>
-                  <div style="visibility:hidden; color:red; " id="chk_option_error">
+
+                  <input  type="input" class="form-control my-3 w-1/2" id="other-input" style="display:none" name="other-input" autocomplete="off"  placeholder="insert name here"/>
+
+                  <div style="display:none; color:red; " id="chk_option_error">
                     Please select at least one option.
                   </div>
-                  <div style="visibility:hidden; color: green;" id="chk_option_ok">
+                  <div style="display:none; color: green;" id="chk_option_ok">
                     Looks good!
                   </div>
                 </div>
                 <!-- Due date -->
-                <label class="form-label" for="due-date">Due Date:</label><br />
+                <label class="form-label mt-2" for="due-date">Due Date:</label><br />
                 <input class="form-control" type="date" id="due-date" name="due-date" required />
                 <div id="valid-date" class="greenFont"></div>
                 <div id="invalid-date" class="redFont"></div>
