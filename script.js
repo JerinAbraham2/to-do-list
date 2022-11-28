@@ -2,15 +2,13 @@ import TaskManager from './TaskManager.js'; // Importing TaskManager class
 
 // Declaring Task Manager object
 const taskManager = new TaskManager();
+
 // DOM Elements
 const formEl = document.getElementById("taskform");
 let taskName = document.getElementById("taskName");
-
 let taskTags = document.getElementsByName("tag-group");
 let tagInput = document.getElementById("tag-input");
 let tagInputBox = document.getElementById("tag-input-box");
-// console.log(TagInput);
-// console.log(taskTags);
 let taskDesc = document.getElementById("description");
 let taskDueDate = document.getElementById("due-date");
 let taskStatus = document.getElementById("status");
@@ -44,16 +42,14 @@ const processCurrentTime = () => {
     if (mm < 10) { //correecting the miniute display to two digits
         let newMinute = `${hh}:0${mm}:${ss}`;
         const currentDate = `${newMinute} ${ampm}`;
-        //console.log(currentDate)
         return currentDate;
     }
     else {
         const currentDate = `${hh}:${mm}:${ss} ${ampm}`;
-        //console.log(currentDate)
         return currentDate;
     }
 
-   
+
 }
 const getAssignee = () => {
     const assignee = Array.from(taskAssignees);
@@ -148,37 +144,46 @@ function validateAssign() {
 const validateTaskName = () => {
     const formName = taskName;
     const result = validateString(formName.value, 'string', 8, 100);
-    //console.log(result);
     renderFeedback(result, "taskName");
-    //console.log(result.status);
     return result.status;
 }
 
 
-const validateTaskTags = () =>{
+const validateTaskTags = () => {
     const arrResults = [];
-    // Array.from(tagInputBox.value).forEach((tag)=> {
-    //     const result = validateString(tag.innerText, 'string', 1, 100);
-    //     renderFeedback(result, "tag"); //render the feedback of each tag-input
-    //     arrResults.push(result);
-    // })
-    // console.log(arrResults);
-    const result = tagInputBox.value; 
+    const result = tagInputBox.value;
     const validatedString = validateString(result, 'string', 1, 100);
-    renderFeedback(validatedString, "tag");
 
+    renderFeedback(validatedString, "tag");
     
-    // find if there is a false in all results for tags
-    // const falseResult =arrResults.some(e => e.status ===false);
-    // console.log(falseResult);
-    if(validatedString.status) {
-        console.log("valid the input format");
-        return false;
-    }
-    else {
+    if (validatedString.status) {
         return true;
     }
+    else {
+        return false;
+    }
 }
+
+// tag
+
+const validateTaskTagForm = () => {
+
+    let tag = document.getElementById('tags');
+    const dataTagAttribute = tag.getAttribute('data-tags');
+    const tagsArray = Array.from(taskTags);
+    tagsArray.forEach(el => {
+        el.remove();
+    })
+
+    if (tagsArray.length > 0) {
+        renderFeedback({ status: true, feedback: "Looks good"}, "tag");
+        return true;
+    } else {
+        renderFeedback({ status: false, feedback: "Atleast one tag"}, "tag");
+        return false;
+    }
+}
+
 
 // validate description
 const validateTaskDesc = () => {
@@ -211,7 +216,7 @@ const saveLocalData = (taskObjectArr) => {
     }
 }
 const disableFeedback = () => {
-    const feedbackItems = ['taskName', 'desc', 'date', 'status']
+    const feedbackItems = ['taskName', 'desc', 'date', 'status', 'tag']
     for (let i = 0; i < feedbackItems.length; i++) {
         const item = document.getElementById(`valid-${feedbackItems[i]}`)
         item.style.display = "none";
@@ -240,34 +245,34 @@ const tId = () => {
 
 // If the saved task have ID already. keep the old by passing the ID 
 // if it is a new task create a new uniqe ID by id ="needNewid";
-// console.log(placeholder);
 //create task object 
-const taskObject = (id, taskName, taskDescription, assignee, dueDate, status) => {
-    if(id === 'needNewid')
-    return {
-        taskID: tId(),
-        taskName: taskName,
-        taskDescription: taskDescription,
-        assignee: assignee,
-        dueDate: dueDate,
-        status: status
-    }
-    else{
-    return{
-        taskID: id,
-        taskName: taskName,
-        taskDescription: taskDescription,
-        assignee: assignee,
-        dueDate: dueDate,
-        status: status
-    
-    }
+const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img) => {
+    if (id === 'needNewid')
+        return {
+            taskID: tId(),
+            taskName: taskName,
+            taskDescription: taskDescription,
+            assignee: assignee,
+            dueDate: dueDate,
+            status: status,
+            img: img,
+        }
+    else {
+        return {
+            taskID: id,
+            taskName: taskName,
+            taskDescription: taskDescription,
+            assignee: assignee,
+            dueDate: dueDate,
+            status: status,
+            img: img,
+        }
     }
 }
 const validateTaskForm = () => {
     const checkAllTrue = [];
     // push validation to validation array
-    checkAllTrue.push(validateTaskName(),validateTaskTags(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
+    checkAllTrue.push(validateTaskName(), validateTaskTagForm(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
     // look at each element, and see if they passed
     return checkAllTrue.every((item) => item);
 }
@@ -285,7 +290,6 @@ const getImage = async (taskName) => {
     const url = `https://api.unsplash.com/search/photos/?query=html&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
     const response = await fetch(url);
     const responseJson = await response.json();
-    // console.log(responseJson);
     return responseJson.results[0].urls.regular
 }
 
@@ -298,12 +302,12 @@ const main = async (e) => {
     const taskAssignee = getAssignee();
     // check if passed validation
     if (passedTrue) {
-        // Create a task object (with special assignee value of persons)
-        const task = taskObject('needNewid',taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value);
-        // add task to manager
-        taskManager.addTask(task);
         // Get HTML image
         const image = await getImage(taskName.value);
+        // Create a task object (with special assignee value of persons)
+        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
+        // add task to manager
+        taskManager.addTask(task);
         // Create HTML for task
         const taskHTML = createTaskHTML(task);
         // render task
@@ -316,7 +320,6 @@ const main = async (e) => {
         disableFeedback();
         // Special function to make form disappear with bootstrap
         closeForm();
-
     }
 };
 // Task 5 - Date object
@@ -344,7 +347,7 @@ const createTaskHTML = (taskObj) => {
 
     // const src = 
     const cardTemplateHTML = `
-        <img src="resources/images/phone.jpg" class="card-img-top" alt="..." />
+        <img src="${taskObj.img}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
@@ -380,19 +383,14 @@ const renderSavedTasks = async () => {
     let overLapArr = [];
     for (let i = 0; i < ls.length; i++) {
         const key = ls.key(i)
-        // console.log(key);
         const object = JSON.parse(ls.getItem(key));
-        // console.log(object);
-        // console.log(temp.length)
-        // console.log(typeof(temp));
         for (let savedindex in temp) {
-            // console.log(savedindex);
             // if saved task in the local storage store the index in array
-            if(savedindex===key) {
+            if (savedindex === key) {
                 overLapArr.push(savedindex);
             }
-        }     
-        const task = taskObject(key,object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status);
+        }
+        const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status);
         // add task to manager
         taskManager.addTask(task);
         // Create HTML for task
@@ -401,11 +399,9 @@ const renderSavedTasks = async () => {
         taskManager.render(taskHTML);
     }
 
-    // console.log(overLapArr);
-    let savedArry = []; 
+    let savedArry = [];
     // only render the tasks not in the local storage
     for (let savedindex in temp) {
-        // console.log(savedindex);
         savedArry.push(savedindex);
     }
 
@@ -414,16 +410,13 @@ const renderSavedTasks = async () => {
 
     // / only render saved task which is not in the local storage 
     for (let diffIdex of diffArr) {
-        const diffObj=temp[diffIdex];
-        // console.log(diffObj.taskDescription);
-        const diffSavedTask = taskObject(diffIdex ,diffObj.taskName, diffObj.taskDescription, diffObj.assignee,diffObj.dueDate, diffObj.status);
-        // console.log(diffSavedTask);
+        const diffObj = temp[diffIdex];
+        const diffSavedTask = taskObject(diffIdex, diffObj.taskName, diffObj.taskDescription, diffObj.assignee, diffObj.dueDate, diffObj.status);
         taskManager.addTask(diffSavedTask);
-        // console.log(taskManager.getAllTasks());
         // Create HTML for task
         const taskHTML = createTaskHTML(diffSavedTask);
         // render task
-        taskManager.render(taskHTML);  
+        taskManager.render(taskHTML);
     }
 }
 renderSavedTasks();

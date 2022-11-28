@@ -49,4 +49,3 @@ function tagSelect() {
     }
   }
 
-//   console.log(tagSelect('this'));
