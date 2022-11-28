@@ -33,14 +33,27 @@ const processCurrentTime = () => {
     const mm = today.getMinutes();
     const ss = today.getSeconds();
     let ampm = null;
+
     if (hh > 12) {
         hh -= 12;
         ampm = 'PM';
     } else {
         ampm = 'AM';
     }
-    const currentDate = `${hh}:${mm}:${ss} ${ampm}`;
-    return currentDate;
+
+    if (mm < 10) { //correecting the miniute display to two digits
+        let newMinute = `${hh}:0${mm}:${ss}`;
+        const currentDate = `${newMinute} ${ampm}`;
+        //console.log(currentDate)
+        return currentDate;
+    }
+    else {
+        const currentDate = `${hh}:${mm}:${ss} ${ampm}`;
+        //console.log(currentDate)
+        return currentDate;
+    }
+
+   
 }
 const getAssignee = () => {
     const assignee = Array.from(taskAssignees);
