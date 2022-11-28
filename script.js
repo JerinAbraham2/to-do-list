@@ -57,7 +57,11 @@ const getAssignee = () => {
     const persons = [];
     assignee.map(person => {
         if (person.checked) {
-            persons.push(person.value);
+            if (person.id === 'person5') {
+                persons.push(otherInput.value);
+            } else {
+                persons.push(person.value);
+            }
         };
     });
     return persons;
@@ -231,6 +235,9 @@ const disableFeedback = () => {
         const item = document.getElementById(`valid-${feedbackItems[i]}`)
         item.style.display = "none";
     }
+    // remove and clear otherInput
+    otherInput.style.display = "none";
+    otherInput.value = "";
     //fix bootstrap feedback
     const bootstrapFeedback = document.getElementById(`chk_option_ok`)
     bootstrapFeedback.style.display = "none";
@@ -420,7 +427,7 @@ const readFromJson = async (filePath) => {
     return json;
 }
 
-// self executing at the start of the program
+// changed to self self executing at the start of the program
 // Render pre-saved taskobjects in both localstorage and json file.
 const renderSavedTasks = (async () => {
 
