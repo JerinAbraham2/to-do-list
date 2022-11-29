@@ -232,23 +232,29 @@ const saveLocalData = (taskObjectArr) => {
         localStorage.setItem(taskObj.taskID.toString(), JSON.stringify(taskObj));
     }
 }
-const disableFeedback = () => {
+const resetForm = () => {
     const feedbackItems = ['taskName', 'desc', 'date', 'status', 'tag']
     for (let i = 0; i < feedbackItems.length; i++) {
         const item = document.getElementById(`valid-${feedbackItems[i]}`)
         item.style.display = "none";
     }
+    //remove bootstrap feedback for assignee (I think assignee)
+    const bootstrapFeedback = document.getElementById(`chk_option_ok`)
+    bootstrapFeedback.style.display = "none";
+    // unlick assignee button
+    const assignee = Array.from(taskAssignees);
+    assignee.forEach(person => person.checked = false);
     // remove and clear otherInput
     otherInput.style.display = "none";
     otherInput.value = "";
-    //fix bootstrap feedback
-    const bootstrapFeedback = document.getElementById(`chk_option_ok`)
-    bootstrapFeedback.style.display = "none";
-    const assignee = Array.from(taskAssignees);
-    assignee.forEach(person => person.checked = false);
-    // const statuses = taskStatus;
+    // make status default again;
     const selectedChoose = taskStatus;
     selectedChoose.selectedIndex = 0;
+    // reset the tags 
+    const tagsArray = Array.from(taskTags);
+    tagsArray.forEach(el => {
+        el.parentNode.querySelector('#tag-button-id').click();
+    })
 }
 
 // Increcement ID doesn' work well. the Unique ID works better for further fucntions
@@ -354,7 +360,7 @@ const main = async (e) => {
         // saving the data to local storage
         saveLocalData(taskManager.getAllTasks());
         // disabling the feedback
-        disableFeedback();
+        resetForm();
         //remove done button if already done
         removeDoneButton();
         // Special function to make form disappear with bootstrap
@@ -513,6 +519,8 @@ const readFromJson = async (filePath) => {
 }
 
 const updateTaskStatus = (e) => {
+    //prevent the default activity of scrolling up
+    e.preventDefault(); // prevents it from scrolling up after clicking
     const taskArray = taskManager.getAllTasks();
     console.log(taskArray);
     console.log("button was clicked")
@@ -530,7 +538,7 @@ const removeDoneButton = () => {
     //add event listener for each on keypress
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
     doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
-    
+
     const cards = Array.from(document.getElementsByClassName("update-done"));
     cards.forEach((el) => {
         const parentEl = el.parentNode
