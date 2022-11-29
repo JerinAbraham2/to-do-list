@@ -149,7 +149,7 @@ function validateAssign() {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "none";
         //validate code to pass the validateForm()
-        if (otherInput.value.length) {
+        if (otherInput.value.length < 2) {
             return false;
         }
     }
