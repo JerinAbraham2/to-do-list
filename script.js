@@ -308,6 +308,7 @@ const closeForm = () => {
 
 const getImage = async (taskName) => {
 
+
     // see all the tags
     const tagsArray = Array.from(taskTags);
     // see if they selected a optional tag tag 
@@ -326,6 +327,7 @@ const getImage = async (taskName) => {
             return "resources\\images\\no-photo-no-tag.png";
         }
     }
+
 }
 
 const main = async (e) => {
@@ -468,7 +470,7 @@ const createTaskHTML = (taskObj) => {
             badge = "success"
         break;
     }   
-
+    console.log(taskObj.assignee)
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body" id="${taskObj.taskID}">
@@ -480,7 +482,7 @@ const createTaskHTML = (taskObj) => {
         </div>
         <div class="status-assign">
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
-            <span class="badge text-bg-light">${taskObj.assignee}</span>
+            <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
         </div>
