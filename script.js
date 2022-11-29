@@ -149,6 +149,11 @@ function validateAssign() {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "none";
     }
+    //validate code to pass the validateForm()
+    if(otherInput.value.length<2){
+        return false;
+    }
+    
 
     return true;
 };
@@ -352,23 +357,26 @@ createDate();
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
-    // feels kind of pointless
-    // const result = validateString(otherInput.value, 'string', 1, 25);
-    // if (otherInput.value.length < 2) {
-    //     document.getElementById("chk_option_error").style.display = "block";
-    //     document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters";
-    //     document.getElementById("chk_option_ok").style.display = "none";
-    // } else {
-    //     document.getElementById("chk_option_error").style.display = "none";
-    // }
+    // validate the new assignee 
+    const result = validateString(otherInput.value, 'string', 1, 25);
+    if (otherInput.value.length < 2) {
+        document.getElementById("chk_option_error").style.display = "block";
+        document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters"; //display invalid feedback
+        document.getElementById("chk_option_ok").style.display = "none";
+        console.log("after the error msg")
+    } else {
+        document.getElementById("chk_option_error").style.display = "none";
+        document.getElementById("chk_option_ok").style.display = "block"; //display valid feedback
+        console.log(result)
+    }
 }
 
 // Other assignee clicked
 const otherAssigneeClick = () => {
     const okMessage = document.getElementById('chk_option_ok');
-    
+    console.log(okMessage)
     console.log('working')
-    console.log(otherInput.style.display)
+    
     if (otherInput.style.display === "block") {
         otherInput.style.display = "none";
     } else {
@@ -415,6 +423,9 @@ const createTaskHTML = (taskObj) => {
             <span class="badge text-bg-light">${taskObj.assignee}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
+        </div>
+        </div>
+        <a href="#" class="btn btn-outline-success" id="delete">Mark As Done</a>
         </div>`
     return cardTemplateHTML;
 };
