@@ -349,6 +349,30 @@ const createDate = () => {
 }
 createDate();
 
+// TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
+const updateStatusUI = (e) => {
+    if (e) {
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode;
+        console.log('cardBody: ', cardBody);
+        const status = cardBody.querySelector('.card-status');
+        console.log('status: ', status);
+        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
+        status.innerText = "Done"; // 
+        e.target.remove();
+
+        // console.log('e.target.parentNode(): ', e.target.parentNode());
+    } else {
+        // delete button
+        // const deleteBtn = document.getElementById("delete");
+        // deleteBtn.remove();
+        // change status to done
+        const btns = document.querySelectorAll(".card .card-body .btn") //get button
+        console.log('btns: ', btns);
+        btns.forEach(b => b.addEventListener('click', updateStatusUI));
+    }
+}
+
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
@@ -366,7 +390,7 @@ const validateOtherBtn = () => {
 // Other assignee clicked
 const otherAssigneeClick = () => {
     const okMessage = document.getElementById('chk_option_ok');
-    
+
     console.log('working')
     console.log(otherInput.style.display)
     if (otherInput.style.display === "block") {
@@ -427,9 +451,8 @@ const readFromJson = async (filePath) => {
     return json;
 }
 
-// changed to self self executing at the start of the program
 // Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = (async () => {
+const renderSavedTasks = async () => {
 
     const temp = await readFromJson('./preLoadTasks.json');
     const ls = localStorage;
@@ -473,4 +496,8 @@ const renderSavedTasks = (async () => {
         // render task
         taskManager.render(taskHTML);
     }
-})()
+
+
+    updateStatusUI(); // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
+}
+renderSavedTasks();
