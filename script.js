@@ -429,7 +429,7 @@ const readFromJson = async (filePath) => {
 
 // changed to self self executing at the start of the program
 // Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = (async () => {
+const renderSavedTasks = async () => {
 
     const temp = await readFromJson('./preLoadTasks.json');
     const ls = localStorage;
@@ -473,4 +473,6 @@ const renderSavedTasks = (async () => {
         // render task
         taskManager.render(taskHTML);
     }
-})()
+}
+
+renderSavedTasks();
