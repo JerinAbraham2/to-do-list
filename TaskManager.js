@@ -13,9 +13,6 @@ export default class TaskManager {
 
     updateStatus(id,value){
         let targetTask = this.taskArray.find(task => task.taskID === id);
-        console.log("Before");
-        targetTask.status = value;
-        console.log("after");
         targetTask.status = value;
     }  
 
