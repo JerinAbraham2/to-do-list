@@ -364,7 +364,7 @@ const updateStatusUI = (e) => {
         const status = cardBody.querySelector('.card-status');
         console.log('status: ', status);
         // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
-        status.innerText = "Done"; // 
+        status.innerText = "DONE"; // 
         e.target.remove();
 
         // console.log('e.target.parentNode(): ', e.target.parentNode());
@@ -439,6 +439,23 @@ const createTaskHTML = (taskObj) => {
     } else {
         src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
     }
+    // different badges depending on the status of task
+    let badge = null;
+    switch (taskObj.status) {
+        case 'TODO':
+            badge = "info"
+        break;
+        case 'IN PROGRESS':
+            badge = "primary"
+        break;
+        case 'REVIEW':
+            badge = "warning"
+        break;
+        case 'DONE':
+            badge = "success"
+        break;
+    }   
+
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body" id="${taskObj.taskID}">
@@ -449,7 +466,7 @@ const createTaskHTML = (taskObj) => {
             Due: ${taskObj.dueDate}
         </div>
         <div class="status-assign">
-            <span class="badge rounded-pill text-bg-info card-status">${taskObj.status}</span>
+            <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
             <span class="badge text-bg-light">${taskObj.assignee}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
