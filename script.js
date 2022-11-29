@@ -311,7 +311,7 @@ const getImage = async (taskName) => {
     const url = `https://api.unsplash.com/search/photos/?query=${taskName}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
     const response = await fetch(url);
     const responseJson = await response.json();
-    return responseJson.results[0].urls.regular
+    return responseJson.results[0].urls.small
 }
 
 const main = async (e) => {
@@ -455,7 +455,7 @@ const createTaskHTML = (taskObj) => {
             badge = "success"
         break;
     }   
-
+    console.log(taskObj.assignee)
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body" id="${taskObj.taskID}">
@@ -467,7 +467,7 @@ const createTaskHTML = (taskObj) => {
         </div>
         <div class="status-assign">
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
-            <span class="badge text-bg-light">${taskObj.assignee}</span>
+            <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
         </div>
