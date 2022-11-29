@@ -437,7 +437,7 @@ const createTaskHTML = (taskObj) => {
     if (taskObj.img !== undefined) {
         src = taskObj.img;
     } else {
-        src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
+        src = "https://images.unsplash.com/photo-1517849845537-4d257902454a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHxkb2d8ZW58MHx8fHwxNjY5NzE1Nzcw&ixlib=rb-4.0.3&q=80&w=1080"
     }
     // different badges depending on the status of task
     let badge = null;
@@ -522,69 +522,64 @@ const removeDoneButton = () => {
             doneBtn.remove();
         }
     })
+};
 
-}
-
-// Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = async () => {
-
+// Import some json tasks value to localstorage.
+const saveJsonToLocal = async () => {
     const temp = await readFromJson('./preLoadTasks.json');
-    const ls = localStorage;
+    saveLocalData(temp);
+};
 
+//This function only run once.
+function once() {
+    var first = true;
+    return function() {
+      if (first) {
+         first = false;
+         localStorage.setItem("isJsonLoaded", JSON.stringify(false));
+         return null;
+      } else {
+         return null;
+      }
+    };
+ };
+
+// Only load saved json task objects one time. 
+// Render pre-saved taskobjects in localstorage 
+const renderSavedTasks = () => {
+
+    once(function() {console.log("false only assigned once");});
+    if(localStorage.getItem("isJsonLoaded") === "false"){
+        console.log("isJsonLoaded is false.")
+        saveJsonToLocal();
+        localStorage.setItem("isJsonLoaded", JSON.stringify(true));
+        ("Json is loading to local storage.")
+    } else {  
+        console.log("Json is loaded before!")
+    }
+
+    const temp = localStorage.getItem("isJsonLoaded");
+    localStorage.removeItem("isJsonLoaded");
+    //remove the is loaded value from local storage before render
+    const ls = localStorage;
+    console.log(ls);
     //render all task from local Storage and find same task in json file/
-    let overLapArr = [];
     for (let i = 0; i < ls.length; i++) {
         const key = ls.key(i)
+        console.log(key);
         const object = JSON.parse(ls.getItem(key));
-        for (let savedindex in temp) {
-            // if saved task in the local storage store the index in array
-            if (savedindex === key) {
-                overLapArr.push(savedindex);
-            }
-        }
-
         renderTask(key,object);
     }
+    //*put back the isloaded status to local storage for next check.
+    localStorage.setItem("isJsonLoaded",temp);
 
-    let savedArry = [];
-    // only render the tasks not in the local storage
-    for (let savedindex in temp) {
-        savedArry.push(savedindex);
-    }
-    // Find the index for the preload task which are missing from local storage.
-    let diffArr = savedArry.filter(el => !overLapArr.includes(el));
-
-    // / only render saved task which is not in the local storage from json file
-    for (let diffIdex of diffArr) {
-        const diffObj = temp[diffIdex];
-        renderTask(diffIdex, diffObj);
-    }
-
-     // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
-
-    // const taskArray =taskManager.getAllTasks(); 
-    // console.log(taskArray[0]);
     // update status in task manager
-    
     //exists afterwards
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
     // console.log(doneButton);
     doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
-
     // remove done button if status is done
     removeDoneButton();
 }
-
-
-
-// // Task 8
-// when "get done" button click change the status in local storage.
-// create event lisener to the button;
-
-// getDoneButton.addEventListener('click', updateStatus);
-// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
-// const doneTaskID = getDoneButton.parentNode.nodeName;
-// taskManager.updateStatus(doneTaskID);
-
 
 renderSavedTasks();
