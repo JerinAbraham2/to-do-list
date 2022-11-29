@@ -149,6 +149,11 @@ function validateAssign() {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "none";
     }
+    //validate code to pass the validateForm()
+    if(otherInput.value.length<2){
+        return false;
+    }
+    
 
     return true;
 };
@@ -376,23 +381,27 @@ const updateStatusUI = (e) => {
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
-    // feels kind of pointless
-    // const result = validateString(otherInput.value, 'string', 1, 25);
-    // if (otherInput.value.length < 2) {
-    //     document.getElementById("chk_option_error").style.display = "block";
-    //     document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters";
-    //     document.getElementById("chk_option_ok").style.display = "none";
-    // } else {
-    //     document.getElementById("chk_option_error").style.display = "none";
-    // }
+    // validate the new assignee 
+    const result = validateString(otherInput.value, 'string', 1, 25);
+    if (otherInput.value.length < 2) {
+        document.getElementById("chk_option_error").style.display = "block";
+        document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters"; //display invalid feedback
+        document.getElementById("chk_option_ok").style.display = "none";
+        console.log("after the error msg")
+    } else {
+        document.getElementById("chk_option_error").style.display = "none";
+        document.getElementById("chk_option_ok").style.display = "block"; //display valid feedback
+        console.log(result)
+    }
 }
 
 // Other assignee clicked
 const otherAssigneeClick = () => {
     const okMessage = document.getElementById('chk_option_ok');
 
+    console.log(okMessage)
     console.log('working')
-    console.log(otherInput.style.display)
+    
     if (otherInput.style.display === "block") {
         otherInput.style.display = "none";
     } else {
@@ -427,7 +436,7 @@ const createTaskHTML = (taskObj) => {
     }
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
-        <div class="card-body">
+        <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
         </p>
@@ -439,18 +448,40 @@ const createTaskHTML = (taskObj) => {
             <span class="badge text-bg-light">${taskObj.assignee}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
+        </div>
+        </div>
+        <a href="#" class="btn btn-outline-success" id="delete">Mark As Done</a>
         </div>`
     return cardTemplateHTML;
 };
 
+// // Task 8
+// when "get done" button click change the status in local storage.
+// create event lisener to the button;
+const getDoneButton = Document.getElementById('task');
+getDoneButton.addEventListener('click', updateStatus);
+// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
+const doneTaskID = getDoneButton.parentNode.nodeName;
+taskManager.updateStatus(doneTaskID);
 
+
+
+// render the Tasks from the Task Manager List;
+const renderTask = (key, object) => {
+    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
+    // add task to manager
+    taskManager.addTask(task);
+    // Create HTML for task
+    const taskHTML = createTaskHTML(task);
+    // render task
+    taskManager.render(taskHTML);
+}
 // // Read json file from saved objects
 const readFromJson = async (filePath) => {
     const response = await fetch(filePath)
     const json = await response.json();
     return json;
 }
-
 // Render pre-saved taskobjects in both localstorage and json file.
 const renderSavedTasks = async () => {
 
@@ -468,13 +499,8 @@ const renderSavedTasks = async () => {
                 overLapArr.push(savedindex);
             }
         }
-        const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
-        // add task to manager
-        taskManager.addTask(task);
-        // Create HTML for task
-        const taskHTML = createTaskHTML(task);
-        // render task
-        taskManager.render(taskHTML);
+
+        renderTask(key,object);
     }
 
     let savedArry = [];
@@ -482,22 +508,19 @@ const renderSavedTasks = async () => {
     for (let savedindex in temp) {
         savedArry.push(savedindex);
     }
-
     // Find the index for the preload task which are missing from local storage.
     let diffArr = savedArry.filter(el => !overLapArr.includes(el));
 
-    // / only render saved task which is not in the local storage 
+    // / only render saved task which is not in the local storage from json file
     for (let diffIdex of diffArr) {
         const diffObj = temp[diffIdex];
-        const diffSavedTask = taskObject(diffIdex, diffObj.taskName, diffObj.taskDescription, diffObj.assignee, diffObj.dueDate, diffObj.status);
-        taskManager.addTask(diffSavedTask);
-        // Create HTML for task
-        const taskHTML = createTaskHTML(diffSavedTask);
-        // render task
-        taskManager.render(taskHTML);
+        renderTask(diffIdex, diffObj);
     }
 
-
     updateStatusUI(); // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
+
+    const taskArray =taskManager.getAllTasks(); 
+    console.log(taskArray[0]);
+
 }
 renderSavedTasks();
