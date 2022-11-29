@@ -330,148 +330,148 @@ const getImage = async () => {
     }
 }
 
-        const main = async (e) => {
-            // prevent it from refreshing
-            e.preventDefault();
-            // Get HTML image
-            const image = await getImage();
-            // array to verify if all validation has passed
-            const passedTrue = validateTaskForm();
-            // special function to get array of assignees 
-            const taskAssignee = getAssignee();
-            // check if passed validation
-            if (passedTrue) {
-                // Create a task object (with special assignee value of persons)
-                const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
-                // add task to manager
-                taskManager.addTask(task);
-                // Create HTML for task
-                const taskHTML = createTaskHTML(task);
-                // render task
-                taskManager.render(taskHTML);
-                // reset the values on the form after submit
-                taskName.value = taskDesc.value = taskDueDate.value = taskStatus.value = "";
-                // saving the data to local storage
-                saveLocalData(taskManager.getAllTasks());
-                // disabling the feedback
-                disableFeedback();
-                //remove done button if already done
-                removeDoneButton();
-                // Special function to make form disappear with bootstrap
-                closeForm();
-            }
-        };
-        // Task 5 - Date object  // self executing function
-        const createDate = () => {
-            // const currentDate = new Date();
-            const headerDateEl = document.getElementById("header-date");
-            headerDateEl.innerHTML = processCurrentDate().split('-').join('/') + "<br> " + processCurrentTime();
-            setTimeout(createDate, 1000)
-        }
-        createDate();
+const main = async (e) => {
+    // prevent it from refreshing
+    e.preventDefault();
+    // Get HTML image
+    const image = await getImage();
+    // array to verify if all validation has passed
+    const passedTrue = validateTaskForm();
+    // special function to get array of assignees 
+    const taskAssignee = getAssignee();
+    // check if passed validation
+    if (passedTrue) {
+        // Create a task object (with special assignee value of persons)
+        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
+        // add task to manager
+        taskManager.addTask(task);
+        // Create HTML for task
+        const taskHTML = createTaskHTML(task);
+        // render task
+        taskManager.render(taskHTML);
+        // reset the values on the form after submit
+        taskName.value = taskDesc.value = taskDueDate.value = taskStatus.value = "";
+        // saving the data to local storage
+        saveLocalData(taskManager.getAllTasks());
+        // disabling the feedback
+        disableFeedback();
+        //remove done button if already done
+        removeDoneButton();
+        // Special function to make form disappear with bootstrap
+        closeForm();
+    }
+};
+// Task 5 - Date object  // self executing function
+const createDate = () => {
+    // const currentDate = new Date();
+    const headerDateEl = document.getElementById("header-date");
+    headerDateEl.innerHTML = processCurrentDate().split('-').join('/') + "<br> " + processCurrentTime();
+    setTimeout(createDate, 1000)
+}
+createDate();
 
-        // TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
-        const updateStatusUI = (e) => {
-            if (e) {
-                console.log('e: ', e);
-                const cardBody = e.target.parentNode;
-                console.log('cardBody: ', cardBody);
-                const status = cardBody.querySelector('.card-status');
-                console.log('status: ', status);
-                // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
-                status.innerText = "DONE"; // 
-                e.target.remove();
+// TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
+const updateStatusUI = (e) => {
+    if (e) {
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode;
+        console.log('cardBody: ', cardBody);
+        const status = cardBody.querySelector('.card-status');
+        console.log('status: ', status);
+        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
+        status.innerText = "DONE"; // 
+        e.target.remove();
 
-                // console.log('e.target.parentNode(): ', e.target.parentNode());
-            } else {
-                // delete button
-                // const deleteBtn = document.getElementById("delete");
-                // deleteBtn.remove();
-                // change status to done
-                const btns = document.querySelectorAll(".card .card-body .btn") //get button
-                // console.log('btns: ', btns);
-                btns.forEach(b => b.addEventListener('click', updateStatusUI));
-            }
-        }
+        // console.log('e.target.parentNode(): ', e.target.parentNode());
+    } else {
+        // delete button
+        // const deleteBtn = document.getElementById("delete");
+        // deleteBtn.remove();
+        // change status to done
+        const btns = document.querySelectorAll(".card .card-body .btn") //get button
+        // console.log('btns: ', btns);
+        btns.forEach(b => b.addEventListener('click', updateStatusUI));
+    }
+}
 
-        const validateOtherBtn = () => {
-            console.log('this is being changed')
+const validateOtherBtn = () => {
+    console.log('this is being changed')
 
-            // validate the new assignee 
-            const result = validateString(otherInput.value, 'string', 1, 25);
-            if (otherInput.value.length < 2) {
-                document.getElementById("chk_option_error").style.display = "block";
-                document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters"; //display invalid feedback
-                document.getElementById("chk_option_ok").style.display = "none";
-                console.log("after the error msg")
-            } else {
-                document.getElementById("chk_option_error").style.display = "none";
-                document.getElementById("chk_option_ok").style.display = "block"; //display valid feedback
-                console.log(result)
-            }
-        }
+    // validate the new assignee 
+    const result = validateString(otherInput.value, 'string', 1, 25);
+    if (otherInput.value.length < 2) {
+        document.getElementById("chk_option_error").style.display = "block";
+        document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters"; //display invalid feedback
+        document.getElementById("chk_option_ok").style.display = "none";
+        console.log("after the error msg")
+    } else {
+        document.getElementById("chk_option_error").style.display = "none";
+        document.getElementById("chk_option_ok").style.display = "block"; //display valid feedback
+        console.log(result)
+    }
+}
 
-        // Other assignee clicked
-        const otherAssigneeClick = () => {
-            const okMessage = document.getElementById('chk_option_ok');
+// Other assignee clicked
+const otherAssigneeClick = () => {
+    const okMessage = document.getElementById('chk_option_ok');
 
-            console.log(okMessage)
-            console.log('working')
+    console.log(okMessage)
+    console.log('working')
 
-            if (otherInput.style.display === "block") {
-                otherInput.style.display = "none";
-            } else {
-                otherInput.style.display = "block";
-            }
-            // okMessage.style.display = "block";
-            // okMessage.innerText = "this is working";
-        }
-
-
+    if (otherInput.style.display === "block") {
+        otherInput.style.display = "none";
+    } else {
+        otherInput.style.display = "block";
+    }
+    // okMessage.style.display = "block";
+    // okMessage.innerText = "this is working";
+}
 
 
-        // Event listeners here
-        formEl.addEventListener("submit", main);
-        taskName.addEventListener("input", validateTaskName);
-        tagInput.addEventListener("click", validateTaskTags);
-        taskDesc.addEventListener("input", validateTaskDesc);
-        taskDueDate.addEventListener("change", validateTaskDate);
-        taskStatus.addEventListener("change", validateTaskStatus);
-        Array.from(taskAssignees).forEach((element) => {
-            element.addEventListener('change', validateAssign);
-        });
-        otherButton.addEventListener("change", otherAssigneeClick);
-        // if you really want dynamic use input instead of change
-        otherInput.addEventListener("input", validateOtherBtn);
 
 
-        // Create the HTML element.
-        const createTaskHTML = (taskObj) => {
+// Event listeners here
+formEl.addEventListener("submit", main);
+taskName.addEventListener("input", validateTaskName);
+tagInput.addEventListener("click", validateTaskTags);
+taskDesc.addEventListener("input", validateTaskDesc);
+taskDueDate.addEventListener("change", validateTaskDate);
+taskStatus.addEventListener("change", validateTaskStatus);
+Array.from(taskAssignees).forEach((element) => {
+    element.addEventListener('change', validateAssign);
+});
+otherButton.addEventListener("change", otherAssigneeClick);
+// if you really want dynamic use input instead of change
+otherInput.addEventListener("input", validateOtherBtn);
 
-            let src = null;
-            if (taskObj.img !== undefined) {
-                src = taskObj.img;
-            } else {
-                src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
-            }
-            // different badges depending on the status of task
-            let badge = null;
-            switch (taskObj.status) {
-                case 'TODO':
-                    badge = "info"
-                    break;
-                case 'IN PROGRESS':
-                    badge = "primary"
-                    break;
-                case 'REVIEW':
-                    badge = "warning"
-                    break;
-                case 'DONE':
-                    badge = "success"
-                    break;
-            }
-            console.log(taskObj.assignee)
-            const cardTemplateHTML = `
+
+// Create the HTML element.
+const createTaskHTML = (taskObj) => {
+
+    let src = null;
+    if (taskObj.img !== undefined) {
+        src = taskObj.img;
+    } else {
+        src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
+    }
+    // different badges depending on the status of task
+    let badge = null;
+    switch (taskObj.status) {
+        case 'TODO':
+            badge = "info"
+            break;
+        case 'IN PROGRESS':
+            badge = "primary"
+            break;
+        case 'REVIEW':
+            badge = "warning"
+            break;
+        case 'DONE':
+            badge = "success"
+            break;
+    }
+    console.log(taskObj.assignee)
+    const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
         <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
@@ -489,117 +489,98 @@ const getImage = async () => {
         </div>
         <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
         </div>`
-            return cardTemplateHTML;
-        };
+    return cardTemplateHTML;
+};
 
 
 
 
-        // render the Tasks from the Task Manager List;
-        const renderTask = (key, object) => {
-            const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
-            // add task to manager
-            taskManager.addTask(task);
-            // Create HTML for task
-            const taskHTML = createTaskHTML(task);
-            // render task
-            taskManager.render(taskHTML);
+// render the Tasks from the Task Manager List;
+const renderTask = (key, object) => {
+    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
+    // add task to manager
+    taskManager.addTask(task);
+    // Create HTML for task
+    const taskHTML = createTaskHTML(task);
+    // render task
+    taskManager.render(taskHTML);
+}
+// // Read json file from saved objects
+const readFromJson = async (filePath) => {
+    const response = await fetch(filePath)
+    const json = await response.json();
+    return json;
+}
+
+const updateTaskStatus = (e) => {
+    const taskArray = taskManager.getAllTasks();
+    console.log(taskArray);
+    console.log("button was clicked")
+    const getDoneButton = e.target;
+    console.log('getDoneButton: ', getDoneButton);
+    const parentNode = getDoneButton.parentNode;
+    const cardBody = parentNode.querySelector(".card-body");
+    console.log('id: ', cardBody.id);
+    taskManager.updateStatus(cardBody.id, "DONE");
+    updateStatusUI(e);
+    console.log(taskArray);
+}
+
+const removeDoneButton = () => {
+    //add event listener for each on keypress
+    let doneButton = Array.from(document.getElementsByClassName('update-done'));
+    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
+    
+    const cards = Array.from(document.getElementsByClassName("update-done"));
+    cards.forEach((el) => {
+        const parentEl = el.parentNode
+        const cardStatus = parentEl.querySelector('.card-status').innerText;
+        console.log('cardStatus: ', cardStatus);
+        if (cardStatus === "DONE") {
+            const doneBtn = parentEl.querySelector('.update-done');
+            doneBtn.remove();
         }
-        // // Read json file from saved objects
-        const readFromJson = async (filePath) => {
-            const response = await fetch(filePath)
-            const json = await response.json();
-            return json;
-        }
+    })
+}
 
-        const updateTaskStatus = (e) => {
-            const taskArray = taskManager.getAllTasks();
-            console.log(taskArray);
-            console.log("button was clicked")
-            const getDoneButton = e.target;
-            console.log('getDoneButton: ', getDoneButton);
-            const parentNode = getDoneButton.parentNode;
-            const cardBody = parentNode.querySelector(".card-body");
-            console.log('id: ', cardBody.id);
-            taskManager.updateStatus(cardBody.id, "DONE");
-            updateStatusUI(e);
-            console.log(taskArray);
-        }
+// Render pre-saved taskobjects in both localstorage and json file.
+const renderSavedTasks = async () => {
 
-        const removeDoneButton = () => {
-            const cards = Array.from(document.getElementsByClassName("update-done"));
-            cards.forEach((el) => {
-                const parentEl = el.parentNode
-                const cardStatus = parentEl.querySelector('.card-status').innerText;
-                console.log('cardStatus: ', cardStatus);
-                if (cardStatus === "DONE") {
-                    const doneBtn = parentEl.querySelector('.update-done');
-                    doneBtn.remove();
-                }
-            })
+    const temp = await readFromJson('./preLoadTasks.json');
+    const ls = localStorage;
 
-        }
-
-        // Render pre-saved taskobjects in both localstorage and json file.
-        const renderSavedTasks = async () => {
-
-            const temp = await readFromJson('./preLoadTasks.json');
-            const ls = localStorage;
-
-            //render all task from local Storage and find same task in json file/
-            let overLapArr = [];
-            for (let i = 0; i < ls.length; i++) {
-                const key = ls.key(i)
-                const object = JSON.parse(ls.getItem(key));
-                for (let savedindex in temp) {
-                    // if saved task in the local storage store the index in array
-                    if (savedindex === key) {
-                        overLapArr.push(savedindex);
-                    }
-                }
-
-                renderTask(key, object);
+    //render all task from local Storage and find same task in json file/
+    let overLapArr = [];
+    for (let i = 0; i < ls.length; i++) {
+        const key = ls.key(i)
+        const object = JSON.parse(ls.getItem(key));
+        for (let savedindex in temp) {
+            // if saved task in the local storage store the index in array
+            if (savedindex === key) {
+                overLapArr.push(savedindex);
             }
-
-            let savedArry = [];
-            // only render the tasks not in the local storage
-            for (let savedindex in temp) {
-                savedArry.push(savedindex);
-            }
-            // Find the index for the preload task which are missing from local storage.
-            let diffArr = savedArry.filter(el => !overLapArr.includes(el));
-
-            // / only render saved task which is not in the local storage from json file
-            for (let diffIdex of diffArr) {
-                const diffObj = temp[diffIdex];
-                renderTask(diffIdex, diffObj);
-            }
-
-            // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
-
-            // const taskArray =taskManager.getAllTasks(); 
-            // console.log(taskArray[0]);
-            // update status in task manager
-
-            //exists afterwards
-            let doneButton = Array.from(document.getElementsByClassName('update-done'));
-            // console.log(doneButton);
-            doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
-
-            // remove done button if status is done
-            removeDoneButton();
         }
 
+        renderTask(key, object);
+    }
+
+    let savedArry = [];
+    // only render the tasks not in the local storage
+    for (let savedindex in temp) {
+        savedArry.push(savedindex);
+    }
+    // Find the index for the preload task which are missing from local storage.
+    let diffArr = savedArry.filter(el => !overLapArr.includes(el));
+
+    // / only render saved task which is not in the local storage from json file
+    for (let diffIdex of diffArr) {
+        const diffObj = temp[diffIdex];
+        renderTask(diffIdex, diffObj);
+    }
+    // remove done button if status is done
+    removeDoneButton();
+}
 
 
-        // // Task 8
-        // when "get done" button click change the status in local storage.
-        // create event lisener to the button;
 
-        // getDoneButton.addEventListener('click', updateStatus);
-        // // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
-        // const doneTaskID = getDoneButton.parentNode.nodeName;
-        // taskManager.updateStatus(doneTaskID);
-
-
-        renderSavedTasks();
+renderSavedTasks();
