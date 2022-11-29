@@ -415,6 +415,9 @@ const createTaskHTML = (taskObj) => {
             <span class="badge text-bg-light">${taskObj.assignee}</span>
         </div>
         <a href="#" class="btn btn-primary">Delete task</a>
+        </div>
+        </div>
+        <a href="#" class="btn btn-outline-success" id="delete">Mark As Done</a>
         </div>`
     return cardTemplateHTML;
 };
