@@ -411,7 +411,7 @@ const createTaskHTML = (taskObj) => {
     }
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
-        <div class="card-body">
+        <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
         </p>
@@ -430,17 +430,35 @@ const createTaskHTML = (taskObj) => {
     return cardTemplateHTML;
 };
 
+// // Task 8
+// when "get done" button click change the status in local storage.
+// create event lisener to the button;
+const getDoneButton = Document.getElementById('task');
+getDoneButton.addEventListener('click', updateStatus);
+// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
+const doneTaskID = getDoneButton.parentNode.nodeName;
+taskManager.updateStatus(doneTaskID);
 
+
+
+// render the Tasks from the Task Manager List;
+const renderTask = (key, object) => {
+    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
+    // add task to manager
+    taskManager.addTask(task);
+    // Create HTML for task
+    const taskHTML = createTaskHTML(task);
+    // render task
+    taskManager.render(taskHTML);
+}
 // // Read json file from saved objects
 const readFromJson = async (filePath) => {
     const response = await fetch(filePath)
     const json = await response.json();
     return json;
 }
-
-// changed to self self executing at the start of the program
 // Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = (async () => {
+const renderSavedTasks = async () => {
 
     const temp = await readFromJson('./preLoadTasks.json');
     const ls = localStorage;
@@ -456,13 +474,8 @@ const renderSavedTasks = (async () => {
                 overLapArr.push(savedindex);
             }
         }
-        const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
-        // add task to manager
-        taskManager.addTask(task);
-        // Create HTML for task
-        const taskHTML = createTaskHTML(task);
-        // render task
-        taskManager.render(taskHTML);
+
+        renderTask(key,object);
     }
 
     let savedArry = [];
@@ -470,18 +483,16 @@ const renderSavedTasks = (async () => {
     for (let savedindex in temp) {
         savedArry.push(savedindex);
     }
-
     // Find the index for the preload task which are missing from local storage.
     let diffArr = savedArry.filter(el => !overLapArr.includes(el));
 
-    // / only render saved task which is not in the local storage 
+    // / only render saved task which is not in the local storage from json file
     for (let diffIdex of diffArr) {
         const diffObj = temp[diffIdex];
-        const diffSavedTask = taskObject(diffIdex, diffObj.taskName, diffObj.taskDescription, diffObj.assignee, diffObj.dueDate, diffObj.status);
-        taskManager.addTask(diffSavedTask);
-        // Create HTML for task
-        const taskHTML = createTaskHTML(diffSavedTask);
-        // render task
-        taskManager.render(taskHTML);
+        renderTask(diffIdex, diffObj);
     }
-})()
+
+    const taskArray =taskManager.getAllTasks(); 
+    console.log(taskArray[0]);
+}
+renderSavedTasks();
