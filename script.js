@@ -148,12 +148,11 @@ function validateAssign() {
     if (otherBtn.checked) {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "none";
+        //validate code to pass the validateForm()
+        if(otherInput.value.length){
+            return false;
+        }
     }
-    //validate code to pass the validateForm()
-    if(otherInput.value.length<2){
-        return false;
-    }
-    
 
     return true;
 };
@@ -341,6 +340,8 @@ const main = async (e) => {
         saveLocalData(taskManager.getAllTasks());
         // disabling the feedback
         disableFeedback();
+        //remove done button if already done
+        removeDoneButton();
         // Special function to make form disappear with bootstrap
         closeForm();
     }
@@ -353,6 +354,30 @@ const createDate = () => {
     setTimeout(createDate, 1000)
 }
 createDate();
+
+// TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
+const updateStatusUI = (e) => {
+    if (e) {
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode;
+        console.log('cardBody: ', cardBody);
+        const status = cardBody.querySelector('.card-status');
+        console.log('status: ', status);
+        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
+        status.innerText = "Done"; // 
+        e.target.remove();
+
+        // console.log('e.target.parentNode(): ', e.target.parentNode());
+    } else {
+        // delete button
+        // const deleteBtn = document.getElementById("delete");
+        // deleteBtn.remove();
+        // change status to done
+        const btns = document.querySelectorAll(".card .card-body .btn") //get button
+        // console.log('btns: ', btns);
+        btns.forEach(b => b.addEventListener('click', updateStatusUI));
+    }
+}
 
 const validateOtherBtn = () => {
     console.log('this is being changed')
@@ -374,6 +399,7 @@ const validateOtherBtn = () => {
 // Other assignee clicked
 const otherAssigneeClick = () => {
     const okMessage = document.getElementById('chk_option_ok');
+
     console.log(okMessage)
     console.log('working')
     
@@ -385,6 +411,9 @@ const otherAssigneeClick = () => {
     // okMessage.style.display = "block";
     // okMessage.innerText = "this is working";
 }
+
+
+
 
 // Event listeners here
 formEl.addEventListener("submit", main);
@@ -399,6 +428,7 @@ Array.from(taskAssignees).forEach((element) => {
 otherButton.addEventListener("change", otherAssigneeClick);
 // if you really want dynamic use input instead of change
 otherInput.addEventListener("input", validateOtherBtn);
+
 
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
@@ -425,19 +455,11 @@ const createTaskHTML = (taskObj) => {
         <a href="#" class="btn btn-primary">Delete task</a>
         </div>
         </div>
-        <a href="#" class="btn btn-outline-success" id="delete">Mark As Done</a>
+        <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
         </div>`
     return cardTemplateHTML;
 };
 
-// // Task 8
-// when "get done" button click change the status in local storage.
-// create event lisener to the button;
-const getDoneButton = Document.getElementById('task');
-getDoneButton.addEventListener('click', updateStatus);
-// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
-const doneTaskID = getDoneButton.parentNode.nodeName;
-taskManager.updateStatus(doneTaskID);
 
 
 
@@ -457,6 +479,35 @@ const readFromJson = async (filePath) => {
     const json = await response.json();
     return json;
 }
+
+const updateTaskStatus = (e) => {
+    const taskArray =taskManager.getAllTasks(); 
+    console.log(taskArray);
+    console.log("button was clicked")
+    const getDoneButton = e.target;
+    console.log('getDoneButton: ', getDoneButton);
+    const parentNode = getDoneButton.parentNode;
+    const cardBody = parentNode.querySelector(".card-body");
+    console.log('id: ', cardBody.id);
+    taskManager.updateStatus(cardBody.id, "DONE");
+    updateStatusUI(e);
+    console.log(taskArray);
+}
+
+const removeDoneButton = () => {
+    const cards = Array.from(document.getElementsByClassName("update-done"));
+    cards.forEach((el) => {
+        const parentEl = el.parentNode
+        const cardStatus = parentEl.querySelector('.card-status').innerText;
+        console.log('cardStatus: ', cardStatus);
+        if (cardStatus === "DONE") {
+            const doneBtn = parentEl.querySelector('.update-done');
+            doneBtn.remove();
+        }
+    })
+
+}
+
 // Render pre-saved taskobjects in both localstorage and json file.
 const renderSavedTasks = async () => {
 
@@ -492,7 +543,31 @@ const renderSavedTasks = async () => {
         renderTask(diffIdex, diffObj);
     }
 
-    const taskArray =taskManager.getAllTasks(); 
-    console.log(taskArray[0]);
+     // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
+
+    // const taskArray =taskManager.getAllTasks(); 
+    // console.log(taskArray[0]);
+    // update status in task manager
+    
+    //exists afterwards
+    let doneButton = Array.from(document.getElementsByClassName('update-done'));
+    // console.log(doneButton);
+    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
+
+    // remove done button if status is done
+    removeDoneButton();
 }
+
+
+
+// // Task 8
+// when "get done" button click change the status in local storage.
+// create event lisener to the button;
+
+// getDoneButton.addEventListener('click', updateStatus);
+// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
+// const doneTaskID = getDoneButton.parentNode.nodeName;
+// taskManager.updateStatus(doneTaskID);
+
+
 renderSavedTasks();
