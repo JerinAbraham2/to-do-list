@@ -273,7 +273,7 @@ const tId = () => {
 // If the saved task have ID already. keep the old by passing the ID 
 // if it is a new task create a new uniqe ID by id ="needNewid";
 //create task object 
-const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img) => {
+const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img, tags) => {
     if (id === 'needNewid')
         return {
             taskID: tId(),
@@ -283,6 +283,7 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, im
             dueDate: dueDate,
             status: status,
             img: img,
+            tags: tags,
         }
     else {
         return {
@@ -293,6 +294,7 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, im
             dueDate: dueDate,
             status: status,
             img: img,
+            tags: tags,
         }
     }
 }
@@ -346,10 +348,14 @@ const main = async (e) => {
     const passedTrue = validateTaskForm();
     // special function to get array of assignees 
     const taskAssignee = getAssignee();
+    // special function to get tags array
+    const tagArray = Array.from(taskTags);
+    const tags = tagArray.map((tag) => tag.innerText);
+
     // check if passed validation
     if (passedTrue) {
         // Create a task object (with special assignee value of persons)
-        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
+        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image, tags);
         // add task to manager
         taskManager.addTask(task);
         // Create HTML for task
@@ -477,9 +483,12 @@ const createTaskHTML = (taskObj) => {
             badge = "success"
             break;
     }
-    console.log(taskObj.assignee)
+    
+    
+
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
+        <span class="badge text-bg-danger tags">${taskObj.tags}</span>
         <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
