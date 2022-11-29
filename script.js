@@ -191,7 +191,6 @@ const validateTaskTagForm = () => {
         el.remove();
     })
 
-
     if (tagsArray.length > 0) {
         renderFeedback({ status: true, feedback: "Looks good" }, "tag");
         return true;
@@ -293,7 +292,7 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, im
 const validateTaskForm = () => {
     const checkAllTrue = [];
     // push validation to validation array
-    checkAllTrue.push(validateTaskName(), validateTaskTagForm(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
+    checkAllTrue.push(validateTaskName(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus()); // removed validateTag
     // look at each element, and see if they passed
     return checkAllTrue.every((item) => item);
 }
@@ -308,18 +307,32 @@ const closeForm = () => {
 // feedback
 
 const getImage = async (taskName) => {
-    const url = `https://api.unsplash.com/search/photos/?query=${taskName}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    return responseJson.results[0].urls.regular
+
+    // see all the tags
+    const tagsArray = Array.from(taskTags);
+    // see if they selected a optional tag tag 
+    console.log(tagsArray)
+    // if no tags then return an image showing that information
+    if (tagsArray.length <= 0) { 
+        return "resources\\images\\no-photo-no-tag.png" 
+    } else {
+        const url = `https://api.unsplash.com/search/photos/?query=${taskName}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
+        const response = await fetch(url);
+        const responseJson = await response.json();
+        const image = responseJson.results[0].urls.regular;
+        if (image) {
+            return image;
+        } else {
+            return "resources\\images\\no-photo-no-tag.png";
+        }
+    }
 }
 
 const main = async (e) => {
     // prevent it from refreshing
     e.preventDefault();
-    const tagsArray = Array.from(taskTags);
     // Get HTML image
-    const image = await getImage(tagsArray[0].innerText);
+    const image = await getImage();
     // array to verify if all validation has passed
     const passedTrue = validateTaskForm();
     // special function to get array of assignees 
