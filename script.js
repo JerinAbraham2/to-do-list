@@ -19,11 +19,19 @@ let otherInput = document.getElementById('other-input');
 // return a formated current date string:"YYYY-MM-DD".
 const processCurrentDate = () => {
     const today = new Date();
-    const dd = today.getDate();
-    const mm = today.getMonth() + 1;
+    let dd = today.getDate().toString();
+    let mm = (today.getMonth() + 1).toString();
     const yyyy = today.getFullYear();
-    const currentDate = `${yyyy}-${mm}-${dd}`;
-    return currentDate;
+
+    if (mm.length < 2) {
+        mm = '0' + mm;
+      }
+
+      if (dd.length < 2) {
+        dd = '0' + dd;
+      }
+
+      return [yyyy, mm, dd].join('-');
 }
 // return a formated time.
 const processCurrentTime = () => {
