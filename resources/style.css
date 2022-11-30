@@ -96,6 +96,10 @@ form {
   opacity: 0.9;
   border: 0px;
 }
+.card .tags {
+  position: absolute; 
+
+}
 
 .cards .card {
   border: 0;

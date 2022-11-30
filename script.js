@@ -149,7 +149,8 @@ function validateAssign() {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "none";
         //validate code to pass the validateForm()
-        if(otherInput.value.length){
+        // 2 is fine because what about initials?
+        if (otherInput.value.length < 2) {
             return false;
         }
     }
@@ -190,7 +191,6 @@ const validateTaskTagForm = () => {
     tagsArray.forEach(el => {
         el.remove();
     })
-
 
     if (tagsArray.length > 0) {
         renderFeedback({ status: true, feedback: "Looks good" }, "tag");
@@ -233,23 +233,29 @@ const saveLocalData = (taskObjectArr) => {
         localStorage.setItem(taskObj.taskID.toString(), JSON.stringify(taskObj));
     }
 }
-const disableFeedback = () => {
+const resetForm = () => {
     const feedbackItems = ['taskName', 'desc', 'date', 'status', 'tag']
     for (let i = 0; i < feedbackItems.length; i++) {
         const item = document.getElementById(`valid-${feedbackItems[i]}`)
         item.style.display = "none";
     }
+    //remove bootstrap feedback for assignee (I think assignee)
+    const bootstrapFeedback = document.getElementById(`chk_option_ok`)
+    bootstrapFeedback.style.display = "none";
+    // unlick assignee button
+    const assignee = Array.from(taskAssignees);
+    assignee.forEach(person => person.checked = false);
     // remove and clear otherInput
     otherInput.style.display = "none";
     otherInput.value = "";
-    //fix bootstrap feedback
-    const bootstrapFeedback = document.getElementById(`chk_option_ok`)
-    bootstrapFeedback.style.display = "none";
-    const assignee = Array.from(taskAssignees);
-    assignee.forEach(person => person.checked = false);
-    // const statuses = taskStatus;
+    // make status default again;
     const selectedChoose = taskStatus;
     selectedChoose.selectedIndex = 0;
+    // reset the tags 
+    const tagsArray = Array.from(taskTags);
+    tagsArray.forEach(el => {
+        el.parentNode.querySelector('#tag-button-id').click();
+    })
 }
 
 // Increcement ID doesn' work well. the Unique ID works better for further fucntions
@@ -267,7 +273,7 @@ const tId = () => {
 // If the saved task have ID already. keep the old by passing the ID 
 // if it is a new task create a new uniqe ID by id ="needNewid";
 //create task object 
-const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img) => {
+const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img, tags) => {
     if (id === 'needNewid')
         return {
             taskID: tId(),
@@ -277,6 +283,7 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, im
             dueDate: dueDate,
             status: status,
             img: img,
+            tags: tags,
         }
     else {
         return {
@@ -287,13 +294,14 @@ const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, im
             dueDate: dueDate,
             status: status,
             img: img,
+            tags: tags,
         }
     }
 }
 const validateTaskForm = () => {
     const checkAllTrue = [];
     // push validation to validation array
-    checkAllTrue.push(validateTaskName(), validateTaskTagForm(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus());
+    checkAllTrue.push(validateTaskName(), validateTaskDesc(), validateAssign(), validateTaskDate(), validateTaskStatus()); // removed validateTag
     // look at each element, and see if they passed
     return checkAllTrue.every((item) => item);
 }
@@ -307,27 +315,47 @@ const closeForm = () => {
 // category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
 // feedback
 
-const getImage = async (taskName) => {
-    const url = `https://api.unsplash.com/search/photos/?query=${taskName}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw`
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    return responseJson.results[0].urls.small
+const getImage = async () => {
+    // see all the tags
+    const tagsArray = Array.from(taskTags);
+
+    // if no tags then return an image showing that information
+    if (tagsArray.length <= 0) {
+        return "resources\\images\\add-tag-no-photo.png"
+    } else {
+        try {
+            const url = `https://api.unsplash.com/search/photos/?query=${tagsArray[0].innerText}&client_id=CyDgrDAy7EetBVsCAWcB5zosSiHDpcx1LVIygKrWkDw&per_page=1`
+            const response = await fetch(url);
+            const responseJson = await response.json();
+            if (responseJson.results.length !== 0) {
+                return responseJson.results[0].urls.regular;
+            } else {
+                return "resources\\images\\unavailable-tag-no-photo.png";
+            }
+        } catch (error) {
+            console.log('did this work')
+            return "resources\\images\\unavailable-tag-no-photo.png";
+        }
+    }
 }
 
 const main = async (e) => {
     // prevent it from refreshing
     e.preventDefault();
-    const tagsArray = Array.from(taskTags);
     // Get HTML image
-    const image = await getImage(tagsArray[0].innerText);
+    const image = await getImage();
     // array to verify if all validation has passed
     const passedTrue = validateTaskForm();
     // special function to get array of assignees 
     const taskAssignee = getAssignee();
+    // special function to get tags array
+    const tagArray = Array.from(taskTags);
+    const tags = tagArray.map((tag) => tag.innerText);
+
     // check if passed validation
     if (passedTrue) {
         // Create a task object (with special assignee value of persons)
-        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image);
+        const task = taskObject('needNewid', taskName.value, taskDesc.value, taskAssignee, taskDueDate.value, taskStatus.value, image, tags);
         // add task to manager
         taskManager.addTask(task);
         // Create HTML for task
@@ -339,7 +367,7 @@ const main = async (e) => {
         // saving the data to local storage
         saveLocalData(taskManager.getAllTasks());
         // disabling the feedback
-        disableFeedback();
+        resetForm();
         //remove done button if already done
         removeDoneButton();
         // Special function to make form disappear with bootstrap
@@ -366,12 +394,12 @@ const updateStatusUI = (e) => {
         // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
         status.innerText = "DONE"; // 
         e.target.remove();
+        const taskObject = localStorage.getItem(cardBody.id);
+        taskObject.status = "DONE";
+        localStorage.setItem(cardBody.id, taskObject);
 
         // console.log('e.target.parentNode(): ', e.target.parentNode());
     } else {
-        // delete button
-        // const deleteBtn = document.getElementById("delete");
-        // deleteBtn.remove();
         // change status to done
         const btns = document.querySelectorAll(".card .card-body .btn") //get button
         // console.log('btns: ', btns);
@@ -379,6 +407,26 @@ const updateStatusUI = (e) => {
     }
 }
 
+
+
+// TASK 10:A: When the task is deltedd, remove the task from the UI 
+const deleteTaskUI = (e) => {
+    if(e){
+        e.preventDefault();
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode
+        const taskObject = localStorage.getItem(cardBody.id);
+        const wholeCard = e.target.parentNode.parentNode;
+        console.log('cardBody'+ wholeCard);
+
+        //* return the taskID before delete the UI
+        wholeCard.remove();
+    } else {
+        // deleteTaskUI();
+        let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
+    }
+}
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
@@ -402,7 +450,7 @@ const otherAssigneeClick = () => {
 
     console.log(okMessage)
     console.log('working')
-    
+
     if (otherInput.style.display === "block") {
         otherInput.style.display = "none";
     } else {
@@ -422,6 +470,7 @@ tagInput.addEventListener("click", validateTaskTags);
 taskDesc.addEventListener("input", validateTaskDesc);
 taskDueDate.addEventListener("change", validateTaskDate);
 taskStatus.addEventListener("change", validateTaskStatus);
+// taskDelete.addEventListener("click",
 Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
 });
@@ -437,27 +486,30 @@ const createTaskHTML = (taskObj) => {
     if (taskObj.img !== undefined) {
         src = taskObj.img;
     } else {
-        src = "https://images.unsplash.com/photo-1580128660010-fd027e1e587a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHx0cnVtcHxlbnwwfHx8fDE2Njk2MDQyNDU&ixlib=rb-4.0.3&q=80&w=1080"
+        src = "https://images.unsplash.com/photo-1517849845537-4d257902454a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzODM3NzF8MHwxfHNlYXJjaHwxfHxkb2d8ZW58MHx8fHwxNjY5NzE1Nzcw&ixlib=rb-4.0.3&q=80&w=1080"
     }
     // different badges depending on the status of task
     let badge = null;
     switch (taskObj.status) {
         case 'TODO':
             badge = "info"
-        break;
+            break;
         case 'IN PROGRESS':
             badge = "primary"
-        break;
+            break;
         case 'REVIEW':
             badge = "warning"
-        break;
+            break;
         case 'DONE':
             badge = "success"
-        break;
-    }   
-    console.log(taskObj.assignee)
+            break;
+    }
+    
+    
+
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
+        <span class="badge text-bg-danger tags">${taskObj.tags}</span>
         <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
@@ -469,7 +521,7 @@ const createTaskHTML = (taskObj) => {
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
             <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
-        <a href="#" class="btn btn-primary">Delete task</a>
+        <a href="#" class="btn btn-primary task-delete">Delete task</a>
         </div>
         </div>
         <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
@@ -498,7 +550,9 @@ const readFromJson = async (filePath) => {
 }
 
 const updateTaskStatus = (e) => {
-    const taskArray =taskManager.getAllTasks(); 
+    //prevent the default activity of scrolling up
+    e.preventDefault(); // prevents it from scrolling up after clicking
+    const taskArray = taskManager.getAllTasks();
     console.log(taskArray);
     console.log("button was clicked")
     const getDoneButton = e.target;
@@ -512,6 +566,10 @@ const updateTaskStatus = (e) => {
 }
 
 const removeDoneButton = () => {
+    //add event listener for each on keypress
+    let doneButton = Array.from(document.getElementsByClassName('update-done'));
+    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
+
     const cards = Array.from(document.getElementsByClassName("update-done"));
     cards.forEach((el) => {
         const parentEl = el.parentNode
@@ -522,78 +580,76 @@ const removeDoneButton = () => {
             doneBtn.remove();
         }
     })
-
 }
+
 
 
 //remove the task from the local storage
 const localStorageDeleteTask = (id) => {
-
     localStorage.removeItem(id);
-
 }
 
+    // Import some json tasks value to localstorage.
+    const saveJsonToLocal = async () => {
+        const temp = await readFromJson('./preLoadTasks.json');
+        saveLocalData(temp);
+    };
 
-// Render pre-saved taskobjects in both localstorage and json file.
-const renderSavedTasks = async () => {
-
-    const temp = await readFromJson('./preLoadTasks.json');
-    const ls = localStorage;
-
-    //render all task from local Storage and find same task in json file/
-    let overLapArr = [];
-    for (let i = 0; i < ls.length; i++) {
-        const key = ls.key(i)
-        const object = JSON.parse(ls.getItem(key));
-        for (let savedindex in temp) {
-            // if saved task in the local storage store the index in array
-            if (savedindex === key) {
-                overLapArr.push(savedindex);
+    //This function only run once.
+    function once() {
+        var first = true;
+        return function () {
+            if (first) {
+                first = false;
+                localStorage.setItem("isJsonLoaded", JSON.stringify(false));
+                return null;
+            } else {
+                return null;
             }
+        };
+    };
+
+    // Only load saved json task objects one time. 
+    // Render pre-saved taskobjects in localstorage 
+    const renderSavedTasks = () => {
+
+        once(function () { console.log("false only assigned once"); });
+        if (localStorage.getItem("isJsonLoaded") === "false") {
+            console.log("isJsonLoaded is false.")
+            saveJsonToLocal();
+            localStorage.setItem("isJsonLoaded", JSON.stringify(true));
+            ("Json is loading to local storage.")
+        } else {
+            console.log("Json is loaded before!")
         }
 
-        renderTask(key,object);
+        const temp = localStorage.getItem("isJsonLoaded");
+        localStorage.removeItem("isJsonLoaded");
+        //remove the is loaded value from local storage before render
+        const ls = localStorage;
+        console.log(ls);
+        //render all task from local Storage and find same task in json file/
+        for (let i = 0; i < ls.length; i++) {
+            const key = ls.key(i)
+            console.log(key);
+            const object = JSON.parse(ls.getItem(key));
+            renderTask(key, object);
+        }
+        //*put back the isloaded status to local storage for next check.
+        localStorage.setItem("isJsonLoaded", temp);
+
+
+        // update status in task manager
+        //exists afterwards
+        let doneButton = Array.from(document.getElementsByClassName('update-done'));
+        doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
+
+        // remove done button if status is done
+        removeDoneButton();
+
+        // deleteTaskUI();
+        let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
     }
 
-    let savedArry = [];
-    // only render the tasks not in the local storage
-    for (let savedindex in temp) {
-        savedArry.push(savedindex);
-    }
-    // Find the index for the preload task which are missing from local storage.
-    let diffArr = savedArry.filter(el => !overLapArr.includes(el));
-
-    // / only render saved task which is not in the local storage from json file
-    for (let diffIdex of diffArr) {
-        const diffObj = temp[diffIdex];
-        renderTask(diffIdex, diffObj);
-    }
-
-     // update UI after all the tasks have been initially rendered, testing purposes <== Jerin
-
-    // const taskArray =taskManager.getAllTasks(); 
-    // console.log(taskArray[0]);
-    // update status in task manager
-    
-    //exists afterwards
-    let doneButton = Array.from(document.getElementsByClassName('update-done'));
-    // console.log(doneButton);
-    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
-
-    // remove done button if status is done
-    removeDoneButton();
-}
-
-
-
-// // Task 8
-// when "get done" button click change the status in local storage.
-// create event lisener to the button;
-
-// getDoneButton.addEventListener('click', updateStatus);
-// // create a div on parent node to have hidden "taskID":  <div>  id = "taskID" *in the .parentnode of "get done" ID that can rerive the id for Taskobject
-// const doneTaskID = getDoneButton.parentNode.nodeName;
-// taskManager.updateStatus(doneTaskID);
-
-
-renderSavedTasks();
+    renderSavedTasks();
