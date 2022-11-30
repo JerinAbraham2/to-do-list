@@ -370,6 +370,8 @@ const main = async (e) => {
         resetForm();
         //remove done button if already done
         removeDoneButton();
+        // add event listener to delete task after for submit
+        deleteTask();
         // Special function to make form disappear with bootstrap
         closeForm();
     }
@@ -424,7 +426,10 @@ const deleteTask = (e) => {
         //* return the taskID before delete the UI
         wholeCard.remove();
         // remove it from task manager
-        
+        console.log(taskManager.getAllTasks())
+        taskManager.deleteTask(id);
+        console.log(taskManager.getAllTasks())
+
     } else {
         // deleteTaskUI();
         let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
