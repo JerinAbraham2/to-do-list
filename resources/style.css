@@ -9,9 +9,7 @@ body {
   margin: 0px;
   padding: 0px;
   background-image: url("./images/background.jpg");
-  background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
 }
 
 header {
@@ -87,7 +85,7 @@ form {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 200px;
 }
 
 .card {
@@ -98,9 +96,7 @@ form {
 }
 .card .tags {
   position: absolute; 
-
 }
-
 .cards .card {
   border: 0;
 }
