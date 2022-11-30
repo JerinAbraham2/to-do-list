@@ -71,7 +71,7 @@
                   <label class="form-label" for="description">One Word Tag: (optional)</label>
                   <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
                     <div class="relative" @keydown.enter.prevent="addTag(textInput)">
-                      <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-control"  placeholder="E.g tree, cars" autocomplete="off" id="tag-input-box">
+                      <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-control"  placeholder="E.g cat, cars" autocomplete="off" id="tag-input-box">
                       <div :class="[open ? 'block' : 'hidden']">
                         <div class="absolute z-40 left-0 mt-2 w-full">
                           <div class="py-1 text-sm bg-white rounded shadow-lg border border-gray-300">

@@ -3,7 +3,8 @@
         "taskDescription": "Go out for a team lunch meeting at McDonald's",
         "assignee": ["Prasanna", "Jag", "Jerin", "Ethan"],
         "dueDate": "2022-12-07",
-        "status": "TODO"
+        "status": "TODO",
+        "tags": ["Demo"]
     },
     {
         "taskID": "622f261669447923658",
@@ -11,7 +12,8 @@
         "taskDescription": "Prasanna creates CSS file, live server and git push",
         "assignee": ["Prasanna"],
         "dueDate": "2022-12-01",
-        "status": "IN PROGRESS"
+        "status": "IN PROGRESS",
+        "tags": ["Demo"]
     },
     {
         "taskID": "5082261669447835311",
@@ -19,7 +21,8 @@
         "taskDescription": "    Jag creates the wireframe using photoshop. Everyone gave their opinion",
         "assignee": ["Jag"],
         "dueDate": "2022-11-30",
-        "status": "DONE"
+        "status": "DONE",
+        "tags": ["Demo"]
     },
     {
         "taskID": "03ac261669447988468",
@@ -27,7 +30,8 @@
         "taskDescription": "    Jerin uses media queries and flexbox, to make a responsive website",
         "assignee": ["Jerin"],
         "dueDate": "2022-11-30",
-        "status": "IN PROGRESS"
+        "status": "IN PROGRESS",
+        "tags": ["Demo"]
     },
     {
         "taskID": "8dda261669447885823",
@@ -35,6 +39,7 @@
         "taskDescription": "Ethan creates html file using vscode, live server, git push",
         "assignee": ["Ethan"],
         "dueDate": "2022-11-30",
-        "status": "REVIEW"
+        "status": "REVIEW",
+        "tags": ["Demo"]
     }
 ]
