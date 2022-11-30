@@ -371,7 +371,7 @@ const main = async (e) => {
         //remove done button if already done
         removeDoneButton();
         // add event listener to delete task after for submit
-        deleteTask();
+        deleteTaskPressed();
         // Special function to make form disappear with bootstrap
         closeForm();
     }
@@ -410,19 +410,16 @@ const updateStatusUI = (e) => {
 }
 
 
-
-
-
-// TASK 10:A: When the task is deltedd, remove the task from the UI 
-const deleteTask = (e) => {
-    if(e){
+const modalDeletePressed = (event) => {
+    const taskEvent = event.target.taskEvent;
+    if(taskEvent){
         // prevent from scrolling up
-        e.preventDefault();
+        taskEvent.preventDefault();
         // get card body
-        const cardBody = e.target.parentNode
+        const cardBody = taskEvent.target.parentNode
         const id = cardBody.id;
         // removes it from the ui
-        const wholeCard = e.target.parentNode.parentNode;
+        const wholeCard = taskEvent.target.parentNode.parentNode;
         //* return the taskID before delete the UI
         wholeCard.remove();
         // remove it from task manager
@@ -431,12 +428,21 @@ const deleteTask = (e) => {
         console.log(taskManager.getAllTasks())
         // delete from local storage
         localStorage.removeItem(id);
-
+        // click cancel to remove the modal after delete
+        event.target.parentNode.querySelector('#modal-cancel').click();
     } else {
         // deleteTaskUI();
         let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
         rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
     }
+}
+
+
+// TASK 10:A: When the task is deltedd, remove the task from the UI 
+const deleteTaskPressed = (e) => {
+    let modalDelete = document.getElementById('modal-delete')
+    modalDelete.taskEvent = e;
+    modalDelete.addEventListener("click", modalDeletePressed);
 }
 
 
@@ -535,7 +541,7 @@ const createTaskHTML = (taskObj) => {
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
             <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
-        <a href="#" class="btn btn-primary task-delete">Delete task</a>
+        <a href="#" class="btn btn-primary task-delete" data-toggle="modal" data-target="#delete-modal">Delete task</a>
         </div>
         </div>
         <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
@@ -656,8 +662,11 @@ const removeDoneButton = () => {
         removeDoneButton();
 
         // deleteTaskUI();
+        // deleteTaskUI();
         let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
-        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
+    rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskPressed));
+        
+
     }
 
     renderSavedTasks();
