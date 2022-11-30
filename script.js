@@ -66,11 +66,7 @@ const getAssignee = () => {
     });
     return persons;
 }
-// Assign validation (for dynamic validation)
-// Checking the change of each person's checkbox and call function 
-//validateAssign() to check at least one person is checked.
-//validateAssign function alone doesn't change the feedback when unchecking 
-// all persons.
+
 // render the feedback from validate to the html for "TaskName", "Descritpion", "DueDate".
 // Parameter:result Object. This contains result.status:(true or false), result.feedback: feedback string.
 const renderFeedback = (result, idName) => {
@@ -386,8 +382,6 @@ const createDate = () => {
 createDate();
 
 
-
-
 // TASK 10:A: When the task is deltedd, remove the task from the UI 
 const deleteTask = (e) => {
     if(e){
@@ -414,11 +408,8 @@ const deleteTask = (e) => {
     }
 }
 
-
-
 const validateOtherBtn = () => {
     console.log('this is being changed')
-
     // validate the new assignee 
     const result = validateString(otherInput.value, 'string', 1, 25);
     if (otherInput.value.length < 2) {
@@ -449,9 +440,6 @@ const otherAssigneeClick = () => {
     // okMessage.innerText = "this is working";
 }
 
-
-
-
 // Event listeners here
 formEl.addEventListener("submit", main);
 taskName.addEventListener("input", validateTaskName);
@@ -459,14 +447,12 @@ tagInput.addEventListener("click", validateTaskTags);
 taskDesc.addEventListener("input", validateTaskDesc);
 taskDueDate.addEventListener("change", validateTaskDate);
 taskStatus.addEventListener("change", validateTaskStatus);
-// taskDelete.addEventListener("click",
 Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
 });
 otherButton.addEventListener("change", otherAssigneeClick);
 // if you really want dynamic use input instead of change
 otherInput.addEventListener("input", validateOtherBtn);
-
 
 // Create the HTML element.
 const createTaskHTML = (taskObj) => {
@@ -515,8 +501,6 @@ const createTaskHTML = (taskObj) => {
     return cardTemplateHTML;
 };
 
-
-
 // TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
 const updateStatusUI = (e) => {
     if (e) {
@@ -552,24 +536,6 @@ const updateTaskStatus = (e) => {
 }
 
 
-// render the Tasks from the Task Manager List;
-const renderTask = (key, object) => {
-    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img, object.tags);
-    // add task to manager
-    taskManager.addTask(task);
-    // Create HTML for task
-    const taskHTML = createTaskHTML(task);
-    // render task
-    taskManager.render(taskHTML);
-}
-// // Read json file from saved objects
-const readFromJson = async (filePath) => {
-    const response = await fetch(filePath)
-    const json = await response.json();
-    return json;
-}
-
-
 const removeDoneButton = () => {
     //add event listener for each on keypress
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
@@ -587,69 +553,83 @@ const removeDoneButton = () => {
     })
 }
 
-
-    // Import some json tasks value to localstorage.
-    const saveJsonToLocal = async () => {
-        const temp = await readFromJson('./preLoadTasks.json');
-        saveLocalData(temp);
-    };
-
-    //This function only run once.
-    function once() {
-        var first = true;
-        return function () {
-            if (first) {
-                first = false;
-                localStorage.setItem("isJsonLoaded", JSON.stringify(false));
-                return null;
-            } else {
-                return null;
-            }
-        };
-    };
-
-
-    // Only load saved json task objects one time. 
-    // Render pre-saved taskobjects in localstorage 
-    const renderSavedTasks = () => {
-
-        once(function () { console.log("false only assigned once"); });
-        if (localStorage.getItem("isJsonLoaded") === "false") {
-            console.log("isJsonLoaded is false.")
-            saveJsonToLocal();
-            localStorage.setItem("isJsonLoaded", JSON.stringify(true));
-            ("Json is loading to local storage.")
+// render the Tasks from the Task Manager List;
+const renderTask = (key, object) => {
+    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img, object.tags);
+    // add task to manager
+    taskManager.addTask(task);
+    // Create HTML for task
+    const taskHTML = createTaskHTML(task);
+    // render task
+    taskManager.render(taskHTML);
+}
+// Read json file from saved objects
+const readFromJson = async (filePath) => {
+    const response = await fetch(filePath)
+    const json = await response.json();
+    return json;
+}
+// Import some json tasks value to localstorage.
+const saveJsonToLocal = async () => {
+    const temp = await readFromJson('./preLoadTasks.json');
+    saveLocalData(temp);
+};
+ // This function only run once.
+function once() {
+    var first = true;
+    return function () {
+        if (first) {
+            first = false;
+            localStorage.setItem("isJsonLoaded", JSON.stringify(false));
+            return null;
         } else {
-            console.log("Json is loaded before!")
+            return null;
         }
-
-        const temp = localStorage.getItem("isJsonLoaded");
-        localStorage.removeItem("isJsonLoaded");
-        //remove the is loaded value from local storage before render
-        const ls = localStorage;
-        console.log(ls);
-        //render all task from local Storage and find same task in json file/
-        for (let i = 0; i < ls.length; i++) {
-            const key = ls.key(i)
-            console.log(key);
-            const object = JSON.parse(ls.getItem(key));
-            renderTask(key, object);
-        }
-        //*put back the isloaded status to local storage for next check.
-        localStorage.setItem("isJsonLoaded", temp);
-
-
-        // update status in task manager
-        //exists afterwards
-        let doneButton = Array.from(document.getElementsByClassName('update-done'));
-        doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
-
-        // remove done button if status is done
-        removeDoneButton();
-
-        // deleteTaskUI();
-        let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
-        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
+    };
+};
+// check {isloaded : false} in the localstorage, save json objects to local storage when the value is false.
+const checkAndSaveJson = () => {
+    once(function () { console.log("Checking: Is Json loaded?"); });
+    if (localStorage.getItem("isJsonLoaded") === "false") {
+        console.log("--------------------")
+        saveJsonToLocal();
+        localStorage.setItem("isJsonLoaded", JSON.stringify(true));
+        ("Json is loading to the local storage.")
+    } else {
+        console.log("Json is loaded before!")
     }
+}
+const afterwardsEventListener = () => {
+    // update status in task manager
+    //exists afterwards
+    let doneButton = Array.from(document.getElementsByClassName('update-done'));
+    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
+   // remove done button if status is done
+    removeDoneButton();
+    // deleteTaskUI();
+    let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
+    rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
+};
+// Only load saved json objects into local storage one time.
+// Render pre-saved taskobjects in localstorage
+const renderSavedTasks = () => {
+    checkAndSaveJson(); //check the isjosn loaded in the initial run, save json to localstorage.
+    const temp = localStorage.getItem("isJsonLoaded");
+    localStorage.removeItem("isJsonLoaded");
+    //remove the isLoaded value from local storage before render the task in local storage
+    const ls = localStorage;
+    console.log(ls);
+    //render all task from local Storage and find same task in json file/
+    for (let i = 0; i < ls.length; i++) {
+        const key = ls.key(i)
+        console.log(key);
+        //render all saved task from local storage
+        const object = JSON.parse(ls.getItem(key));
+        renderTask(key, object);
+    }
+    //*put back the isLoaded status backto local storage for next check.
+    localStorage.setItem("isJsonLoaded", temp);
+    afterwardsEventListener();
+}
 
-    renderSavedTasks();
+renderSavedTasks();
