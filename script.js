@@ -518,12 +518,9 @@ const createTaskHTML = (taskObj) => {
             badge = "success"
             break;
     }
-    
-    
-
     const cardTemplateHTML = `
         <img src="${src}" class="card-img-top" alt="${taskObj.taskName + 'Image'}" />
-        <span class="badge text-bg-danger tags">${taskObj.tags}</span>
+        <span class="badge text-bg-danger tags">${taskObj.tags.join(', ')}</span>
         <div class="card-body" id="${taskObj.taskID}">
         <h5 class="card-title"> ${taskObj.taskName} </h5>
         <p class="card-text">${taskObj.taskDescription}
@@ -548,7 +545,7 @@ const createTaskHTML = (taskObj) => {
 
 // render the Tasks from the Task Manager List;
 const renderTask = (key, object) => {
-    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img);
+    const task = taskObject(key, object.taskName, object.taskDescription, object.assignee, object.dueDate, object.status, object.img, object.tags);
     // add task to manager
     taskManager.addTask(task);
     // Create HTML for task
