@@ -14,6 +14,12 @@ export default class TaskManager {
     updateStatus(id,value){
         let targetTask = this.taskArray.find(task => task.taskID === id);
         targetTask.status = value;
+    }
+    
+    deleteTask(id) {
+        // add it to array if it is NOT the same as the delete ID
+        const newArray = this.taskArray.filter(task => task.taskID !== id);
+        this.taskArray = newArray;
     }  
 
     getTasksWithStatus(status) {

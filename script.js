@@ -370,6 +370,8 @@ const main = async (e) => {
         resetForm();
         //remove done button if already done
         removeDoneButton();
+        // add event listener to delete task after for submit
+        deleteTask();
         // Special function to make form disappear with bootstrap
         closeForm();
     }
@@ -409,24 +411,36 @@ const updateStatusUI = (e) => {
 
 
 
-// TASK 10:A: When the task is deltedd, remove the task from the UI 
-const deleteTaskUI = (e) => {
-    if(e){
-        e.preventDefault();
-        console.log('e: ', e);
-        const cardBody = e.target.parentNode
-        const taskObject = localStorage.getItem(cardBody.id);
-        const wholeCard = e.target.parentNode.parentNode;
-        console.log('cardBody'+ wholeCard);
 
+
+// TASK 10:A: When the task is deltedd, remove the task from the UI 
+const deleteTask = (e) => {
+    if(e){
+        // prevent from scrolling up
+        e.preventDefault();
+        // get card body
+        const cardBody = e.target.parentNode
+        const id = cardBody.id;
+        // removes it from the ui
+        const wholeCard = e.target.parentNode.parentNode;
         //* return the taskID before delete the UI
         wholeCard.remove();
+        // remove it from task manager
+        console.log(taskManager.getAllTasks())
+        taskManager.deleteTask(id);
+        console.log(taskManager.getAllTasks())
+        // delete from local storage
+        localStorage.removeItem(id);
+
     } else {
         // deleteTaskUI();
         let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
-        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
     }
 }
+
+
+
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
@@ -583,12 +597,6 @@ const removeDoneButton = () => {
 }
 
 
-
-//remove the task from the local storage
-const localStorageDeleteTask = (id) => {
-    localStorage.removeItem(id);
-}
-
     // Import some json tasks value to localstorage.
     const saveJsonToLocal = async () => {
         const temp = await readFromJson('./preLoadTasks.json');
@@ -649,7 +657,7 @@ const localStorageDeleteTask = (id) => {
 
         // deleteTaskUI();
         let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
-        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
     }
 
     renderSavedTasks();
