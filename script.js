@@ -525,6 +525,15 @@ const removeDoneButton = () => {
 
 }
 
+
+//remove the task from the local storage
+const localStorageDeleteTask = (id) => {
+
+    localStorage.removeItem(id);
+
+}
+
+
 // Render pre-saved taskobjects in both localstorage and json file.
 const renderSavedTasks = async () => {
 
