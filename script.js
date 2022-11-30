@@ -583,6 +583,12 @@ const removeDoneButton = () => {
 }
 
 
+
+//remove the task from the local storage
+const localStorageDeleteTask = (id) => {
+    localStorage.removeItem(id);
+}
+
     // Import some json tasks value to localstorage.
     const saveJsonToLocal = async () => {
         const temp = await readFromJson('./preLoadTasks.json');
