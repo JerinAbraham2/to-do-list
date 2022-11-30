@@ -82,7 +82,7 @@ const renderFeedback = (result, idName) => {
         feedbackInvalidText.innerHTML = result.feedback;
     }
 };
-// validateString function to validate the "TaskName" and "Description"
+// validateString function to validate the "TaskName" and "Description" "other assignee" 
 // Parameters with 1. form input.  2.expected dataType, 3 minimum length of input string 
 // 4 maximum length of input string .
 // Function return with reulst object that cotains Boolean values and feed back string.
@@ -570,13 +570,14 @@ const readFromJson = async (filePath) => {
     return json;
 }
 // Import some json tasks value to localstorage.
-const saveJsonToLocal = async () => {
+const saveJsonToLocal = async() => {
     const temp = await readFromJson('./preLoadTasks.json');
     saveLocalData(temp);
 };
+
  // This function only run once.
 function once() {
-    var first = true;
+    let first = true;
     return function () {
         if (first) {
             first = false;
@@ -594,12 +595,12 @@ const checkAndSaveJson = () => {
         console.log("--------------------")
         saveJsonToLocal();
         localStorage.setItem("isJsonLoaded", JSON.stringify(true));
-        ("Json is loading to the local storage.")
+        console.log("Json is loading to the local storage.")
     } else {
         console.log("Json is loaded before!")
     }
 }
-const afterwardsEventListener = () => {
+const afterwardsEventListener = async() => {
     // update status in task manager
     //exists afterwards
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
@@ -618,11 +619,9 @@ const renderSavedTasks = () => {
     localStorage.removeItem("isJsonLoaded");
     //remove the isLoaded value from local storage before render the task in local storage
     const ls = localStorage;
-    console.log(ls);
     //render all task from local Storage and find same task in json file/
     for (let i = 0; i < ls.length; i++) {
         const key = ls.key(i)
-        console.log(key);
         //render all saved task from local storage
         const object = JSON.parse(ls.getItem(key));
         renderTask(key, object);
@@ -631,5 +630,5 @@ const renderSavedTasks = () => {
     localStorage.setItem("isJsonLoaded", temp);
     afterwardsEventListener();
 }
-
 renderSavedTasks();
+
