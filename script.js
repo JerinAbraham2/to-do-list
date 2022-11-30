@@ -574,7 +574,7 @@ const saveJsonToLocal = async() => {
     const temp = await readFromJson('./preLoadTasks.json');
     saveLocalData(temp);
 };
-localStorage.setItem("isJsonLoaded", JSON.stringify(false));
+
  // This function only run once.
 function once() {
     let first = true;
