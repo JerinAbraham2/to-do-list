@@ -385,31 +385,6 @@ const createDate = () => {
 }
 createDate();
 
-// TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
-const updateStatusUI = (e) => {
-    if (e) {
-        console.log('e: ', e);
-        const cardBody = e.target.parentNode;
-        console.log('cardBody: ', cardBody);
-        const status = cardBody.querySelector('.card-status');
-        console.log('status: ', status);
-        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
-        status.innerText = "DONE"; // 
-        e.target.remove();
-        const taskObject = localStorage.getItem(cardBody.id);
-        taskObject.status = "DONE";
-        localStorage.setItem(cardBody.id, taskObject);
-
-        // console.log('e.target.parentNode(): ', e.target.parentNode());
-    } else {
-        // change status to done
-        const btns = document.querySelectorAll(".card .card-body .btn") //get button
-        // console.log('btns: ', btns);
-        btns.forEach(b => b.addEventListener('click', updateStatusUI));
-    }
-}
-
-
 
 
 
@@ -536,14 +511,48 @@ const createTaskHTML = (taskObj) => {
             <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
         <a href="#" class="btn btn-primary task-delete">Delete task</a>
-        </div>
-        </div>
         <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
+        </div>
+        </div>
         </div>`
     return cardTemplateHTML;
 };
 
 
+
+// TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
+const updateStatusUI = (e) => {
+    if (e) {
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode;
+        console.log('cardBody: ', cardBody);
+        const status = cardBody.querySelector('.card-status');
+        console.log('status: ', status);
+        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
+        status.innerText = "DONE"; // 
+        const taskObject = JSON.parse(localStorage.getItem(cardBody.id));
+        taskObject.status = "DONE";
+        localStorage.setItem(cardBody.id, JSON.stringify(taskObject));
+        e.target.remove();
+        // console.log('e.target.parentNode(): ', e.target.parentNode());
+    } else {
+        // change status to done
+        const btns = document.querySelectorAll(".card .card-body .btn") //get button
+        // console.log('btns: ', btns);
+        btns.forEach(b => b.addEventListener('click', updateStatusUI));
+    }
+}
+const updateTaskStatus = (e) => {
+    //prevent the default activity of scrolling up
+    e.preventDefault(); // prevents it from scrolling up after clicking
+    const taskArray = taskManager.getAllTasks();
+    const getDoneButton = e.target;
+    console.log('getDoneButton: ', getDoneButton);
+    const parentNode = getDoneButton.parentNode;
+    const cardBody = parentNode;
+    taskManager.updateStatus(cardBody.id, "DONE");
+    updateStatusUI(e);
+}
 
 
 // render the Tasks from the Task Manager List;
@@ -563,21 +572,6 @@ const readFromJson = async (filePath) => {
     return json;
 }
 
-const updateTaskStatus = (e) => {
-    //prevent the default activity of scrolling up
-    e.preventDefault(); // prevents it from scrolling up after clicking
-    const taskArray = taskManager.getAllTasks();
-    console.log(taskArray);
-    console.log("button was clicked")
-    const getDoneButton = e.target;
-    console.log('getDoneButton: ', getDoneButton);
-    const parentNode = getDoneButton.parentNode;
-    const cardBody = parentNode.querySelector(".card-body");
-    console.log('id: ', cardBody.id);
-    taskManager.updateStatus(cardBody.id, "DONE");
-    updateStatusUI(e);
-    console.log(taskArray);
-}
 
 const removeDoneButton = () => {
     //add event listener for each on keypress
@@ -616,6 +610,7 @@ const removeDoneButton = () => {
             }
         };
     };
+
 
     // Only load saved json task objects one time. 
     // Render pre-saved taskobjects in localstorage 
