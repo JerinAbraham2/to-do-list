@@ -394,12 +394,12 @@ const updateStatusUI = (e) => {
         // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
         status.innerText = "DONE"; // 
         e.target.remove();
+        const taskObject = localStorage.getItem(cardBody.id);
+        taskObject.status = "DONE";
+        localStorage.setItem(cardBody.id, taskObject);
 
         // console.log('e.target.parentNode(): ', e.target.parentNode());
     } else {
-        // delete button
-        // const deleteBtn = document.getElementById("delete");
-        // deleteBtn.remove();
         // change status to done
         const btns = document.querySelectorAll(".card .card-body .btn") //get button
         // console.log('btns: ', btns);
@@ -407,6 +407,26 @@ const updateStatusUI = (e) => {
     }
 }
 
+
+
+// TASK 10:A: When the task is deltedd, remove the task from the UI 
+const deleteTaskUI = (e) => {
+    if(e){
+        e.preventDefault();
+        console.log('e: ', e);
+        const cardBody = e.target.parentNode
+        const taskObject = localStorage.getItem(cardBody.id);
+        const wholeCard = e.target.parentNode.parentNode;
+        console.log('cardBody'+ wholeCard);
+
+        //* return the taskID before delete the UI
+        wholeCard.remove();
+    } else {
+        // deleteTaskUI();
+        let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
+    }
+}
 const validateOtherBtn = () => {
     console.log('this is being changed')
 
@@ -450,6 +470,7 @@ tagInput.addEventListener("click", validateTaskTags);
 taskDesc.addEventListener("input", validateTaskDesc);
 taskDueDate.addEventListener("change", validateTaskDate);
 taskStatus.addEventListener("change", validateTaskStatus);
+// taskDelete.addEventListener("click",
 Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
 });
@@ -500,7 +521,7 @@ const createTaskHTML = (taskObj) => {
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
             <span class="badge text-bg-light">${taskObj.assignee.join(' | ')}</span>
         </div>
-        <a href="#" class="btn btn-primary">Delete task</a>
+        <a href="#" class="btn btn-primary task-delete">Delete task</a>
         </div>
         </div>
         <a href="#" class="btn btn-outline-success update-done" >Mark As Done</a>
@@ -615,11 +636,14 @@ const removeDoneButton = () => {
         // update status in task manager
         //exists afterwards
         let doneButton = Array.from(document.getElementsByClassName('update-done'));
-        // console.log(doneButton);
-        doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
+        doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
 
         // remove done button if status is done
         removeDoneButton();
+
+        // deleteTaskUI();
+        let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
+        rmDeleteTask.forEach(el => el.addEventListener("click", deleteTaskUI));
     }
 
     renderSavedTasks();
