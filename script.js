@@ -429,6 +429,8 @@ const deleteTask = (e) => {
         console.log(taskManager.getAllTasks())
         taskManager.deleteTask(id);
         console.log(taskManager.getAllTasks())
+        // delete from local storage
+        localStorage.removeItem(id);
 
     } else {
         // deleteTaskUI();
@@ -594,12 +596,6 @@ const removeDoneButton = () => {
     })
 }
 
-
-
-//remove the task from the local storage
-const localStorageDeleteTask = (id) => {
-    localStorage.removeItem(id);
-}
 
     // Import some json tasks value to localstorage.
     const saveJsonToLocal = async () => {
