@@ -517,7 +517,8 @@ const updateStatusUI = (e) => {
         const status = cardBody.querySelector('.card-status');
         console.log('status: ', status);
         // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
-        status.innerText = "DONE"; // 
+        //status.innerText = "DONE"; // 
+        status.parentNode.innerHTML = `<span class="badge rounded-pill text-bg-success card-status">DONE</span>`
         const taskObject = JSON.parse(localStorage.getItem(cardBody.id));
         taskObject.status = "DONE";
         localStorage.setItem(cardBody.id, JSON.stringify(taskObject));
