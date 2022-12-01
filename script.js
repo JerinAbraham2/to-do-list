@@ -191,14 +191,13 @@ const validateTaskTags = () => {
     }
 }
 
-// validate description
 const validateTaskDesc = () => {
     const formDesc = taskDesc;
     const result = validateString(formDesc.value, 'string', 15, 200);
     renderFeedback(result, "desc");
     return result.status;
 }
-// validate description
+
 const validateTaskDate = () => {
     const result = validateDate(processCurrentDate())
     renderFeedback(result, 'date');
@@ -293,9 +292,6 @@ const closeForm = () => {
     addTaskButton.click();
     addTaskButton.removeAttribute('data-dismiss');
 }
-// a major function to validate forms. calling other fucntion to validate each individual
-// category: "TaskName", "Description", "AssignTO", "DueDate" and update with the validate
-// feedback
 
 const getImage = async () => {
     // see all the tags
@@ -315,7 +311,6 @@ const getImage = async () => {
                 return "resources\\images\\unavailable-tag-no-photo.png";
             }
         } catch (error) {
-            console.log('did this work')
             return "resources\\images\\unavailable-tag-no-photo.png";
         }
     }
@@ -381,9 +376,7 @@ const deleteTask = (e) => {
         //* return the taskID before delete the UI
         wholeCard.remove();
         // remove it from task manager
-        console.log(taskManager.getAllTasks())
         taskManager.deleteTask(id);
-        console.log(taskManager.getAllTasks())
         // delete from local storage
         localStorage.removeItem(id);
 
@@ -395,35 +388,25 @@ const deleteTask = (e) => {
 }
 
 const validateOtherBtn = () => {
-    console.log('this is being changed')
     // validate the new assignee 
     const result = validateString(otherInput.value, 'string', 1, 25);
     if (otherInput.value.length < 2) {
         document.getElementById("chk_option_error").style.display = "block";
         document.getElementById("chk_option_error").innerText = "Insert text more than 2 characters"; //display invalid feedback
         document.getElementById("chk_option_ok").style.display = "none";
-        console.log("after the error msg")
     } else {
         document.getElementById("chk_option_error").style.display = "none";
         document.getElementById("chk_option_ok").style.display = "block"; //display valid feedback
-        console.log(result)
     }
 }
 
-// Other assignee clicked
 const otherAssigneeClick = () => {
     const okMessage = document.getElementById('chk_option_ok');
-
-    console.log(okMessage)
-    console.log('working')
-
     if (otherInput.style.display === "block") {
         otherInput.style.display = "none";
     } else {
         otherInput.style.display = "block";
     }
-    // okMessage.style.display = "block";
-    // okMessage.innerText = "this is working";
 }
 
 // Event listeners here
@@ -437,7 +420,6 @@ Array.from(taskAssignees).forEach((element) => {
     element.addEventListener('change', validateAssign);
 });
 otherButton.addEventListener("change", otherAssigneeClick);
-// if you really want dynamic use input instead of change
 otherInput.addEventListener("input", validateOtherBtn);
 
 // Create the HTML element.
@@ -490,32 +472,23 @@ const createTaskHTML = (taskObj) => {
 // TASK 8:C: When the task is updated, the button on the "Mark as done" should not be seen in the UI and the status of the task should be shown as "Done".
 const updateStatusUI = (e) => {
     if (e) {
-        console.log('e: ', e);
         const cardBody = e.target.parentNode;
-        console.log('cardBody: ', cardBody);
         const status = cardBody.querySelector('.card-status');
-        console.log('status: ', status);
-        // Update here to improve the status look, I just changed whatever status it is now, the inner text to done, so the color anything doesn't change.
-        //status.innerText = "DONE"; // 
         status.parentNode.innerHTML = `<span class="badge rounded-pill text-bg-success card-status">DONE</span>`
         const taskObject = JSON.parse(localStorage.getItem(cardBody.id));
         taskObject.status = "DONE";
         localStorage.setItem(cardBody.id, JSON.stringify(taskObject));
         e.target.remove();
-        // console.log('e.target.parentNode(): ', e.target.parentNode());
     } else {
         // change status to done
         const btns = document.querySelectorAll(".card .card-body .btn") //get button
-        // console.log('btns: ', btns);
         btns.forEach(b => b.addEventListener('click', updateStatusUI));
     }
 }
 const updateTaskStatus = (e) => {
-    //prevent the default activity of scrolling up
     e.preventDefault(); // prevents it from scrolling up after clicking
     const taskArray = taskManager.getAllTasks();
     const getDoneButton = e.target;
-    console.log('getDoneButton: ', getDoneButton);
     const parentNode = getDoneButton.parentNode;
     const cardBody = parentNode;
     taskManager.updateStatus(cardBody.id, "DONE");
@@ -526,13 +499,11 @@ const updateTaskStatus = (e) => {
 const removeDoneButton = () => {
     //add event listener for each on keypress
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
-    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus))
-
+    doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
     const cards = Array.from(document.getElementsByClassName("update-done"));
     cards.forEach((el) => {
         const parentEl = el.parentNode
         const cardStatus = parentEl.querySelector('.card-status').innerText;
-        console.log('cardStatus: ', cardStatus);
         if (cardStatus === "DONE") {
             const doneBtn = parentEl.querySelector('.update-done');
             doneBtn.remove();
@@ -575,6 +546,7 @@ function once() {
         }
     };
 };
+
 // check {isloaded : false} in the localstorage, save json objects to local storage when the value is false.
 const checkAndSaveJson = () => {
     once(function () { console.log("Checking: Is Json loaded?"); });
@@ -587,17 +559,16 @@ const checkAndSaveJson = () => {
         console.log("Json is loaded before!")
     }
 }
+
 const afterwardsEventListener = async () => {
-    // update status in task manager
-    //exists afterwards
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
     doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
     // remove done button if status is done
     removeDoneButton();
-    // deleteTaskUI();
     let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
     rmDeleteTask.forEach(el => el.addEventListener("click", deleteTask));
 };
+
 // Only load saved json objects into local storage one time.
 // Render pre-saved taskobjects in localstorage
 const renderSavedTasks = () => {
