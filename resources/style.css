@@ -124,6 +124,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  word-break:break-all;
 }
 
 .card .card-body .card-text {
