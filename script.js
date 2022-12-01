@@ -57,9 +57,13 @@ const processCurrentTime = () => {
         const currentDate = `${hh}:${mm}:${ss} ${ampm}`;
         return currentDate;
     }
-
-
 }
+
+const dueDateFormat = (objDuedate) => {
+    const dueDateArr = objDuedate.split('-');
+    return `${dueDateArr[2]}/${dueDateArr[1]}/${dueDateArr[0]}`;
+}
+
 const getAssignee = () => {
     const assignee = Array.from(taskAssignees);
     const persons = [];
@@ -490,7 +494,7 @@ const createTaskHTML = (taskObj) => {
         <p class="card-text">${taskObj.taskDescription}
         </p>
         <div class="alert alert-info card-date" role="alert">
-            Due: ${taskObj.dueDate}
+            Due: ${dueDateFormat(taskObj.dueDate)}
         </div>
         <div class="status-assign">
             <span class="badge rounded-pill text-bg-${badge} card-status">${taskObj.status}</span>
