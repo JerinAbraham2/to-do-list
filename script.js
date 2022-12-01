@@ -25,13 +25,13 @@ const processCurrentDate = () => {
 
     if (mm.length < 2) {
         mm = '0' + mm;
-      }
+    }
 
-      if (dd.length < 2) {
+    if (dd.length < 2) {
         dd = '0' + dd;
-      }
+    }
 
-      return [yyyy, mm, dd].join('-');
+    return [yyyy, mm, dd].join('-');
 }
 // return a formated time.
 const processCurrentTime = () => {
@@ -392,7 +392,7 @@ createDate();
 
 // TASK 10:A: When the task is deltedd, remove the task from the UI 
 const deleteTask = (e) => {
-    if(e){
+    if (e) {
         // prevent from scrolling up
         e.preventDefault();
         // get card body
@@ -578,12 +578,12 @@ const readFromJson = async (filePath) => {
     return json;
 }
 // Import some json tasks value to localstorage.
-const saveJsonToLocal = async() => {
+const saveJsonToLocal = async () => {
     const temp = await readFromJson('./preLoadTasks.json');
     saveLocalData(temp);
 };
 
- // This function only run once.
+// This function only run once.
 function once() {
     let first = true;
     return function () {
@@ -608,12 +608,12 @@ const checkAndSaveJson = () => {
         console.log("Json is loaded before!")
     }
 }
-const afterwardsEventListener = async() => {
+const afterwardsEventListener = async () => {
     // update status in task manager
     //exists afterwards
     let doneButton = Array.from(document.getElementsByClassName('update-done'));
     doneButton.forEach(el => el.addEventListener("click", updateTaskStatus));
-   // remove done button if status is done
+    // remove done button if status is done
     removeDoneButton();
     // deleteTaskUI();
     let rmDeleteTask = Array.from(document.getElementsByClassName('task-delete'));
