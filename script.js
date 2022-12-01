@@ -134,7 +134,7 @@ const validateDate = (currDate) => {
 };
 //the validateAssign function only check at least one person click and offerfeedback.
 // doesn't update the change. requires the assistence from function checkAssignChange().
-function validateAssign() {
+function validateAssign(e) {
     var form_data = new FormData(document.querySelector("form"));
     if (!form_data.has("person")) //checking for the name person[] is present from the checkbox buttons
     {
@@ -154,11 +154,13 @@ function validateAssign() {
         document.getElementById("chk_option_ok").style.display = "none";
         //validate code to pass the validateForm()
         // 2 is fine because what about initials?
-        if (otherInput.value.length < 2) {
+        if (otherInput.value.length < 2 && !e) {
+            document.getElementById("chk_option_error").innerText = "please insert text";
+            document.getElementById("chk_option_error").style.display = "block";
+            document.getElementById("chk_option_ok").style.display = "none";
             return false;
         }
     }
-
     return true;
 };
 // validate name function
