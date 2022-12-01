@@ -48,7 +48,7 @@ const processCurrentTime = () => {
         ampm = 'AM';
     }
 
-    if (mm < 10) { //correecting the miniute display to two digits
+    if (mm < 10) { //correcting the miniute display to two digits
         let newMinute = `${hh}:0${mm}:${ss}`;
         const currentDate = `${newMinute} ${ampm}`;
         return currentDate;
@@ -79,7 +79,7 @@ const getAssignee = () => {
     return persons;
 }
 
-// render the feedback from validate to the html for "TaskName", "Descritpion", "DueDate".
+// Render the feedback from validate to the html for "TaskName", "Descritpion", "DueDate".
 // Parameter:result Object. This contains result.status:(true or false), result.feedback: feedback string.
 const renderFeedback = (result, idName) => {
     const feedbackValidText = document.getElementById(`valid-${idName}`);
@@ -94,7 +94,7 @@ const renderFeedback = (result, idName) => {
         feedbackInvalidText.innerHTML = result.feedback;
     }
 };
-// validateString function to validate the "TaskName" and "Description" "other assignee" 
+// ValidateString function to validate the "TaskName" "Description" and "other assignee" 
 // Parameters with 1. form input.  2.expected dataType, 3 minimum length of input string 
 // 4 maximum length of input string .
 // Function return with reulst object that cotains Boolean values and feed back string.
@@ -136,7 +136,7 @@ const validateDate = (currDate) => {
         return result;
     }
 };
-//the validateAssign function only check at least one person click and offerfeedback.
+//The validateAssign function only check at least one person click and offerfeedback.
 // doesn't update the change. requires the assistence from function checkAssignChange().
 function validateAssign(e) {
     var form_data = new FormData(document.querySelector("form"));
@@ -167,7 +167,7 @@ function validateAssign(e) {
     }
     return true;
 };
-// validate name function
+
 const validateTaskName = () => {
     const formName = taskName;
     const result = validateString(formName.value, 'string', 8, 100);
@@ -190,27 +190,6 @@ const validateTaskTags = () => {
         return false;
     }
 }
-
-// tag
-
-const validateTaskTagForm = () => {
-
-    let tag = document.getElementById('tags');
-    const dataTagAttribute = tag.getAttribute('data-tags');
-    const tagsArray = Array.from(taskTags);
-    tagsArray.forEach(el => {
-        el.remove();
-    })
-
-    if (tagsArray.length > 0) {
-        renderFeedback({ status: true, feedback: "Looks good" }, "tag");
-        return true;
-    } else {
-        renderFeedback({ status: false, feedback: "Atleast one tag" }, "tag");
-        return false;
-    }
-}
-
 
 // validate description
 const validateTaskDesc = () => {
