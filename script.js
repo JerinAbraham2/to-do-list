@@ -60,9 +60,8 @@ const processCurrentTime = () => {
 }
 
 const dueDateFormat = (objDuedate) => {
-    let dueDateArr = objDuedate.split('-');
+    const dueDateArr = objDuedate.split('-');
     return `${dueDateArr[2]}/${dueDateArr[1]}/${dueDateArr[0]}`;
-
 }
 
 const getAssignee = () => {
