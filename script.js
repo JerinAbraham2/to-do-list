@@ -547,6 +547,7 @@ function once() {
     };
 };
 
+// Leave the console logs to check IsJsonLoaded 
 // check {isloaded : false} in the localstorage, save json objects to local storage when the value is false.
 const checkAndSaveJson = () => {
     once(function () { console.log("Checking: Is Json loaded?"); });
