@@ -278,29 +278,22 @@ const tId = () => {
 // if it is a new task create a new uniqe ID by id ="needNewid";
 //create task object 
 const taskObject = (id, taskName, taskDescription, assignee, dueDate, status, img, tags) => {
-    if (id === 'needNewid')
-        return {
-            taskID: tId(),
-            taskName: taskName,
-            taskDescription: taskDescription,
-            assignee: assignee,
-            dueDate: dueDate,
-            status: status,
-            img: img,
-            tags: tags,
-        }
-    else {
-        return {
-            taskID: id,
-            taskName: taskName,
-            taskDescription: taskDescription,
-            assignee: assignee,
-            dueDate: dueDate,
-            status: status,
-            img: img,
-            tags: tags,
-        }
+    let idHolder ='';
+    if (id === 'needNewid') {
+        idHolder = tId();
+    } else {
+        idHolder = id;
     }
+    return {
+        taskID: idHolder,
+        taskName: taskName,
+        taskDescription: taskDescription,
+        assignee: assignee,
+        dueDate: dueDate,
+        status: status,
+        img: img,
+        tags:tags
+    };
 }
 const validateTaskForm = () => {
     const checkAllTrue = [];
