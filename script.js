@@ -558,6 +558,7 @@ const checkAndSaveJson = () => {
         console.log("Json is loading to the local storage.")
     } else {
         console.log("Json is loaded before!")
+        localStorage.setItem("isJsonLoaded", JSON.stringify(true));
     }
 }
 
